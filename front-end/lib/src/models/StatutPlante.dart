@@ -1,14 +1,14 @@
-class Role {
+class StatutPlante {
   final int id;
   final String nom;
 
-  const Role({
+  const StatutPlante({
     required this.id,
     required this.nom,
   });
 
-  factory Role.fromJson(Map<String, dynamic> json) {
-    return Role(
+  factory StatutPlante.fromJson(Map<String, dynamic> json) {
+    return StatutPlante(
         id: json['id'],
         nom: json['nom']
     );

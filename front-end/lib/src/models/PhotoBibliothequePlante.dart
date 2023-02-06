@@ -1,22 +1,21 @@
-class GuidePlante {
-  final int id;
-  final String description;
-  final String titre;
-  final String typeGuide;
+import 'package:arosaje/src/models/BibliothequePlante.dart';
 
-  const GuidePlante({
+class PhotoBibliothequePlante {
+  final int id;
+  final String photo;
+  final BibliothequePlante bibliothequePlante;
+
+  const PhotoBibliothequePlante({
     required this.id,
-    required this.description,
-    required this.titre,
-    required this.typeGuide,
+    required this.photo,
+    required this.bibliothequePlante,
   });
 
-  factory GuidePlante.fromJson(Map<String, dynamic> json) {
-    return GuidePlante(
+  factory PhotoBibliothequePlante.fromJson(Map<String, dynamic> json) {
+    return PhotoBibliothequePlante(
         id: json['id'],
-        description: json['description'],
-        titre: json['titre'],
-        typeGuide: json['typeGuide']
+        photo: json['photo'],
+        bibliothequePlante: BibliothequePlante.fromJson(json['bibliothequePlante'])
     );
   }
 }

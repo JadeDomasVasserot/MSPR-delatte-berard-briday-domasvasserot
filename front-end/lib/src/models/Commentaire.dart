@@ -1,28 +1,32 @@
-class Plante {
-  final int id;
-  final String localisation;
-  final String nom;
-  final String bilothequePlante;
-  final String proprietaire;
-  final String statut;
+import 'package:arosaje/src/models/Plante.dart';
 
-  const Plante({
+import 'Personne.dart';
+
+class Commentaire {
+  final int id;
+  final String description;
+  final String photo;
+  final String titre;
+  final Personne auteur;
+  final Plante plante;
+
+  const Commentaire({
     required this.id,
-    required this.localisation,
-    required this.nom,
-    required this.bilothequePlante,
-    required this.proprietaire,
-    required this.statut,
+    required this.description,
+    required this.photo,
+    required this.titre,
+    required this.auteur,
+    required this.plante,
   });
 
-  factory Plante.fromJson(Map<String, dynamic> json) {
-    return Plante(
+  factory Commentaire.fromJson(Map<String, dynamic> json) {
+    return Commentaire(
       id: json['id'],
-      localisation: json['localisation'],
-      nom: json['nom'],
-      bilothequePlante: json['bilothequePlante'],
-      proprietaire: json['proprietaire'],
-      statut: json['statut'],
+      description: json['description'],
+      photo: json['photo'],
+      titre: json['titre'],
+      auteur: Personne.fromJson(json['auteur']),
+      plante: Plante.fromJson(json['plante']),
     );
   }
 }

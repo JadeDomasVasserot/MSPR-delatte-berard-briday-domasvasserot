@@ -1,31 +1,39 @@
-class Commentaire {
-  final int id;
-  final String description;
-  final String nom;
-  final String photo;
-  final String titre;
-  final String auteur;
-  final String plante;
+import 'package:arosaje/src/models/Role.dart';
 
-  const Commentaire({
+class Personne {
+  final int id;
+  final String adresse;
+  final int cp;
+  final String email;
+  final String mdp;
+  final String nom;
+  final String prenom;
+  final String ville;
+  final Role role;
+
+  const Personne({
     required this.id,
-    required this.description,
+    required this.adresse,
+    required this.cp,
+    required this.email,
+    required this.mdp,
     required this.nom,
-    required this.photo,
-    required this.titre,
-    required this.auteur,
-    required this.plante,
+    required this.prenom,
+    required this.ville,
+    required this.role,
   });
 
-  factory Commentaire.fromJson(Map<String, dynamic> json) {
-    return Commentaire(
+  factory Personne.fromJson(Map<String, dynamic> json) {
+    return Personne(
       id: json['id'],
-      description: json['description'],
+      adresse: json['adresse'],
+      cp: json['cp'],
+      email: json['email'],
+      mdp: json['mdp'],
       nom: json['nom'],
-      photo: json['photo'],
-      titre: json['titre'],
-      auteur: json['auteur'],
-      plante: json['plante'],
+      prenom: json['prenom'],
+      ville: json['ville'],
+      role: Role.fromJson(json['role']),
     );
   }
 }

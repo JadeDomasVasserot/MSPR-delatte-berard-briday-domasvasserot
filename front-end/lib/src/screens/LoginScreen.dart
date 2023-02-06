@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
-
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreen();
+  State<LoginScreen> createState() => _LoginScreen();
 }
-class _SignUpScreen extends State<SignUpScreen> {
 
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+class _LoginScreen extends State<LoginScreen> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +27,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    child: Image.asset("assets/arosaje.png"),
+                    child: Image.asset("assets/logo_app_x144.png"),
                   ),
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),

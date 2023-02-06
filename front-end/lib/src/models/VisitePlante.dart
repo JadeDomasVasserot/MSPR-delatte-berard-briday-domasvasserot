@@ -1,19 +1,32 @@
-class TypePlante {
-  final int id;
-  final String description;
-  final String nom;
+import 'package:arosaje/src/models/GardePlante.dart';
+import 'package:arosaje/src/models/Personne.dart';
+import 'package:arosaje/src/models/Plante.dart';
 
-  const TypePlante({
+class VisitePlante {
+  final int id;
+  final DateTime dateVisite;
+  final String photo;
+  final GardePlante gardePlante;
+  final Personne gardien;
+  final Plante plante;
+
+  const VisitePlante({
     required this.id,
-    required this.description,
-    required this.nom,
+    required this.dateVisite,
+    required this.photo,
+    required this.gardePlante,
+    required this.gardien,
+    required this.plante,
   });
 
-  factory TypePlante.fromJson(Map<String, dynamic> json) {
-    return TypePlante(
-        id: json['id'],
-        description: json['description'],
-        nom: json['nom']
+  factory VisitePlante.fromJson(Map<String, dynamic> json) {
+    return VisitePlante(
+      id: json['id'],
+      dateVisite: json['dateVisite'],
+      photo: json['photo'],
+      gardePlante: GardePlante.fromJson(json['gardePlante']),
+      gardien: Personne.fromJson(json['gardien']),
+      plante: Plante.fromJson(json['plante']),
     );
   }
 }

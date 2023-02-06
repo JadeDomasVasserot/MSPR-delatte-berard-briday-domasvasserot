@@ -1,15 +1,18 @@
-class TypeGuide {
+class TypePlante {
   final int id;
+  final String description;
   final String nom;
 
-  const TypeGuide({
+  const TypePlante({
     required this.id,
+    required this.description,
     required this.nom,
   });
 
-  factory TypeGuide.fromJson(Map<String, dynamic> json) {
-    return TypeGuide(
+  factory TypePlante.fromJson(Map<String, dynamic> json) {
+    return TypePlante(
         id: json['id'],
+        description: json['description'],
         nom: json['nom']
     );
   }

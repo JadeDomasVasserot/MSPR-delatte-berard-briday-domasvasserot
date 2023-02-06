@@ -1,24 +1,24 @@
-class GardePlante {
-  final int id;
-  final DateTime dateDebut;
-  final DateTime dateFin;
-  final String gardien;
-  final String plante;
+import 'package:arosaje/src/models/TypeGuide.dart';
 
-  const GardePlante({
+class GuidePlante {
+  final int id;
+  final String description;
+  final String titre;
+  final TypeGuide typeGuide;
+
+  const GuidePlante({
     required this.id,
-    required this.dateDebut,
-    required this.dateFin,
-    required this.gardien,
-    required this.plante,
+    required this.description,
+    required this.titre,
+    required this.typeGuide,
   });
 
-  factory GardePlante.fromJson(Map<String, dynamic> json) {
-    return GardePlante(
+  factory GuidePlante.fromJson(Map<String, dynamic> json) {
+    return GuidePlante(
         id: json['id'],
-        dateDebut: json['dateDebut'],
-        dateFin: json['dateFin'],
-        gardien: json['gardien'],
-        plante: json['plante']);
+        description: json['description'],
+        titre: json['titre'],
+        typeGuide: TypeGuide.fromJson(json['typeGuide'])
+    );
   }
 }

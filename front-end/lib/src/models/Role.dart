@@ -1,19 +1,16 @@
-class PhotoPlante {
+class Role {
   final int id;
-  final String photo;
-  final String plante;
+  final String nom;
 
-  const PhotoPlante({
+  const Role({
     required this.id,
-    required this.photo,
-    required this.plante,
+    required this.nom,
   });
 
-  factory PhotoPlante.fromJson(Map<String, dynamic> json) {
-    return PhotoPlante(
+  factory Role.fromJson(Map<String, dynamic> json) {
+    return Role(
         id: json['id'],
-        photo: json['photo'],
-        plante: json['plante']
+        nom: json['nom']
     );
   }
 }

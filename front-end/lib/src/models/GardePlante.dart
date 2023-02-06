@@ -1,28 +1,28 @@
-class Plante {
-  final int id;
-  final String localisation;
-  final String nom;
-  final String bilothequePlante;
-  final String proprietaire;
-  final String statut;
+import 'package:arosaje/src/models/Personne.dart';
+import 'package:arosaje/src/models/Plante.dart';
 
-  const Plante({
+class GardePlante {
+  final int id;
+  final DateTime dateDebut;
+  final DateTime dateFin;
+  final Personne gardien;
+  final Plante plante;
+
+  const GardePlante({
     required this.id,
-    required this.localisation,
-    required this.nom,
-    required this.bilothequePlante,
-    required this.proprietaire,
-    required this.statut,
+    required this.dateDebut,
+    required this.dateFin,
+    required this.gardien,
+    required this.plante,
   });
 
-  factory Plante.fromJson(Map<String, dynamic> json) {
-    return Plante(
-      id: json['id'],
-      localisation: json['localisation'],
-      nom: json['nom'],
-      bilothequePlante: json['bilothequePlante'],
-      proprietaire: json['proprietaire'],
-      statut: json['statut'],
+  factory GardePlante.fromJson(Map<String, dynamic> json) {
+    return GardePlante(
+        id: json['id'],
+        dateDebut: json['dateDebut'],
+        dateFin: json['dateFin'],
+        gardien: Personne.fromJson(json['gardien']),
+        plante: Plante.fromJson(json['plante'])
     );
   }
 }

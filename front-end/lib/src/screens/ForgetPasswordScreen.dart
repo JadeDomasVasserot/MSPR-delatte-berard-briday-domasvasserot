@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class ForgetPasswordScreen extends StatefulWidget {
+  const ForgetPasswordScreen({super.key});
 
 
   @override
-  State<HomeScreen> createState() => _HomeScreen();
+  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreen();
 }
-class _HomeScreen extends State<HomeScreen> {
+
+class _ForgetPasswordScreen extends State<ForgetPasswordScreen> {
 
   int _selectedIndex = 0;
 
@@ -17,53 +18,71 @@ class _HomeScreen extends State<HomeScreen> {
       _selectedIndex = index;
     });
   }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("HomeScreen"),
-      ),
-      body: Center(
-        child : ElevatedButton(
-          onPressed: () => context.go("/"),
-          child: const Text("Disconnect"),
+    return MaterialApp(
+        title: 'Arosaje',
+        theme: ThemeData(
+          primarySwatch: Colors.green,
         ),
+        home: Scaffold(
+            body: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                    child: Image.asset("assets/arosaje.png"),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(90.0),
+                        ),
+                        labelText: 'Email',
+                      ),
+                    ),
+                  ),
 
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map),
-            label: "Map",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Accueil",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.library_books),
-            label: "Guide",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.edit_calendar),
-            label: "Garde",
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-            label: "Profile"
-          ),
-        ],
-        showUnselectedLabels: true,
-        showSelectedLabels: true,
-        selectedFontSize: 15,
-        unselectedFontSize: 15,
-        selectedItemColor: Colors.black38,
-        unselectedItemColor: Colors.green,
-        elevation: 20,
-        iconSize: 30,
-        onTap: _onItemTapped,
-      ),
-    );
+                  Container(
+                      height: 80,
+                      padding: const EdgeInsets.all(20),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(50),
+                        ),
+                        child: const Text('Envoyers'),
+                        onPressed: () {
+                          AlertDialog(
+                              title: const Text('AlertDialog Title'),
+                          content: SingleChildScrollView(
+                          child: ListBody(
+                          children: const <Widget>[
+                          Text('This is a demo alert dialog.')
+                          ],
+                          ),
+                          )
+                          );
+                        },
+                      )),
+                  TextButton(
+                    onPressed: () => context.go("/"),
+                    child: Text(
+                      "J'ai un compte",
+                      style: TextStyle(color: Colors.grey[600]),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () => context.go("/sign-up"),
+                    child: Text(
+                      'Pas de compte ? INSCRIVEZ-VOUS !',
+                      style: TextStyle(color: Colors.grey[600]),
+                    ),
+                  ),
+                ],
+              ),
+            )));
   }
 }
