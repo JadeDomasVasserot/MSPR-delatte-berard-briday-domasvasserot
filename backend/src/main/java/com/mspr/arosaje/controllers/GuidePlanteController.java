@@ -2,6 +2,8 @@ package com.mspr.arosaje.controllers;
 
 import com.mspr.arosaje.models.GuidePlanteModel;
 import com.mspr.arosaje.repositories.GuidePlanteRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +15,14 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/guide-plante")
 @RestController
+@Tag(name = "Guide Plante")
 public class GuidePlanteController {
 
     @Autowired
     private GuidePlanteRepository guidePlanteRepository;
 
     @GetMapping("/all")
+    @Operation(summary = "récupère tous les guides de plante")
     public ResponseEntity<List<GuidePlanteModel>> getAllGuidePlantes() {
         try {
             List<GuidePlanteModel> guidePlantes = this.guidePlanteRepository.findAll();
@@ -31,6 +35,7 @@ public class GuidePlanteController {
         }
 
     }
+    @Operation(summary = "récupère un guide de plante")
     @GetMapping("/id/{idGuidePlante}")
     public ResponseEntity<Optional<GuidePlanteModel>> getGuidePlanteById(@PathVariable("idGuidePlante") int idGuidePlante) {
         try {
@@ -46,7 +51,8 @@ public class GuidePlanteController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<GuidePlanteModel> createTutorial(@RequestBody GuidePlanteModel guidePlante) {
+    @Operation(summary = "ajoute un guide de plante")
+    public ResponseEntity<GuidePlanteModel> createGuidePlante(@RequestBody GuidePlanteModel guidePlante) {
         try {
             GuidePlanteModel _guidePlanteModel = guidePlanteRepository
                     .save(guidePlante);
@@ -58,7 +64,8 @@ public class GuidePlanteController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<GuidePlanteModel> updateTutorial(@PathVariable("id") int id, @RequestBody GuidePlanteModel guidePlante) {
+    @Operation(summary = "modifie un guide de plante")
+    public ResponseEntity<GuidePlanteModel> updateGuidePlante(@PathVariable("id") int id, @RequestBody GuidePlanteModel guidePlante) {
         Optional<GuidePlanteModel> guidePlanteData = guidePlanteRepository.findById(id);
 
         if (guidePlanteData.isPresent()) {
@@ -72,7 +79,8 @@ public class GuidePlanteController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") int id) {
+    @Operation(summary = "supprime un guide de plante")
+    public ResponseEntity<HttpStatus> deleteGuidePlante(@PathVariable("id") int id) {
         try {
             guidePlanteRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -82,7 +90,8 @@ public class GuidePlanteController {
     }
 
     @DeleteMapping("/all")
-    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+    @Operation(summary = "supprime tous les guides de plante")
+    public ResponseEntity<HttpStatus> deleteAllGuidePlantes() {
         try {
             guidePlanteRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -1,11 +1,16 @@
 package com.mspr.arosaje.models;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "guide_plante", schema = "arosaje", catalog = "")
 public class GuidePlanteModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,37 +25,6 @@ public class GuidePlanteModel {
     private String description;
     @ManyToOne
     @JoinColumn(name = "type_guide", referencedColumnName = "id", nullable = false)
-    private TypeGuideModel typeguide;
+    private TypeGuideModel typeGuide;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitre() {
-        return titre;
-    }
-
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public TypeGuideModel getTypeGuide() {
-        return typeguide;
-    }
-
-    public void setTypeGuide(TypeGuideModel typeGuide) {
-        this.typeguide = typeGuide;
-    }
 }

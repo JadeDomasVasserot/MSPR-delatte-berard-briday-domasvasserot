@@ -2,6 +2,8 @@ package com.mspr.arosaje.controllers;
 
 import com.mspr.arosaje.models.TypeGuideModel;
 import com.mspr.arosaje.repositories.TypeGuideRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +15,14 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/type-guide")
 @RestController
+@Tag(name = "Type Guide")
 public class TypeGuideController {
 
     @Autowired
     private TypeGuideRepository typeGuideRepository;
 
     @GetMapping("/all")
+    @Operation(summary = "récupère tous les types guide de plante")
     public ResponseEntity<List<TypeGuideModel>> getAllTypeGuides() {
         try {
             List<TypeGuideModel> typeGuides = this.typeGuideRepository.findAll();
@@ -32,6 +36,7 @@ public class TypeGuideController {
 
     }
     @GetMapping("/id/{idTypeGuide}")
+    @Operation(summary = "récupère un type guide de plante")
     public ResponseEntity<Optional<TypeGuideModel>> getTypeGuideById(@PathVariable("idTypeGuide") int idTypeGuide) {
         try {
             Optional<TypeGuideModel> typeGuideModel = this.typeGuideRepository.findById(idTypeGuide);
@@ -45,7 +50,8 @@ public class TypeGuideController {
         }
     }
     @PostMapping("/add")
-    public ResponseEntity<TypeGuideModel> createTutorial(@RequestBody TypeGuideModel typeGuide) {
+    @Operation(summary = "ajoute un type guide de plante")
+    public ResponseEntity<TypeGuideModel> createTypeGuide(@RequestBody TypeGuideModel typeGuide) {
         try {
             TypeGuideModel _typeGuideModel = typeGuideRepository
                     .save(typeGuide);
@@ -57,7 +63,8 @@ public class TypeGuideController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<TypeGuideModel> updateTutorial(@PathVariable("id") int id, @RequestBody TypeGuideModel typeGuide) {
+    @Operation(summary = "modifie un type guide de plante")
+    public ResponseEntity<TypeGuideModel> updateTypeGuide(@PathVariable("id") int id, @RequestBody TypeGuideModel typeGuide) {
         Optional<TypeGuideModel> typeGuideData = typeGuideRepository.findById(id);
 
         if (typeGuideData.isPresent()) {
@@ -71,7 +78,8 @@ public class TypeGuideController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") int id) {
+    @Operation(summary = "supprime un type guide de plante")
+    public ResponseEntity<HttpStatus> deleteTypeGuide(@PathVariable("id") int id) {
         try {
             typeGuideRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +89,8 @@ public class TypeGuideController {
     }
 
     @DeleteMapping("/all")
-    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+    @Operation(summary = "supprime tous les types guide de plante")
+    public ResponseEntity<HttpStatus> deleteAllTypeGuides() {
         try {
             typeGuideRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

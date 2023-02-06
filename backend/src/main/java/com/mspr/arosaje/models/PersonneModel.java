@@ -1,13 +1,27 @@
 package com.mspr.arosaje.models;
 
 import jakarta.persistence.*;
+import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "personne", schema = "arosaje", catalog = "")
-public class PersonneModel {
+public class PersonneModel implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -32,80 +46,42 @@ public class PersonneModel {
     private String email;
     @Basic
     @Column(name = "mdp")
-    private int mdp;
+    private String mdp;
     @ManyToOne
     @JoinColumn(name = "role", referencedColumnName = "id", nullable = false)
     private RoleModel role;
 
-    public int getId() {
-        return id;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(this.role.getNom()));
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
-
-    public int getCp() {
-        return cp;
-    }
-
-    public void setCp(int cp) {
-        this.cp = cp;
-    }
-
-    public String getVille() {
-        return ville;
-    }
-
-    public void setVille(String ville) {
-        this.ville = ville;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getMdp() {
+    @Override
+    public String getPassword() {
         return mdp;
     }
 
-    public void setMdp(int mdp) {
-        this.mdp = mdp;
+    @Override
+    public String getUsername() {
+        return email;
     }
 
-    public RoleModel getRole() {
-        return role;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setRole(RoleModel role) {
-        this.role = role;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

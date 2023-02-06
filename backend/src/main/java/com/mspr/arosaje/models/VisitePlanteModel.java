@@ -1,10 +1,15 @@
 package com.mspr.arosaje.models;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.sql.Date;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "visite_plante", schema = "arosaje", catalog = "")
 public class VisitePlanteModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,51 +32,4 @@ public class VisitePlanteModel {
     @JoinColumn(name = "garde_plante", referencedColumnName = "id", nullable = false)
     private GardePlanteModel gardePlante;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public PersonneModel getGardien() {
-        return gardien;
-    }
-
-    public void setGardien(PersonneModel gardien) {
-        this.gardien = gardien;
-    }
-
-    public Date getDateVisite() {
-        return dateVisite;
-    }
-
-    public void setDateVisite(Date dateVisite) {
-        this.dateVisite = dateVisite;
-    }
-
-    public PlanteModel getPlante() {
-        return plante;
-    }
-
-    public void setPlante(PlanteModel plante) {
-        this.plante = plante;
-    }
-
-    public GardePlanteModel getGardePlante() {
-        return gardePlante;
-    }
-
-    public void setGardePlante(GardePlanteModel gardePlante) {
-        this.gardePlante = gardePlante;
-    }
 }

@@ -3,6 +3,8 @@ package com.mspr.arosaje.controllers;
 import com.mspr.arosaje.models.RoleModel;
 import com.mspr.arosaje.repositories.RoleRepository;
 import com.mspr.arosaje.repositories.RoleRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +16,14 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/role")
 @RestController
+@Tag(name = "Role")
 public class RoleController {
 
     @Autowired
     private RoleRepository roleRepository;
 
     @GetMapping("/all")
+    @Operation(summary = "récupère tous les roles")
     public ResponseEntity<List<RoleModel>> getAllRoles() {
         try {
             List<RoleModel> roles = this.roleRepository.findAll();
@@ -33,6 +37,7 @@ public class RoleController {
 
     }
     @GetMapping("/id/{idRole}")
+    @Operation(summary = "récupère un role")
     public ResponseEntity<Optional<RoleModel>> getRoleById(@PathVariable("idRole") int idRole) {
         try {
             Optional<RoleModel> roleModel = this.roleRepository.findById(idRole);
@@ -46,7 +51,8 @@ public class RoleController {
         }
     }
     @PostMapping("/add")
-    public ResponseEntity<RoleModel> createTutorial(@RequestBody RoleModel role) {
+    @Operation(summary = "ajoute un role")
+    public ResponseEntity<RoleModel> createRole(@RequestBody RoleModel role) {
         try {
             RoleModel _roleModel = roleRepository
                     .save(role);
@@ -58,7 +64,8 @@ public class RoleController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<RoleModel> updateTutorial(@PathVariable("id") int id, @RequestBody RoleModel role) {
+    @Operation(summary = "modifie un role")
+    public ResponseEntity<RoleModel> updateRole(@PathVariable("id") int id, @RequestBody RoleModel role) {
         Optional<RoleModel> roleData = roleRepository.findById(id);
 
         if (roleData.isPresent()) {
@@ -72,7 +79,8 @@ public class RoleController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") int id) {
+    @Operation(summary = "supprime un role")
+    public ResponseEntity<HttpStatus> deleteRole(@PathVariable("id") int id) {
         try {
             roleRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -82,7 +90,8 @@ public class RoleController {
     }
 
     @DeleteMapping("/all")
-    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+    @Operation(summary = "supprime tous les roles")
+    public ResponseEntity<HttpStatus> deleteAllRoles() {
         try {
             roleRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

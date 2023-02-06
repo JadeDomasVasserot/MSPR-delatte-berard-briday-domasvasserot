@@ -2,6 +2,8 @@ package com.mspr.arosaje.controllers;
 
 import com.mspr.arosaje.models.GardePlanteModel;
 import com.mspr.arosaje.repositories.GardePlanteRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +15,14 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/garde-plante")
 @RestController
+@Tag(name = "Garde Plante")
 public class GardePlanteController {
 
     @Autowired
     private GardePlanteRepository gardePlanteRepository;
 
     @GetMapping("/all")
+    @Operation(summary = "récupère toutes les gardes de plante")
     public ResponseEntity<List<GardePlanteModel>> getAllGardePlantes() {
         try {
             List<GardePlanteModel> gardePlantes = this.gardePlanteRepository.findAll();
@@ -31,6 +35,7 @@ public class GardePlanteController {
         }
 
     }
+    @Operation(summary = "récupère une garde de plante")
     @GetMapping("/id/{idGardePlante}")
     public ResponseEntity<Optional<GardePlanteModel>> getGardePlanteById(@PathVariable("idGardePlante") int idGardePlante) {
         try {
@@ -45,7 +50,8 @@ public class GardePlanteController {
         }
     }
     @PostMapping("/add")
-    public ResponseEntity<GardePlanteModel> createTutorial(@RequestBody GardePlanteModel gardePlante) {
+    @Operation(summary = "ajoute une garde de plante")
+    public ResponseEntity<GardePlanteModel> createGardePlante(@RequestBody GardePlanteModel gardePlante) {
         try {
             GardePlanteModel _gardePlanteModel = gardePlanteRepository
                     .save(gardePlante);
@@ -57,7 +63,9 @@ public class GardePlanteController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<GardePlanteModel> updateTutorial(@PathVariable("id") int id, @RequestBody GardePlanteModel gardePlante) {
+    @Operation(summary = "modifie une garde de plante")
+
+    public ResponseEntity<GardePlanteModel> updateGardePlante(@PathVariable("id") int id, @RequestBody GardePlanteModel gardePlante) {
         Optional<GardePlanteModel> gardePlanteData = gardePlanteRepository.findById(id);
 
         if (gardePlanteData.isPresent()) {
@@ -71,7 +79,8 @@ public class GardePlanteController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") int id) {
+    @Operation(summary = "supprime une garde de plante")
+    public ResponseEntity<HttpStatus> deleteGardePlante(@PathVariable("id") int id) {
         try {
             gardePlanteRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +90,8 @@ public class GardePlanteController {
     }
 
     @DeleteMapping("/all")
-    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+    @Operation(summary = "supprime toutes les gardes de plante")
+    public ResponseEntity<HttpStatus> deleteAllGardePlantes() {
         try {
             gardePlanteRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -91,6 +101,7 @@ public class GardePlanteController {
 
     }
     @GetMapping("/all/byUser/{idUser}")
+    @Operation(summary = "récupère toutes les gardes de plante d'un utilisateur")
     public ResponseEntity<List<GardePlanteModel>> getAllGardePlanteByUser(@PathVariable("idUser") int idUser) {
         try {
             List<GardePlanteModel> gardePlantes = this.gardePlanteRepository.getAllGardePlanteByUser(idUser);

@@ -2,6 +2,8 @@ package com.mspr.arosaje.controllers;
 
 import com.mspr.arosaje.models.BibliothequePlanteModel;
 import com.mspr.arosaje.repositories.BibliothequePlanteRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +14,14 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/bibliotheque-plante")
+@Tag(name = "Bibliothèque Plante")
 @RestController
 public class BibliothequePlanteController {
 
     @Autowired
     private BibliothequePlanteRepository bibliothequePlanteRepository;
 
+    @Operation(summary = "récupère toutes les plantes de la bibliothèque")
     @GetMapping("/all")
     public ResponseEntity<List<BibliothequePlanteModel>> getAllBibliothequePlantes() {
         try {
@@ -31,6 +35,7 @@ public class BibliothequePlanteController {
         }
 
     }
+    @Operation(summary = "récupère une plante de la bibliothèque")
     @GetMapping("/id/{idBibliothequePlante}")
     public ResponseEntity<Optional<BibliothequePlanteModel>> getBibliothequePlanteById(@PathVariable("idBibliothequePlante") int idBibliothequePlante) {
         try {
@@ -44,8 +49,9 @@ public class BibliothequePlanteController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @Operation(summary = "ajoute une dans la bibliothèque")
     @PostMapping("/add")
-    public ResponseEntity<BibliothequePlanteModel> createTutorial(@RequestBody BibliothequePlanteModel bibliothequePlante) {
+    public ResponseEntity<BibliothequePlanteModel> createBibliothequePlante(@RequestBody BibliothequePlanteModel bibliothequePlante) {
         try {
             BibliothequePlanteModel _bibliothequePlanteModel = bibliothequePlanteRepository
                     .save(bibliothequePlante);
@@ -56,8 +62,9 @@ public class BibliothequePlanteController {
         }
     }
 
+    @Operation(summary = "modifie une plante dans la bibliothèque")
     @PutMapping("/update/{id}")
-    public ResponseEntity<BibliothequePlanteModel> updateTutorial(@PathVariable("id") int id, @RequestBody BibliothequePlanteModel bibliothequePlante) {
+    public ResponseEntity<BibliothequePlanteModel> updateBibliothequePlante(@PathVariable("id") int id, @RequestBody BibliothequePlanteModel bibliothequePlante) {
         Optional<BibliothequePlanteModel> bibliothequePlanteData = bibliothequePlanteRepository.findById(id);
 
         if (bibliothequePlanteData.isPresent()) {
@@ -70,8 +77,9 @@ public class BibliothequePlanteController {
         }
     }
 
+    @Operation(summary = "supprime une plante dans la bibliothèque")
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") int id) {
+    public ResponseEntity<HttpStatus> deleteBibliothequePlante(@PathVariable("id") int id) {
         try {
             bibliothequePlanteRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +89,8 @@ public class BibliothequePlanteController {
     }
 
     @DeleteMapping("/all")
-    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+    @Operation(summary = "supprime toutes les plantes dans la bibliothèque")
+    public ResponseEntity<HttpStatus> deleteAllBibliothequePlantes() {
         try {
             bibliothequePlanteRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

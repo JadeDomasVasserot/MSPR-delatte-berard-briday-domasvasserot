@@ -2,6 +2,8 @@ package com.mspr.arosaje.controllers;
 
 import com.mspr.arosaje.models.TypePlanteModel;
 import com.mspr.arosaje.repositories.TypePlanteRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +15,14 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/type-plante")
 @RestController
+@Tag(name = "Type Plante")
 public class TypePlanteController {
 
     @Autowired
     private TypePlanteRepository typePlanteRepository;
 
     @GetMapping("/all")
+    @Operation(summary = "recupère tous les types de plante")
     public ResponseEntity<List<TypePlanteModel>> getAllTypePlantes() {
         try {
             List<TypePlanteModel> typePlantes = this.typePlanteRepository.findAll();
@@ -32,6 +36,7 @@ public class TypePlanteController {
 
     }
     @GetMapping("/id/{idTypePlante}")
+    @Operation(summary = "recupère un type de plante")
     public ResponseEntity<Optional<TypePlanteModel>> getTypePlanteById(@PathVariable("idTypePlante") int idTypePlante) {
         try {
             Optional<TypePlanteModel> typePlanteModel = this.typePlanteRepository.findById(idTypePlante);
@@ -45,7 +50,8 @@ public class TypePlanteController {
         }
     }
     @PostMapping("/add")
-    public ResponseEntity<TypePlanteModel> createTutorial(@RequestBody TypePlanteModel typePlante) {
+    @Operation(summary = "ajoute un type de plante")
+    public ResponseEntity<TypePlanteModel> createTypePlante(@RequestBody TypePlanteModel typePlante) {
         try {
             TypePlanteModel _typePlanteModel = typePlanteRepository
                     .save(typePlante);
@@ -57,7 +63,8 @@ public class TypePlanteController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<TypePlanteModel> updateTutorial(@PathVariable("id") int id, @RequestBody TypePlanteModel typePlante) {
+    @Operation(summary = "modifie un type de plante")
+    public ResponseEntity<TypePlanteModel> updateTypePlante(@PathVariable("id") int id, @RequestBody TypePlanteModel typePlante) {
         Optional<TypePlanteModel> typePlanteData = typePlanteRepository.findById(id);
 
         if (typePlanteData.isPresent()) {
@@ -71,7 +78,8 @@ public class TypePlanteController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") int id) {
+    @Operation(summary = "supprime un type de plante")
+    public ResponseEntity<HttpStatus> deleteTypePlante(@PathVariable("id") int id) {
         try {
             typePlanteRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +89,8 @@ public class TypePlanteController {
     }
 
     @DeleteMapping("/all")
-    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+    @Operation(summary = "supprime tous les types de plante")
+    public ResponseEntity<HttpStatus> deleteAllTypePlantes() {
         try {
             typePlanteRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

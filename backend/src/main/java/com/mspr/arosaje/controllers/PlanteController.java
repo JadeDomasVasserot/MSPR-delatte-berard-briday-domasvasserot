@@ -3,6 +3,8 @@ package com.mspr.arosaje.controllers;
 import com.mspr.arosaje.models.GardePlanteModel;
 import com.mspr.arosaje.models.PlanteModel;
 import com.mspr.arosaje.repositories.PlanteRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +14,14 @@ import java.util.*;
 @CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/plante")
 @RestController
+@Tag(name = "Plante")
 public class PlanteController {
 
     @Autowired
     private PlanteRepository planteRepository;
 
     @GetMapping("/all")
+    @Operation(summary = "récupère toutes les plantes")
     public ResponseEntity<List<PlanteModel>> getAllPlantes() {
         try {
             List<PlanteModel> plantes = this.planteRepository.findAll();
@@ -31,6 +35,7 @@ public class PlanteController {
 
     }
     @GetMapping("/id/{idPlante}")
+    @Operation(summary = "récupère une plante selon id")
     public ResponseEntity<Optional<PlanteModel>> getPlanteById(@PathVariable("idPlante") int idPlante) {
         try {
             Optional<PlanteModel> planteModel = this.planteRepository.findById(idPlante);
@@ -44,6 +49,7 @@ public class PlanteController {
         }
     }
     @GetMapping("/name/{namePlante}")
+    @Operation(summary = "récupère une plante selon nom")
     public ResponseEntity<Optional<PlanteModel>> getPlanteById(@PathVariable("namePlante") String namePlante) {
         try {
             Optional<PlanteModel> planteModel = this.planteRepository.getPlanteByName(namePlante);
@@ -58,7 +64,8 @@ public class PlanteController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<PlanteModel> createTutorial(@RequestBody PlanteModel plante) {
+    @Operation(summary = "ajoute une plante")
+    public ResponseEntity<PlanteModel> createPlante(@RequestBody PlanteModel plante) {
         try {
             PlanteModel _planteModel = planteRepository
                     .save(plante);
@@ -70,7 +77,8 @@ public class PlanteController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<PlanteModel> updateTutorial(@PathVariable("id") int id, @RequestBody PlanteModel plante) {
+    @Operation(summary = "modifie une plante")
+    public ResponseEntity<PlanteModel> updatePlante(@PathVariable("id") int id, @RequestBody PlanteModel plante) {
         Optional<PlanteModel> planteData = planteRepository.findById(id);
 
         if (planteData.isPresent()) {
@@ -84,7 +92,8 @@ public class PlanteController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") int id) {
+    @Operation(summary = "supprime une plante")
+    public ResponseEntity<HttpStatus> deletePlante(@PathVariable("id") int id) {
         try {
             planteRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -94,7 +103,8 @@ public class PlanteController {
     }
 
     @DeleteMapping("/all")
-    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+    @Operation(summary = "supprime toutes les plantes")
+    public ResponseEntity<HttpStatus> deleteAllPlantes() {
         try {
             planteRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -104,6 +114,7 @@ public class PlanteController {
 
     }
     @GetMapping("/a-garder/all")
+    @Operation(summary = "récupère toutes les plantes à garder")
     public ResponseEntity<List<PlanteModel>> getAllPlantesAGarder() {
         try {
             List<PlanteModel> plantes = this.planteRepository.getAllPlantesAGarde();
@@ -116,6 +127,7 @@ public class PlanteController {
         }
     }
     @GetMapping("/all/byUser/{idUser}")
+    @Operation(summary = "récupère toutes les plantes d'un utilisateur")
     public ResponseEntity<List<PlanteModel>> getAllPlanteByIdUser(@PathVariable("idUser") int idUser) {
         try {
             List<PlanteModel> plantes = this.planteRepository.getAllPlantesByIdUser(idUser);

@@ -3,6 +3,8 @@ package com.mspr.arosaje.controllers;
 import com.mspr.arosaje.models.PersonneModel;
 import com.mspr.arosaje.repositories.PersonneRepository;
 import com.mspr.arosaje.repositories.PersonneRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +16,14 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/personne")
 @RestController
+@Tag(name = "Personne ")
 public class PersonneController {
 
     @Autowired
     private PersonneRepository personneRepository;
 
     @GetMapping("/all")
+    @Operation(summary = "récupère les utilisateurs")
     public ResponseEntity<List<PersonneModel>> getAllPersonnes() {
         try {
             List<PersonneModel> personnes = this.personneRepository.findAll();
@@ -33,6 +37,7 @@ public class PersonneController {
 
     }
     @GetMapping("/id/{idPersonne}")
+    @Operation(summary = "récupère un utilisateur")
     public ResponseEntity<Optional<PersonneModel>> getPersonneById(@PathVariable("idPersonne") int idPersonne) {
         try {
             Optional<PersonneModel> personneModel = this.personneRepository.findById(idPersonne);
@@ -46,7 +51,8 @@ public class PersonneController {
         }
     }
     @PostMapping("/add")
-    public ResponseEntity<PersonneModel> createTutorial(@RequestBody PersonneModel personne) {
+    @Operation(summary = "ajoute un utilisateur")
+    public ResponseEntity<PersonneModel> createPersonne(@RequestBody PersonneModel personne) {
         try {
             PersonneModel _personneModel = personneRepository
                     .save(personne);
@@ -58,7 +64,8 @@ public class PersonneController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<PersonneModel> updateTutorial(@PathVariable("id") int id, @RequestBody PersonneModel personne) {
+    @Operation(summary = "modifie un utilisateur")
+    public ResponseEntity<PersonneModel> updatePersonne(@PathVariable("id") int id, @RequestBody PersonneModel personne) {
         Optional<PersonneModel> personneData = personneRepository.findById(id);
 
         if (personneData.isPresent()) {
@@ -72,7 +79,8 @@ public class PersonneController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") int id) {
+    @Operation(summary = "supprime un utilisateur")
+    public ResponseEntity<HttpStatus> deletePersonne(@PathVariable("id") int id) {
         try {
             personneRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -82,7 +90,8 @@ public class PersonneController {
     }
 
     @DeleteMapping("/all")
-    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+    @Operation(summary = "supprimer tous les utilisateurs")
+    public ResponseEntity<HttpStatus> deleteAllPersonnes() {
         try {
             personneRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -2,6 +2,8 @@ package com.mspr.arosaje.controllers;
 
 import com.mspr.arosaje.models.StatutPlanteModel;
 import com.mspr.arosaje.repositories.StatutPlanteRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +15,15 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/statut-plante")
 @RestController
+@Tag(name = "Statut Plante")
+
 public class StatutPlanteController {
 
     @Autowired
     private StatutPlanteRepository statutPlanteRepository;
 
     @GetMapping("/all")
+    @Operation(summary = "récupère tous les statuts de plante")
     public ResponseEntity<List<StatutPlanteModel>> getAllStatutPlantes() {
         try {
             List<StatutPlanteModel> statutPlantes = this.statutPlanteRepository.findAll();
@@ -32,6 +37,7 @@ public class StatutPlanteController {
 
     }
     @GetMapping("/id/{idStatutPlante}")
+    @Operation(summary = "récupère un statut de plante")
     public ResponseEntity<Optional<StatutPlanteModel>> getStatutPlanteById(@PathVariable("idStatutPlante") int idStatutPlante) {
         try {
             Optional<StatutPlanteModel> statutPlanteModel = this.statutPlanteRepository.findById(idStatutPlante);
@@ -45,7 +51,8 @@ public class StatutPlanteController {
         }
     }
     @PostMapping("/add")
-    public ResponseEntity<StatutPlanteModel> createTutorial(@RequestBody StatutPlanteModel statutPlante) {
+    @Operation(summary = "ajoute un statut de plante")
+    public ResponseEntity<StatutPlanteModel> createStatutPlante(@RequestBody StatutPlanteModel statutPlante) {
         try {
             StatutPlanteModel _statutPlanteModel = statutPlanteRepository
                     .save(statutPlante);
@@ -57,7 +64,8 @@ public class StatutPlanteController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<StatutPlanteModel> updateTutorial(@PathVariable("id") int id, @RequestBody StatutPlanteModel statutPlante) {
+    @Operation(summary = "modifie un statut de plante")
+    public ResponseEntity<StatutPlanteModel> updateStatutPlante(@PathVariable("id") int id, @RequestBody StatutPlanteModel statutPlante) {
         Optional<StatutPlanteModel> statutPlanteData = statutPlanteRepository.findById(id);
 
         if (statutPlanteData.isPresent()) {
@@ -71,7 +79,8 @@ public class StatutPlanteController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") int id) {
+    @Operation(summary = "supprime un statut de plante")
+    public ResponseEntity<HttpStatus> deleteStatutPlante(@PathVariable("id") int id) {
         try {
             statutPlanteRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +90,8 @@ public class StatutPlanteController {
     }
 
     @DeleteMapping("/all")
-    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+    @Operation(summary = "supprime tous les statuts de plante")
+    public ResponseEntity<HttpStatus> deleteAllStatutPlantes() {
         try {
             statutPlanteRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

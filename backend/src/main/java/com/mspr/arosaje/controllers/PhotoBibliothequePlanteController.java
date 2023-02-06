@@ -2,6 +2,8 @@ package com.mspr.arosaje.controllers;
 
 import com.mspr.arosaje.models.PhotoBibliothequePlanteModel;
 import com.mspr.arosaje.repositories.PhotoBibliothequePlanteRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +15,14 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/photo-bibliotheque-plante")
 @RestController
+@Tag(name = "Photo Bibliothèque Plante")
 public class PhotoBibliothequePlanteController {
 
     @Autowired
     private PhotoBibliothequePlanteRepository photoBibliothequePlanteRepository;
 
     @GetMapping("/all")
+    @Operation(summary = "récupère toutes les photos de la bibliothèque de plante")
     public ResponseEntity<List<PhotoBibliothequePlanteModel>> getAllPhotoBibliothequePlantes() {
         try {
             List<PhotoBibliothequePlanteModel> photoBibliothequePlantes = this.photoBibliothequePlanteRepository.findAll();
@@ -32,6 +36,7 @@ public class PhotoBibliothequePlanteController {
 
     }
     @GetMapping("/id/{idPhotoBibliothequePlante}")
+    @Operation(summary = "récupère une photo de la bibliothèque de plante")
     public ResponseEntity<Optional<PhotoBibliothequePlanteModel>> getPhotoBibliothequePlanteById(@PathVariable("idPhotoBibliothequePlante") int idPhotoBibliothequePlante) {
         try {
             Optional<PhotoBibliothequePlanteModel> photoBibliothequePlanteModel = this.photoBibliothequePlanteRepository.findById(idPhotoBibliothequePlante);
@@ -45,7 +50,8 @@ public class PhotoBibliothequePlanteController {
         }
     }
     @PostMapping("/add")
-    public ResponseEntity<PhotoBibliothequePlanteModel> createTutorial(@RequestBody PhotoBibliothequePlanteModel photoBibliothequePlante) {
+    @Operation(summary = "ajoute une photo de la bibliothèque de plante")
+    public ResponseEntity<PhotoBibliothequePlanteModel> createPhotoBibliothequePlante(@RequestBody PhotoBibliothequePlanteModel photoBibliothequePlante) {
         try {
             PhotoBibliothequePlanteModel _photoBibliothequePlanteModel = photoBibliothequePlanteRepository
                     .save(photoBibliothequePlante);
@@ -57,7 +63,8 @@ public class PhotoBibliothequePlanteController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<PhotoBibliothequePlanteModel> updateTutorial(@PathVariable("id") int id, @RequestBody PhotoBibliothequePlanteModel photoBibliothequePlante) {
+    @Operation(summary = "modifie une photo de la bibliothèque de plante")
+    public ResponseEntity<PhotoBibliothequePlanteModel> updatePhotoBibliothequePlante(@PathVariable("id") int id, @RequestBody PhotoBibliothequePlanteModel photoBibliothequePlante) {
         Optional<PhotoBibliothequePlanteModel> photoBibliothequePlanteData = photoBibliothequePlanteRepository.findById(id);
 
         if (photoBibliothequePlanteData.isPresent()) {
@@ -71,7 +78,8 @@ public class PhotoBibliothequePlanteController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") int id) {
+    @Operation(summary = "supprime une photo de la bibliothèque de plante")
+    public ResponseEntity<HttpStatus> deletePhotoBibliothequePlante(@PathVariable("id") int id) {
         try {
             photoBibliothequePlanteRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +89,8 @@ public class PhotoBibliothequePlanteController {
     }
 
     @DeleteMapping("/all")
-    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+    @Operation(summary = "supprime toutes les photos de la bibliothèque de plante")
+    public ResponseEntity<HttpStatus> deleteAllPhotoBibliothequePlantes() {
         try {
             photoBibliothequePlanteRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

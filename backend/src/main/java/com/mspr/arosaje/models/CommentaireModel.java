@@ -1,10 +1,15 @@
 package com.mspr.arosaje.models;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "commentaire", schema = "arosaje", catalog = "")
 public class CommentaireModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,51 +32,5 @@ public class CommentaireModel {
     @JoinColumn(name = "plante", referencedColumnName = "id", nullable = false)
     private PlanteModel plante;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitre() {
-        return titre;
-    }
-
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public PersonneModel getAuteur() {
-        return auteur;
-    }
-
-    public void setAuteur(PersonneModel auteur) {
-        this.auteur = auteur;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public PlanteModel getPlante() {
-        return plante;
-    }
-
-    public void setPlante(PlanteModel plante) {
-        this.plante = plante;
-    }
 }

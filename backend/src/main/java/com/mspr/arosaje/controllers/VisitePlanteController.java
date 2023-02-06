@@ -2,6 +2,8 @@ package com.mspr.arosaje.controllers;
 
 import com.mspr.arosaje.models.VisitePlanteModel;
 import com.mspr.arosaje.repositories.VisitePlanteRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +15,13 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/visite-plante")
 @RestController
+@Tag(name = "Visite Plante")
 public class VisitePlanteController {
 
     @Autowired
     private VisitePlanteRepository visitePlanteRepository;
 
+    @Operation(summary = "récupère toutes les visites de plantes")
     @GetMapping("/all")
     public ResponseEntity<List<VisitePlanteModel>> getAllVisitePlantes() {
         try {
@@ -32,6 +36,7 @@ public class VisitePlanteController {
 
     }
     @GetMapping("/id/{idVisitePlante}")
+    @Operation(summary = "recupère une visite de plante")
     public ResponseEntity<Optional<VisitePlanteModel>> getVisitePlanteById(@PathVariable("idVisitePlante") int idVisitePlante) {
         try {
             Optional<VisitePlanteModel> visitePlanteModel = this.visitePlanteRepository.findById(idVisitePlante);
@@ -45,7 +50,8 @@ public class VisitePlanteController {
         }
     }
     @PostMapping("/add")
-    public ResponseEntity<VisitePlanteModel> createTutorial(@RequestBody VisitePlanteModel visitePlante) {
+    @Operation(summary = "ajoute une visite de plante")
+    public ResponseEntity<VisitePlanteModel> createVisitePlante(@RequestBody VisitePlanteModel visitePlante) {
         try {
             VisitePlanteModel _visitePlanteModel = visitePlanteRepository
                     .save(visitePlante);
@@ -57,7 +63,8 @@ public class VisitePlanteController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<VisitePlanteModel> updateTutorial(@PathVariable("id") int id, @RequestBody VisitePlanteModel visitePlante) {
+    @Operation(summary = "modifie une visite de plante")
+    public ResponseEntity<VisitePlanteModel> updateVisitePlante(@PathVariable("id") int id, @RequestBody VisitePlanteModel visitePlante) {
         Optional<VisitePlanteModel> visitePlanteData = visitePlanteRepository.findById(id);
 
         if (visitePlanteData.isPresent()) {
@@ -71,7 +78,8 @@ public class VisitePlanteController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") int id) {
+    @Operation(summary = "supprime une visite de plante")
+    public ResponseEntity<HttpStatus> deleteVisitePlante(@PathVariable("id") int id) {
         try {
             visitePlanteRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -81,7 +89,8 @@ public class VisitePlanteController {
     }
 
     @DeleteMapping("/all")
-    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+    @Operation(summary = "supprime toutes les visites de plante")
+    public ResponseEntity<HttpStatus> deleteAllVisitePlantes() {
         try {
             visitePlanteRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
