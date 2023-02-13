@@ -1,6 +1,10 @@
 import 'package:arosaje/src/screens/ForgetPasswordScreen.dart';
+import 'package:arosaje/src/screens/GardeScreen.dart';
+import 'package:arosaje/src/screens/GuideScreen.dart';
 import 'package:arosaje/src/screens/HomeScreen.dart';
 import 'package:arosaje/src/screens/LoginScreen.dart';
+import 'package:arosaje/src/screens/MapScreen.dart';
+import 'package:arosaje/src/screens/ProfileScreen.dart';
 import 'package:arosaje/src/screens/SignUpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -27,6 +31,26 @@ final GoRouter _router = GoRouter(
       path: "/sign-up",
       builder: (context, state) => const SignUpScreen(),
     ),
+    GoRoute(
+      path: "/map",
+      builder: (context, state) => const MapScreen(),
+    ),
+    GoRoute(
+      path: "/guide",
+      builder: (context, state) => const GuideScreen(),
+    ),
+    GoRoute(
+      path: "/guide/:id",
+      builder: (context, state) => const GuideScreen(),
+    ),
+    GoRoute(
+      path: "/garde",
+      builder: (context, state) => const GardeScreen(),
+    ),
+    GoRoute(
+      path: "/profile",
+      builder: (context, state) => const ProfileScreen()),
+
   ],
 );
 

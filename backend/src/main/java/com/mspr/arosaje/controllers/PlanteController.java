@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = {"http://localhost:8081"})
 @RequestMapping("/plante")
 @RestController
 @Tag(name = "Plante")
@@ -31,6 +31,17 @@ public class PlanteController {
             return new ResponseEntity<>(plantes, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+    @GetMapping("/all/string")
+    @Operation(summary = "récupère toutes les plantes")
+    public String testString() {
+        try {
+
+            return "rest";
+        } catch (Exception e) {
+            return null;
         }
 
     }

@@ -46,7 +46,7 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:9101"));
+        configuration.setAllowedOrigins(List.of("http://localhost:8081", "https://arosajeball.herokuapp.com"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "OPTION", "DELETE", "PATCH"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

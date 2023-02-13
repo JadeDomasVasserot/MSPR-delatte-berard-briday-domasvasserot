@@ -5,17 +5,34 @@ import 'package:go_router/go_router.dart';
 class BottomBarComponent extends StatefulWidget {
   const BottomBarComponent({super.key});
 
-
   @override
   State<BottomBarComponent> createState() => _BottomBarComponent();
   }
 
 class _BottomBarComponent extends State<BottomBarComponent> {
+
   int _selectedIndex = 0;
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  void _tap(BuildContext context, int index) {
+    setState(() => _selectedIndex = index);
+    print(index);
+    switch (index){
+      case 0:
+        context.go("/map");
+        break;
+      case 1:
+        context.go('/home');
+        break;
+      case 2:
+        context.go('/guide');
+        break;
+      case 3:
+        context.go('/garde');
+        break;
+      case 4:
+        context.go('/profile');
+        break;
+
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -28,6 +45,7 @@ class _BottomBarComponent extends State<BottomBarComponent> {
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: "Accueil",
+
         ),
         BottomNavigationBarItem(
             icon: Icon(Icons.library_books),
@@ -50,7 +68,7 @@ class _BottomBarComponent extends State<BottomBarComponent> {
       unselectedItemColor: Colors.green,
       elevation: 20,
       iconSize: 30,
-      onTap: _onItemTapped,
+      onTap: (index) => _tap(context, index),
     );
   }
 }
