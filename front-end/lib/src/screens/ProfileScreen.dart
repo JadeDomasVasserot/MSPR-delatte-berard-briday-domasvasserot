@@ -147,6 +147,29 @@ class NomCard extends StatelessWidget {
                     )
                   ],)
                 ),
+              Container(
+                  child : Row (children: [
+                    Container(
+                      child: const Text('Role : ',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontStyle: FontStyle.normal,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        )
+                      )
+                    ),
+                    Container(
+                      child: const Text('Licorne',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 15,
+                        )
+                      )
+                    )
+                  ],)
+                ),
             ],
           ),
         )
