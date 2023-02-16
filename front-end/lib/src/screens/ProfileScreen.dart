@@ -16,18 +16,16 @@ class _ProfileScreen extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-          colorSchemeSeed: const Color.fromARGB(255,204,214, 166), useMaterial3: true),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Bonjour Jade !',
             style: TextStyle(
-              
               fontStyle: FontStyle.normal,
               fontWeight: FontWeight.bold,
               fontSize: 25,
             )
-          )
+          ),
+          backgroundColor: const Color.fromARGB(255,131,189,117),
         ),
         body: Column(
           children: const <Widget>[
@@ -48,9 +46,15 @@ class NomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+        margin: const EdgeInsets.only(left: 20.0, right: 20.0, top : 20),
         elevation: 0,
-        color: Theme.of(context).colorScheme.surfaceVariant,
+        color: const Color.fromARGB(100, 233,239, 192),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+          side: const BorderSide(
+            color: const Color.fromARGB(255, 233,239, 192),
+          )
+        ),
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(
@@ -180,13 +184,18 @@ class NomCard extends StatelessWidget {
 
 class AdressCard extends StatelessWidget {
   const AdressCard({super.key});
-
   @override
     Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20),
       elevation: 0,
-      color: Theme.of(context).colorScheme.surfaceVariant,
+      color: const Color.fromARGB(100, 233,239, 192),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5),
+        side: const BorderSide(
+          color: const Color.fromARGB(255, 233,239, 192),
+        )
+      ),
       child: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -248,7 +257,13 @@ class ButtonCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20),
       elevation: 0,
-      color: Theme.of(context).colorScheme.surfaceVariant,
+      color: const Color.fromARGB(100, 233,239, 192),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5),
+        side: const BorderSide(
+          color: Color.fromARGB(255, 233,239, 192),
+        )
+      ),
       child: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -259,18 +274,43 @@ class ButtonCard extends StatelessWidget {
                 Container(
                   child: OutlinedButton(
                     onPressed: () {
-                      debugPrint('Received click');
+                      context.go('/modify/profile');
                     },
-                    child: const Text('Modifier le Profil'),
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        side: BorderSide(color: Colors.black)
+                      )
+                    ),
+                    child: const Text('Modifier le Profil',
+                      style: TextStyle(
+                        fontStyle: FontStyle.normal,
+                        fontSize: 15,
+                        color: Colors.black
+                      )
+                    ),
                   )
-                ),
+                ), 
                 Spacer(),
                 Container(
                   child: OutlinedButton(
                     onPressed: () {
-                      debugPrint('Received click');
+                      context.go("/my_plantes");
                     },
-                    child: const Text('Voir mes plantes'),
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        side: BorderSide(color: Colors.black)
+                      )
+                    ),
+                    child: const Text('Voir mes plantes',
+                      style: TextStyle(
+                        fontStyle: FontStyle.normal,
+                        fontSize: 15,
+                        color: Colors.black
+                      )
+                    ),
+                    
                   )
                 ),
                 Spacer(),

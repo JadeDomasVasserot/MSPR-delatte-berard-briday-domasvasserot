@@ -5,6 +5,11 @@ import 'package:arosaje/src/screens/HomeScreen.dart';
 import 'package:arosaje/src/screens/LoginScreen.dart';
 import 'package:arosaje/src/screens/MapScreen.dart';
 import 'package:arosaje/src/screens/ProfileScreen.dart';
+import 'package:arosaje/src/screens/MyPlantesScreen.dart';
+import 'package:arosaje/src/screens/MyPlanteScreen.dart';
+import 'package:arosaje/src/screens/PlanteScreen.dart';
+import 'package:arosaje/src/screens/ModifyPlanteScreen.dart';
+import 'package:arosaje/src/screens/ModifyProfileScreen.dart';
 import 'package:arosaje/src/screens/SignUpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -49,8 +54,28 @@ final GoRouter _router = GoRouter(
     ),
     GoRoute(
       path: "/profile",
-      builder: (context, state) => const ProfileScreen()),
-
+      builder: (context, state) => const ProfileScreen()
+    ),
+    GoRoute(
+      path: "/my_plantes",
+      builder: (context, state) => const MyPlantesScreen()
+    ),
+    GoRoute(
+      path: "/my_plante",
+      builder: (context, state) => const MyPlanteScreen()
+    ),
+    GoRoute(
+      path: "/plante",
+      builder: (context, state) => const PlanteScreen()
+    ),
+    GoRoute(
+      path: "/modify/plante",
+      builder: (context, state) => const ModifyPlanteScreen()
+    ),
+    GoRoute(
+      path: "/modify/profile",
+      builder: (context, state) => const ModifyProfileScreen()
+    )
   ],
 );
 

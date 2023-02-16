@@ -24,7 +24,7 @@ class _HomeScreen extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [BackButton(onPressed: () => "/", color: Colors.white)],
-        backgroundColor: Colors.green,
+        backgroundColor: const Color.fromARGB(255,131,189,117),
         title: const Text('Les plantes à garder',
             style: TextStyle(
               fontStyle: FontStyle.normal,
@@ -45,8 +45,10 @@ class _HomeScreen extends State<HomeScreen> {
                   Container(
                     child: Container(
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255,204,214, 166),
-                        border: Border.all(),
+                        color:  const Color.fromARGB(100, 233,239, 192),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 233,239, 192),
+                        ),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(5.0),
                         ),
@@ -54,7 +56,9 @@ class _HomeScreen extends State<HomeScreen> {
                       padding: const EdgeInsets.all(8),
                       margin: const EdgeInsets.all(10),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.go("/plante");
+                        },
                         child: Column(
                           children: [
                             Container(
@@ -153,8 +157,10 @@ class _HomeScreen extends State<HomeScreen> {
                   Container(
                     child: Container(
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255,204,214, 166),
-                        border: Border.all(),
+                        color:  const Color.fromARGB(100, 233,239, 192),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 233,239, 192),
+                        ),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(5.0),
                         ),
@@ -162,7 +168,9 @@ class _HomeScreen extends State<HomeScreen> {
                       padding: const EdgeInsets.all(8),
                       margin: const EdgeInsets.all(10),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.go("/plante");
+                        },
                         child: Column(
                           children: [
                             Container(
@@ -261,8 +269,10 @@ class _HomeScreen extends State<HomeScreen> {
                   Container(
                     child: Container(
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255,204,214, 166),
-                        border: Border.all(),
+                        color:  const Color.fromARGB(100, 233,239, 192),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 233,239, 192),
+                        ),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(5.0),
                         ),
@@ -270,115 +280,9 @@ class _HomeScreen extends State<HomeScreen> {
                       padding: const EdgeInsets.all(8),
                       margin: const EdgeInsets.all(10),
                       child: TextButton(
-                        onPressed: () {},
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(bottom : 4),
-                              child: const Text('Ma petite plante',
-                                style: TextStyle(
-                                  fontStyle: FontStyle.normal,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.black
-                                )
-                              )
-                            ),
-                            Container(
-                              child: Expanded(
-                                child :Image.network('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg')
-                              )
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top : 4),
-                              padding: const EdgeInsets.only(top : 2),
-                              decoration: const BoxDecoration(
-                                border: Border(
-                                  top : BorderSide()
-                                )
-                              ),
-                              child : Row (children: [
-                                Container(
-                                  child: const Text('Du : ',
-                                    style: TextStyle(
-                                      fontStyle: FontStyle.normal,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                      color: Colors.black
-                                    )
-                                  )
-                                ),
-                                Container(
-                                  child: const Text('25/02',
-                                    style: TextStyle(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 15,
-                                      color: Colors.black
-                                    )
-                                  )
-                                ),
-                                Container(
-                                  child: const Text(' au ',
-                                    style: TextStyle(
-                                      fontStyle: FontStyle.normal,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                      color: Colors.black
-                                    )
-                                  )
-                                ),
-                                Container(
-                                  child: const Text('01/03',
-                                    style: TextStyle(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 15,
-                                      color: Colors.black
-                                    )
-                                  )
-                                )
-                              ],)
-                            ),
-                            Container(
-                              child : Row (children: [
-                                Container(
-                                  child: const Text('A : ',
-                                    style: TextStyle(
-                                      fontStyle: FontStyle.normal,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                      color: Colors.black
-                                    )
-                                  )
-                                ),
-                                Container(
-                                  child: const Text('Lyon, 69009',
-                                    style: TextStyle(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 15,
-                                      color: Colors.black
-                                    )
-                                  )
-                                ),
-                              ],)
-                            ),
-                          ]
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255,204,214, 166),
-                        border: Border.all(),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(5.0),
-                        ),
-                      ),
-                      padding: const EdgeInsets.all(8),
-                      margin: const EdgeInsets.all(10),
-                      child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.go("/plante");
+                        },
                         child: Column(
                           children: [
                             Container(
