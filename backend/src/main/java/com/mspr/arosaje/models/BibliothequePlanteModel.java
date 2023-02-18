@@ -20,11 +20,11 @@ public class BibliothequePlanteModel {
     @Basic
     @Column(name = "nom")
     private String nom;
+    @Column(name = "description")
+    private String description;
     @ManyToOne
     @JoinColumn(name = "type_plante", referencedColumnName = "id", nullable = false)
     private TypePlanteModel typePlante;
-    @ManyToOne
-    @JoinColumn(name = "guide_plante", referencedColumnName = "id", nullable = false)
-    private GuidePlanteModel guidePlante;
+
 
 }

@@ -1,6 +1,7 @@
 package com.mspr.arosaje.controllers;
 
 import com.mspr.arosaje.models.BibliothequePlanteModel;
+import com.mspr.arosaje.models.TypePlanteModel;
 import com.mspr.arosaje.repositories.BibliothequePlanteRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = {"http://127.0.0.1:8081", "http://127.0.0.1:3000"})
 @RequestMapping("/bibliotheque-plante")
 @Tag(name = "Bibliothèque Plante")
 @RestController
@@ -63,15 +64,11 @@ public class BibliothequePlanteController {
     }
 
     @Operation(summary = "modifie une plante dans la bibliothèque")
-    @PutMapping("/update/{id}")
-    public ResponseEntity<BibliothequePlanteModel> updateBibliothequePlante(@PathVariable("id") int id, @RequestBody BibliothequePlanteModel bibliothequePlante) {
-        Optional<BibliothequePlanteModel> bibliothequePlanteData = bibliothequePlanteRepository.findById(id);
+    @PutMapping("/update")
+    public ResponseEntity<BibliothequePlanteModel> updateBibliothequePlante(@RequestBody BibliothequePlanteModel bibliothequePlante) {
 
-        if (bibliothequePlanteData.isPresent()) {
-            BibliothequePlanteModel _bibliothequePlante = bibliothequePlanteData.get();
-            _bibliothequePlante.setNom(bibliothequePlante.getNom());
-           // a faire pour tous les attributs
-            return new ResponseEntity<>(bibliothequePlanteRepository.save(_bibliothequePlante), HttpStatus.OK);
+        if (bibliothequePlante != null) {
+            return new ResponseEntity<>(bibliothequePlanteRepository.save(bibliothequePlante), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -99,5 +96,34 @@ public class BibliothequePlanteController {
         }
 
     }
+    @Operation(summary = "récupère toutes les plantes de la bibliothèque selon un type")
+    @GetMapping("/all/byType/{idTypePlante}")
+    public ResponseEntity<List<BibliothequePlanteModel>> findByTypePlante_IdOrderByNomAsc(@PathVariable("idTypePlante") int typePlanteModel) {
+        try {
+            List<BibliothequePlanteModel> bibliothequePlantes = this.bibliothequePlanteRepository.findByTypePlante_IdOrderByNomAsc(typePlanteModel);
+            if (bibliothequePlantes.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(bibliothequePlantes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+    @Operation(summary = "récupère toutes les plantes de la bibliothèque selon le nom (utile pour la recherche)")
+    @GetMapping("/all/byNom/{nomPlante}")
+    public ResponseEntity<List<BibliothequePlanteModel>> findByNomStartsWithOrderByNomAsc(@PathVariable("nomPlante") String nomPlante) {
+        try {
+            List<BibliothequePlanteModel> bibliothequePlantes = this.bibliothequePlanteRepository.findByNomStartsWithOrderByNomAsc(nomPlante);
+            if (bibliothequePlantes.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(bibliothequePlantes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
 
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = {"http://127.0.0.1:8081", "http://127.0.0.1:3000"})
 @RequestMapping("/personne")
 @RestController
 @Tag(name = "Personne ")
@@ -63,16 +63,11 @@ public class PersonneController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
     @Operation(summary = "modifie un utilisateur")
-    public ResponseEntity<PersonneModel> updatePersonne(@PathVariable("id") int id, @RequestBody PersonneModel personne) {
-        Optional<PersonneModel> personneData = personneRepository.findById(id);
-
-        if (personneData.isPresent()) {
-            PersonneModel _personne = personneData.get();
-            _personne.setNom(personne.getNom());
-           // a faire pour tous les attributs
-            return new ResponseEntity<>(personneRepository.save(_personne), HttpStatus.OK);
+    public ResponseEntity<PersonneModel> updatePersonne(@RequestBody PersonneModel personne) {
+        if (personne != null) {
+            return new ResponseEntity<>(personneRepository.save(personne), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

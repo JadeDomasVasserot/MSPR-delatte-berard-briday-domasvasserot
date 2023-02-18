@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = {"http://127.0.0.1:8081", "http://127.0.0.1:3000"})
 @RequestMapping("/role")
 @RestController
 @Tag(name = "Role")
@@ -63,16 +63,11 @@ public class RoleController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
     @Operation(summary = "modifie un role")
-    public ResponseEntity<RoleModel> updateRole(@PathVariable("id") int id, @RequestBody RoleModel role) {
-        Optional<RoleModel> roleData = roleRepository.findById(id);
-
-        if (roleData.isPresent()) {
-            RoleModel _role = roleData.get();
-            _role.setId(role.getId());
-           // a faire pour tous les attributs
-            return new ResponseEntity<>(roleRepository.save(_role), HttpStatus.OK);
+    public ResponseEntity<RoleModel> updateRole(@RequestBody RoleModel role) {
+        if (role != null) {
+            return new ResponseEntity<>(roleRepository.save(role), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

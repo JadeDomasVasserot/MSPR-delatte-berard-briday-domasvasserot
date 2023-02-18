@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = {"http://127.0.0.1:8081", "http://127.0.0.1:3000"})
 @RequestMapping("/guide-plante")
 @RestController
 @Tag(name = "Guide Plante")
@@ -63,16 +63,11 @@ public class GuidePlanteController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
     @Operation(summary = "modifie un guide de plante")
-    public ResponseEntity<GuidePlanteModel> updateGuidePlante(@PathVariable("id") int id, @RequestBody GuidePlanteModel guidePlante) {
-        Optional<GuidePlanteModel> guidePlanteData = guidePlanteRepository.findById(id);
-
-        if (guidePlanteData.isPresent()) {
-            GuidePlanteModel _guidePlante = guidePlanteData.get();
-            _guidePlante.setTitre(guidePlante.getTitre());
-           // a faire pour tous les attributs
-            return new ResponseEntity<>(guidePlanteRepository.save(_guidePlante), HttpStatus.OK);
+    public ResponseEntity<GuidePlanteModel> updateGuidePlante(@RequestBody GuidePlanteModel guidePlante) {
+        if (guidePlante != null) {
+            return new ResponseEntity<>(guidePlanteRepository.save(guidePlante), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -100,5 +95,18 @@ public class GuidePlanteController {
         }
 
     }
+    @GetMapping("/all/byPlante/{id}")
+    @Operation(summary = "récupère tous les guides d'une plante")
+    public ResponseEntity<List<GuidePlanteModel>> findByBibliothequePlante_IdOrderByTypeGuide_NomAsc(@PathVariable("id") int planteId) {
+        try {
+            List<GuidePlanteModel> guidePlantes = this.guidePlanteRepository.findByBibliothequePlante_IdOrderByTypeGuide_NomAsc(planteId);
+            if (guidePlantes.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(guidePlantes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
+    }
 }

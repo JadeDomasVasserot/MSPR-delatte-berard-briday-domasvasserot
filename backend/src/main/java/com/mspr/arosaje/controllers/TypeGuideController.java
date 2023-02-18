@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = {"http://127.0.0.1:8081", "http://127.0.0.1:3000"})
 @RequestMapping("/type-guide")
 @RestController
 @Tag(name = "Type Guide")
@@ -62,16 +62,11 @@ public class TypeGuideController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
     @Operation(summary = "modifie un type guide de plante")
-    public ResponseEntity<TypeGuideModel> updateTypeGuide(@PathVariable("id") int id, @RequestBody TypeGuideModel typeGuide) {
-        Optional<TypeGuideModel> typeGuideData = typeGuideRepository.findById(id);
-
-        if (typeGuideData.isPresent()) {
-            TypeGuideModel _typeGuide = typeGuideData.get();
-            _typeGuide.setId(typeGuide.getId());
-           // a faire pour tous les attributs
-            return new ResponseEntity<>(typeGuideRepository.save(_typeGuide), HttpStatus.OK);
+    public ResponseEntity<TypeGuideModel> updateTypeGuide(@RequestBody TypeGuideModel typeGuide) {
+        if (typeGuide != null) {
+            return new ResponseEntity<>(typeGuideRepository.save(typeGuide), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

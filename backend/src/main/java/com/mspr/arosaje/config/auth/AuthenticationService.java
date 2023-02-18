@@ -50,6 +50,10 @@ public class AuthenticationService {
                 .prenom(request.getFirstname())
                 .email(request.getEmail())
                 .mdp(passwordEncoder.encode(request.getPassword()))
+                .cp(request.getCp())
+                .ville((request.getVille()))
+                .adresse(request.getAdresse())
+                .role(roleRepository.findById(1).get())
                 .build();
         personneRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -65,13 +69,14 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        PersonneModel user = personneRepository.findByEmail(request.getEmail())
+        PersonneModel user = personneRepository.getByEmail(request.getEmail())
                 .orElseThrow();
         if (new BCryptPasswordEncoder().matches(request.getPassword(), user.getMdp()) && user.isEnabled()) {
             jwtToken = jwtService.generateToken(user);
             currentUser = user;
             return AuthenticationResponse.builder()
                     .token(jwtToken)
+                    .idUser(currentUser.getId())
                     .build();
         }
         return null;

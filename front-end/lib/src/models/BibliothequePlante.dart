@@ -6,14 +6,14 @@ import 'TypePlante.dart';
 class BibliothequePlante {
   final int id;
   final String nom;
-  final GuidePlante guidePlante;
+  final String description;
   final TypePlante typePlante;
 
 
   const BibliothequePlante({
     required this.id,
     required this.nom,
-    required this.guidePlante,
+    required this.description,
     required this.typePlante
   });
 
@@ -48,7 +48,7 @@ class BibliothequePlante {
     return BibliothequePlante(
       id: json['id'],
       nom: json['nom'],
-      guidePlante: GuidePlante.fromJson(json['guidePlante']),
+      description: json['description'],
       typePlante: TypePlante.fromJson(json['typePlante'])
     );
   }

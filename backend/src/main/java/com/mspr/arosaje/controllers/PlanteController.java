@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@CrossOrigin(origins = {"http://localhost:8081"})
+@CrossOrigin(origins = {"http://127.0.0.1:8081", "http://127.0.0.1:3000"})
 @RequestMapping("/plante")
 @RestController
 @Tag(name = "Plante")
@@ -59,20 +59,6 @@ public class PlanteController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("/name/{namePlante}")
-    @Operation(summary = "récupère une plante selon nom")
-    public ResponseEntity<Optional<PlanteModel>> getPlanteById(@PathVariable("namePlante") String namePlante) {
-        try {
-            Optional<PlanteModel> planteModel = this.planteRepository.getPlanteByName(namePlante);
-            if (planteModel.isPresent()) {
-                return new ResponseEntity<>(planteModel, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
     @PostMapping("/add")
     @Operation(summary = "ajoute une plante")
@@ -87,16 +73,11 @@ public class PlanteController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
     @Operation(summary = "modifie une plante")
-    public ResponseEntity<PlanteModel> updatePlante(@PathVariable("id") int id, @RequestBody PlanteModel plante) {
-        Optional<PlanteModel> planteData = planteRepository.findById(id);
-
-        if (planteData.isPresent()) {
-            PlanteModel _plante = planteData.get();
-            _plante.setNom(plante.getNom());
-           // a faire pour tous les attributs
-            return new ResponseEntity<>(planteRepository.save(_plante), HttpStatus.OK);
+    public ResponseEntity<PlanteModel> updatePlante(@RequestBody PlanteModel plante) {
+        if (plante != null) {
+            return new ResponseEntity<>(planteRepository.save(plante), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -150,5 +131,43 @@ public class PlanteController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @GetMapping("/a-garder/byNom/{nom}")
+    @Operation(summary = "récupère toutes les plantes à garder par nom")
+    public ResponseEntity<List<PlanteModel>> findByStatut_IdAndBibliothequePlante_NomStartsWithOrderByBibliothequePlante_NomAsc(@PathVariable("nom") String nom) {
+        try {
+            List<PlanteModel> plantes = this.planteRepository.findByStatut_IdAndBibliothequePlante_NomStartsWithOrderByBibliothequePlante_NomAsc(2, nom);
+            if (plantes.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(plantes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/a-garder/byTypePlante/{type}")
+    @Operation(summary = "récupère toutes les plantes à garder par type")
+    public ResponseEntity<List<PlanteModel>> findByBibliothequePlante_TypePlante_IdAndStatut_IdOrderByBibliothequePlante_NomAsc(@PathVariable("type") int type) {
+        try {
+            List<PlanteModel> plantes = this.planteRepository.findByBibliothequePlante_TypePlante_IdAndStatut_IdOrderByBibliothequePlante_NomAsc(2,type);
+            if (plantes.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(plantes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/a-garder/byVille/{ville}")
+    @Operation(summary = "récupère toutes les plantes à garder par ville")
+    public ResponseEntity<List<PlanteModel>> findByStatut_IdAndProprietaire_VilleStartsWithOrderByBibliothequePlante_NomAsc(@PathVariable("ville") String ville) {
+        try {
+            List<PlanteModel> plantes = this.planteRepository.findByStatut_IdAndProprietaire_VilleStartsWithOrderByBibliothequePlante_NomAsc(2, ville);
+            if (plantes.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(plantes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

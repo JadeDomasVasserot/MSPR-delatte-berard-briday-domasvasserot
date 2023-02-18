@@ -12,7 +12,6 @@ import 'PhotoPlante.dart';
 
 class Plante {
   final int id;
-  final String nom;
   final String localisation;
   final BibliothequePlante bibliothequePlante;
   final Personne proprietaire;
@@ -20,7 +19,6 @@ class Plante {
 
   const Plante({
     required this.id,
-    required this.nom,
     required this.localisation,
     required this.bibliothequePlante,
     required this.proprietaire,
@@ -38,7 +36,7 @@ class Plante {
           children: <Widget> [
            // Image.network(photo.),
             ListTile(
-              title: Text(plantes[i].nom),
+              title: Text(plantes[i].bibliothequePlante.nom),
               subtitle: Text(plantes[i].bibliothequePlante.typePlante.description),
             ),
           ]
@@ -59,7 +57,6 @@ class Plante {
   factory Plante.fromJson(Map<String, dynamic> json) {
     return Plante(
       id: json['id'],
-      nom: json['nom'],
       localisation: json['localisation'],
       bibliothequePlante:  BibliothequePlante.fromJson(json['bibliothequePlante']),
       proprietaire: Personne.fromJson(json['proprietaire']),

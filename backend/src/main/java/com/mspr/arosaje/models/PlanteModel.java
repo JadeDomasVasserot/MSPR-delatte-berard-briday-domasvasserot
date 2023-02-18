@@ -18,9 +18,6 @@ public class PlanteModel {
     @Column(name = "id")
     private int id;
     @Basic
-    @Column(name = "nom")
-    private String nom;
-    @Basic
     @Column(name = "localisation")
     private String localisation;
     @ManyToOne

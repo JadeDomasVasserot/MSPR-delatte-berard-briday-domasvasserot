@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface PhotoPlanteRepository extends JpaRepository<PhotoPlanteModel, Integer> {
     List<PhotoPlanteModel> findByPlante_Id(int id);
 
-    Optional<PhotoPlanteModel> findFirstByPlante_IdOrderByIdDesc(@NonNull int id);
+    Optional<PhotoPlanteModel> findFirstByPlante_IdOrderByIdDesc(int id);
 
 }
