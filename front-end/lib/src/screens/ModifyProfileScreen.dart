@@ -27,7 +27,7 @@ class _ModifyProfileScreen extends State<ModifyProfileScreen> {
           )
         ],
         backgroundColor: const Color.fromARGB(255,131,189,117),
-        title: const Text('Modifier mon profile',
+        title: const Text('Modifier mon profile :',
             style: TextStyle(
               fontStyle: FontStyle.normal,
               fontWeight: FontWeight.bold,
@@ -35,8 +35,7 @@ class _ModifyProfileScreen extends State<ModifyProfileScreen> {
             )
           )
       ),
-      body: Center(
-        
+      body:SingleChildScrollView(
       ),
       bottomNavigationBar: const BottomBarComponent()
     );

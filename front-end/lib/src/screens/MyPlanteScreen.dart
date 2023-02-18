@@ -186,7 +186,7 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                   Container(
                     child: OutlinedButton(
                       onPressed: () {
-                        context.go("");
+                        context.go("/create/garde");
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(

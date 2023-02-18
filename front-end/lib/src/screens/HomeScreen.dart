@@ -22,22 +22,21 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [BackButton(onPressed: () => "/", color: Colors.white)],
+      appBar: AppBar( // Page en haut
         backgroundColor: const Color.fromARGB(255,131,189,117),
         title: const Text('Les plantes à garder',
-            style: TextStyle(
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.bold,
-              fontSize: 25,
-            )
+          style: TextStyle(
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
           )
+        )
       ),
-      body: Center(
-        child: CustomScrollView(
+      body: Center( // Contenue de notre page
+        child: CustomScrollView( // Pour pouvoir scroll
           primary: false,
           slivers: <Widget>[
-            SliverPadding(
+            SliverPadding( // Pour avoir un catalogue
               padding: const EdgeInsets.all(20),
               sliver: SliverGrid.count(
                 crossAxisCount: 2,

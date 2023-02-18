@@ -10,6 +10,7 @@ import 'package:arosaje/src/screens/MyPlanteScreen.dart';
 import 'package:arosaje/src/screens/PlanteScreen.dart';
 import 'package:arosaje/src/screens/ModifyPlanteScreen.dart';
 import 'package:arosaje/src/screens/ModifyProfileScreen.dart';
+import 'package:arosaje/src/screens/CreateGardeScreen.dart';
 import 'package:arosaje/src/screens/SignUpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -75,6 +76,10 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: "/modify/profile",
       builder: (context, state) => const ModifyProfileScreen()
+    ),
+    GoRoute(
+      path: "/create/garde",
+      builder: (context, state) => const CreateGardeScreen()
     )
   ],
 );
