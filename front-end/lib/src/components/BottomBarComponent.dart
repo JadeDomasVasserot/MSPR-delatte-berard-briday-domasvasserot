@@ -29,9 +29,8 @@ class _BottomBarComponent extends State<BottomBarComponent> {
         context.go('/garde');
         break;
       case 4:
-        context.go('/profile');
+        context.go('/my_plantes');
         break;
-
     }
   }
   @override
@@ -45,7 +44,6 @@ class _BottomBarComponent extends State<BottomBarComponent> {
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: "Accueil",
-
         ),
         BottomNavigationBarItem(
             icon: Icon(Icons.library_books),
@@ -57,7 +55,7 @@ class _BottomBarComponent extends State<BottomBarComponent> {
         ),
         BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: "Profile"
+            label: "Plantes"
         ),
       ],
       showUnselectedLabels: true,
@@ -65,7 +63,7 @@ class _BottomBarComponent extends State<BottomBarComponent> {
       selectedFontSize: 15,
       unselectedFontSize: 15,
       selectedItemColor: Colors.black38,
-      unselectedItemColor: Colors.green,
+      unselectedItemColor: const Color.fromARGB(255,131,189,117),
       elevation: 20,
       iconSize: 30,
       onTap: (index) => _tap(context, index),
