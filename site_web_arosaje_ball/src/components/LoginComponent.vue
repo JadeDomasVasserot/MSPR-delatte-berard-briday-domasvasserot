@@ -79,13 +79,12 @@ export default {
         {
           withCredentials: false,
           headers: {
-            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
           }
         }
       ) .then( response => {
         if(response.status === 200) {
-          this.$store.commit('setUser', response.data.user)
+          this.$store.commit('setUser', response.data.idUser)
           this.$store.commit('setToken', response.data.token)
           this.$router.push('/home')
         }

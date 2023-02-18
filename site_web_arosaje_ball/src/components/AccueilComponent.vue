@@ -92,7 +92,6 @@
 import NavBar from "@/layouts/navBar/NavBar.vue"
 import axios from "axios";
 import Plante from "@/models/Plante";
-import BibliothequePlante from "@/models/BibliothequePlante";
 import TypePlante from "@/models/TypePlante";
 import PhotoPlante from "@/models/PhotoPlante";
 export default {
@@ -137,7 +136,14 @@ export default {
       })
     },
     getTypePlante(){
-      axios.get("http://127.0.0.1:9000/type-plante/all")
+      axios.get("http://127.0.0.1:9000/type-plante/all",
+        {
+          withCredentials: false,
+          headers: {
+            'Authorization': 'Bearer ' + $store.state.token,
+            'Content-Type': 'application/json',
+          }
+        })
         .then( rep => {
           if (rep.data) {
             for (const repKey in rep.data) {
