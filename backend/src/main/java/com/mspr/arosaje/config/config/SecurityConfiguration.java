@@ -56,22 +56,8 @@ public class SecurityConfiguration {
                 .and()
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**", "/swagger-ui/**", "/swagger/**", "/api-docs/**", "/error")
-                .permitAll()
                 .anyRequest()
-                .hasAnyAuthority(
-                        "Utilisateur",
-                        "Botaniste",
-                        "Administrateur",
-                        "Modérateur",
-                        "Visiteur"
-                )
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .permitAll();
         return http.build();
 
     }

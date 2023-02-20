@@ -15,239 +15,233 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreen extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Bonjour Jade !',
-            style: TextStyle(
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.bold,
-              fontSize: 25,
-            )
-          ),
-          backgroundColor: const Color.fromARGB(255,131,189,117),
-        ),
-        body: Column(
-          children: const <Widget>[
-            NomCard(),
-            AdressCard(),
-            ButtonCard(),
-          ],
-        ),
-        bottomNavigationBar: const BottomBarComponent()
-      )  
-    );
-  }
-}
-
-class NomCard extends StatelessWidget {
-  const NomCard({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Card(
-        margin: const EdgeInsets.only(left: 20.0, right: 20.0, top : 20),
-        elevation: 0,
-        color: const Color.fromARGB(100, 233,239, 192),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
-          side: const BorderSide(
-            color: const Color.fromARGB(255, 233,239, 192),
-          )
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Container(
-                  child : Row (children: [
-                    Container(
-                      child: const Text('Nom : ',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        )
-                      )
-                    ),
-                    Container(
-                      child: const Text('Domas-Vasserot',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 15,
-                        )
-                      )
-                    )
-                  ],)
-                ),
-              Container(
-                  child : Row (children: [
-                    Container(
-                      child: const Text('Prénom : ',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        )
-                      )
-                    ),
-                    Container(
-                      child: const Text('Jade',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 15,
-                        )
-                      )
-                    )
-                  ],)
-                ),
-              Container(
-                  child : Row (children: [
-                    Container(
-                      child: const Text('E-mail : ',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        )
-                      )
-                    ),
-                    Container(
-                      child: const Text('jade@epsi.fr',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 15,
-                        )
-                      )
-                    )
-                  ],)
-                ),
-              Container(
-                  child : Row (children: [
-                    Container(
-                      child: const Text('Nombre de garde : ',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        )
-                      )
-                    ),
-                    Container(
-                      child: const Text('14',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 15,
-                        )
-                      )
-                    )
-                  ],)
-                ),
-              Container(
-                  child : Row (children: [
-                    Container(
-                      child: const Text('Role : ',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        )
-                      )
-                    ),
-                    Container(
-                      child: const Text('Licorne',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 15,
-                        )
-                      )
-                    )
-                  ],)
-                ),
-            ],
-          ),
-        )
-      )
-    );
-  }
-}
-
-class AdressCard extends StatelessWidget {
-  const AdressCard({super.key});
-  @override
-    Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20),
-      elevation: 0,
-      color: const Color.fromARGB(100, 233,239, 192),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5),
-        side: const BorderSide(
-          color: const Color.fromARGB(255, 233,239, 192),
-        )
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Container(
-              child : Row (children: [
-                Container(
-                  child: const Text('Adresse : ',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    )
-                  )
-                ),
-              ])
-            ),
-            Container(
-              child : Row (children: [
-                Container(
-                  child: const Text('XXX rue des je sais pas quoi ',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      
-                      fontStyle: FontStyle.normal,
-                      fontSize: 15,
-                    )
-                  )
+    return FutureBuilder<Personne>(
+      future: getUser(1),
+      builder: (BuildContext context, AsyncSnapshot<Personne> snapshot) {
+        if (snapshot.hasData) {
+          final Personne personnes = snapshot.data! ;
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Bonjour ${personnes.prenom} !',
+                style: const TextStyle(
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
                 )
-              ])
+              ),
+              backgroundColor: const Color.fromARGB(255,131,189,117),
             ),
-            Container(
-              child : Row (children: [
-                Container(
-                  child: const Text('69009, Lyon ',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      
-                      fontStyle: FontStyle.normal,
-                      fontSize: 15,
+            body: Column(
+              children: <Widget>[
+                Center(
+                  child: Card(
+                    margin: const EdgeInsets.only(left: 20.0, right: 20.0, top : 20),
+                    elevation: 0,
+                    color: const Color.fromARGB(100, 233,239, 192),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      side: const BorderSide(
+                        color: const Color.fromARGB(255, 233,239, 192),
+                      )
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          Container(
+                              child : Row (children: [
+                                Container(
+                                  child: const Text('Nom : ',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontStyle: FontStyle.normal,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    )
+                                  )
+                                ),
+                                Container(
+                                  child: Text('${personnes.nom}',
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 15,
+                                    )
+                                  )
+                                )
+                              ],)
+                            ),
+                          Container(
+                              child : Row (children: [
+                                Container(
+                                  child: const Text('Prénom : ',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontStyle: FontStyle.normal,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    )
+                                  )
+                                ),
+                                Container(
+                                  child: Text('${personnes.prenom}',
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 15,
+                                    )
+                                  )
+                                )
+                              ],)
+                            ),
+                          Container(
+                              child : Row (children: [
+                                Container(
+                                  child: const Text('E-mail : ',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontStyle: FontStyle.normal,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    )
+                                  )
+                                ),
+                                Container(
+                                  child: Text('${personnes.email}',
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 15,
+                                    )
+                                  )
+                                )
+                              ],)
+                            ),
+                          Container(
+                              child : Row (children: [
+                                Container(
+                                  child: const Text('Nombre de garde : ',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontStyle: FontStyle.normal,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    )
+                                  )
+                                ),
+                                Container(
+                                  child: const Text('??',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 15,
+                                    )
+                                  )
+                                )
+                              ],)
+                            ),
+                          Container(
+                              child : Row (children: [
+                                Container(
+                                  child: const Text('Role : ',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontStyle: FontStyle.normal,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    )
+                                  )
+                                ),
+                                Container(
+                                  child: Text('${personnes.role.nom}',
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 15,
+                                    )
+                                  )
+                                )
+                              ],)
+                            ),
+                        ],
+                      ),
                     )
                   )
                 ),
-              ])
-            )
-          ],
-        ),
-      )
+                Card(
+                  margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20),
+                  elevation: 0,
+                  color: const Color.fromARGB(100, 233,239, 192),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    side: const BorderSide(
+                      color: const Color.fromARGB(255, 233,239, 192),
+                    )
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          child : Row (children: [
+                            Container(
+                              child: const Text('Adresse : ',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontStyle: FontStyle.normal,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                )
+                              )
+                            ),
+                          ])
+                        ),
+                        Container(
+                          child : Row (children: [
+                            Container(
+                              child: Text('${personnes.adresse}',
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 15,
+                                )
+                              )
+                            )
+                          ])
+                        ),
+                        Container(
+                          child : Row (children: [
+                            Container(
+                              child: Text('${personnes.cp}, ${personnes.ville} ',
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 15,
+                                )
+                              )
+                            ),
+                          ])
+                        )
+                      ],
+                    ),
+                  )
+                ),
+                ButtonCard(),
+              ],
+            ),
+            bottomNavigationBar: const BottomBarComponent()
+          );
+        } else if (snapshot.hasError) {
+          return Text("Une erreur s'est produite : ${snapshot.error}");
+        } else {
+          return CircularProgressIndicator();
+        } 
+      }
     );
   }
 }
+
+
 
 class ButtonCard extends StatelessWidget {
   const ButtonCard({super.key});

@@ -164,9 +164,27 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                   Spacer(),
                   Container(
                     child: OutlinedButton(
-                      onPressed: () {
-                        context.go("");
-                      },
+                      onPressed: () => showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Supprimer ma plante'),
+                          content: const Text('Voulez vous supprimer cette plante ? '),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                context.go("/my_plantes");
+                              },
+                              child: const Text('OUI'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                context.go("/");
+                              },
+                              child: const Text('NON'),
+                            )
+                          ]
+                        )
+                      ),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),

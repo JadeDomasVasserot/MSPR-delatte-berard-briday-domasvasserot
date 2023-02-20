@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 Future<List<PhotoPlante>> getAllPhotoPlanteOfPlante(int planteId) async {
   final response = await http
       .get(
-      Uri.parse('http://10.0.2.2:9000/photo-plante/all/idPlante/$planteId'));
+      Uri.parse('http://127.0.0.1:9000/photo-plante/all/idPlante/$planteId'));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -20,7 +20,7 @@ Future<List<PhotoPlante>> getAllPhotoPlanteOfPlante(int planteId) async {
 }
   Future<PhotoPlante> getUrlOfPhotoPlante(int planteId) async {
     final response = await http
-        .get(Uri.parse('http://10.0.2.2:9000/photo-plante/one/idPlante/$planteId'));
+        .get(Uri.parse('http://127.0.0.1:9000/photo-plante/one/idPlante/$planteId'));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.;

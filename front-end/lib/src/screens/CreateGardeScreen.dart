@@ -116,15 +116,28 @@ class _CreateGardeScreen extends State<CreateGardeScreen> {
               ),
               Container(
                 child: OutlinedButton(
-                  onPressed: () {
-                    context.go('');
-                  },
+                  onPressed: () => showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Garde ajouté'),
+                      content: const Text('Votre garde à bien été ajouté'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            context.go("/my_plante");
+                          },
+                          child: const Text('OK'),
+                        )
+                      ]
+                    )
+                  ),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                       side: BorderSide(color: Colors.black)
                     )
                   ),
+                  
                   child: const Text('Valider',
                     style: TextStyle(
                       fontStyle: FontStyle.normal,
