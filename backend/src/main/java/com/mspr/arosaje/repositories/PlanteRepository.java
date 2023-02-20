@@ -18,7 +18,8 @@ public interface PlanteRepository extends JpaRepository<PlanteModel, Integer> {
             "WHERE p.proprietaire.id = ?1 ")
     List<PlanteModel> getAllPlantesByIdUser(int idUser);
 
-
+    List<PlanteModel> findByProprietaire_IdAndBibliothequePlante_TypePlante_IdOrderByBibliothequePlante_NomAsc(int id, int id1);
+    
     List<PlanteModel> findByBibliothequePlante_TypePlante_IdAndStatut_IdOrderByBibliothequePlante_NomAsc(@NonNull int id, @NonNull int id1);
 
     List<PlanteModel> findByStatut_IdAndBibliothequePlante_NomStartsWithOrderByBibliothequePlante_NomAsc(@NonNull int id, String nom);

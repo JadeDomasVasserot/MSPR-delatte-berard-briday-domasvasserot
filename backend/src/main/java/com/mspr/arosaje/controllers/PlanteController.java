@@ -148,7 +148,7 @@ public class PlanteController {
     @Operation(summary = "récupère toutes les plantes à garder par type")
     public ResponseEntity<List<PlanteModel>> findByBibliothequePlante_TypePlante_IdAndStatut_IdOrderByBibliothequePlante_NomAsc(@PathVariable("type") int type) {
         try {
-            List<PlanteModel> plantes = this.planteRepository.findByBibliothequePlante_TypePlante_IdAndStatut_IdOrderByBibliothequePlante_NomAsc(2,type);
+            List<PlanteModel> plantes = this.planteRepository.findByBibliothequePlante_TypePlante_IdAndStatut_IdOrderByBibliothequePlante_NomAsc(type, 2);
             if (plantes.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
@@ -157,6 +157,20 @@ public class PlanteController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/byUser/{user}/byTypePlante/{type}")
+    @Operation(summary = "récupère toutes les plantes d'un utilisateur par type")
+    public ResponseEntity<List<PlanteModel>> findByProprietaire_IdAndBibliothequePlante_TypePlante_IdOrderByBibliothequePlante_NomAsc(@PathVariable("type") int type, @PathVariable("user") int user) {
+        try {
+            List<PlanteModel> plantes = this.planteRepository.findByProprietaire_IdAndBibliothequePlante_TypePlante_IdOrderByBibliothequePlante_NomAsc(user, type );
+            if (plantes.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(plantes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/a-garder/byVille/{ville}")
     @Operation(summary = "récupère toutes les plantes à garder par ville")
     public ResponseEntity<List<PlanteModel>> findByStatut_IdAndProprietaire_VilleStartsWithOrderByBibliothequePlante_NomAsc(@PathVariable("ville") String ville) {

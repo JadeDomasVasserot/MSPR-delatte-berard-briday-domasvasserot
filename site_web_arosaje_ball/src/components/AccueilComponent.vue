@@ -97,6 +97,7 @@ import PhotoPlante from "@/models/PhotoPlante";
 export default {
   beforeMount() {
     this.getPlantes();
+    this.getTypePlante();
   },
   components: {NavBar},
   data () {
@@ -111,13 +112,26 @@ export default {
   },
   methods:{
     getPlantes(){
-
-      axios.get("http://127.0.0.1:9000/plante/a-garder/all")
+      axios.get("http://127.0.0.1:9000/plante/a-garder/all",
+        {
+          withCredentials: false,
+          headers: {
+            'Authorization': 'Bearer ' +this.$store.state.token,
+            'Content-Type': 'application/json',
+          }
+        })
         .then( rep => {
           if (rep.data) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`).then(
+              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+                {
+                  withCredentials: false,
+                  headers: {
+                    'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
+                  }
+                }).then(
                 photo => {
                   if (photo.data) {
                     this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, rep.data[repKey].statut, photo.data.photo))
@@ -140,7 +154,7 @@ export default {
         {
           withCredentials: false,
           headers: {
-            'Authorization': 'Bearer ' + $store.state.token,
+            'Authorization': 'Bearer ' +this.$store.state.token,
             'Content-Type': 'application/json',
           }
         })
@@ -155,12 +169,26 @@ export default {
       })
     },
     getAllByTypePlante(typePlanteParam){
-      axios.get("http://127.0.0.1:9000/plante/all/byType/"+typePlanteParam)
+      axios.get("http://127.0.0.1:9000/plante/a-garder/byTypePlante/"+typePlanteParam,
+        {
+          withCredentials: false,
+          headers: {
+            'Authorization': 'Bearer ' +this.$store.state.token,
+            'Content-Type': 'application/json',
+          }
+        })
         .then( rep => {
-          if (rep.data) {
+          if (rep.data && rep.status === 200) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`).then(
+              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+                {
+                  withCredentials: false,
+                  headers: {
+                    'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
+                  }
+                }).then(
                 photo => {
                   if (photo.data) {
                     this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, rep.data[repKey].statut, photo.data.photo))
@@ -173,18 +201,34 @@ export default {
               })
             }
           }
+          else if (rep.status === 204){
+            this.error = "Pas de plante de ce type à garder"
+          }
         }).catch(() => {
         this.error = "Pas de type référencé"
       })
     },
     getPlanteByNom(nomPlante){
-
-      axios.get("http://127.0.0.1:9000/plante/all/byNom/"+nomPlante)
+      axios.get("http://127.0.0.1:9000/plante/a-garder/byNom/"+nomPlante,
+        {
+          withCredentials: false,
+          headers: {
+            'Authorization': 'Bearer ' +this.$store.state.token,
+            'Content-Type': 'application/json',
+          }
+        })
         .then( rep => {
           if (rep.data) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`).then(
+              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+                {
+                  withCredentials: false,
+                  headers: {
+                    'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
+                  }
+                }).then(
                 photo => {
                   if (photo.data) {
                     this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, rep.data[repKey].statut, photo.data.photo))
@@ -203,12 +247,26 @@ export default {
     },
     getPlanteByVille(ville){
 
-      axios.get("http://127.0.0.1:9000/plante/all/byVille/"+ville)
+      axios.get("http://127.0.0.1:9000/plante/a-garder/byVille/"+ville,
+        {
+          withCredentials: false,
+          headers: {
+            'Authorization': 'Bearer ' +this.$store.state.token,
+            'Content-Type': 'application/json',
+          }
+        })
         .then( rep => {
           if (rep.data) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`).then(
+              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+                {
+                  withCredentials: false,
+                  headers: {
+                    'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
+                  }
+                }).then(
                 photo => {
                   if (photo.data) {
                     this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, rep.data[repKey].statut, photo.data.photo))

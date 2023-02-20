@@ -1,5 +1,6 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '../store/index';
 
 const routes = [
   {
@@ -13,6 +14,7 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "home" */ '@/views/Login.vue'),
+
       },
       {
         path: '/inscription',
@@ -39,8 +41,16 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/Accueil.vue'),
       },
       {
-        path: '/profil',
-        name: 'Profil',
+        path: '/map',
+        name: 'Map',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '@/views/Map.vue'),
+      },
+      {
+        path: '/profile',
+        name: 'Profile',
         props: true,
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
@@ -91,7 +101,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/BibliothequePlanteItem.vue'),
       },
       {
-        path: '/mes-gardes/:idUser',
+        path: '/mes-gardes',
         name: 'Calendrier',
         props: true,
         // route level code-splitting
@@ -99,7 +109,15 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "home" */ '@/views/MesGardes.vue'),
       },
-
+      {
+        path: '/mes-plantes',
+        name: 'MesPlantes',
+        props: true,
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '@/views/MesPlantes.vue'),
+      },
       {
         path: '/plantes/:idPlante',
         name: "PlanteItem",
@@ -150,10 +168,20 @@ const routes = [
   },
 
 ]
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+})
+router.beforeEach(async (to, from) => {
+  const authenticated = store.getters.getUser
+  const token = store.getters.getToken
+  // redirect the user to login page if he is not authenticated
+  if (authenticated === "" && token === ""
+    && to.name !== 'MotdePasseComponent'
+    && to.name !== 'InscriptionComponent'
+    && to.name !== 'LoginComponent') {
+    return { name: 'LoginComponent' }
+  }
 })
 
 export default router

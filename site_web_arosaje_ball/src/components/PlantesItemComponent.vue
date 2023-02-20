@@ -5,9 +5,20 @@
 
 <script>
 import axios from 'axios';
-import NavBar from "@/layouts/navBar/NavBar";
+import NavBar from "@/layouts/navBar/NavBar.vue";
 
 export default {
   name: "PlantesItemComponent",
-  components: {NavBar},}
+  components: {NavBar},
+  beforeMount() {
+
+  },
+  data () {
+    return {
+
+    }
+  },
+  methods:{
+
+  }}
 </script>

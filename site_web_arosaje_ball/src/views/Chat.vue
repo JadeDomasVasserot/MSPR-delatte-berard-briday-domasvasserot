@@ -3,5 +3,5 @@
 </template>
 
 <script  setup>
-  import ChatComponent from "@/components/ChatComponent";
+  import ChatComponent from "@/components/ChatComponent.vue";
 </script>

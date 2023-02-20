@@ -9,6 +9,7 @@
     "lint": "eslint . --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.67",
     "@mdi/font": "7.0.96",
     "axios": "^1.3.3",
     "core-js": "^3.8.3",

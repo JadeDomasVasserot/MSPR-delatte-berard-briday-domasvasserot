@@ -45,7 +45,7 @@
 
 <script>
 import axios from 'axios';
-import NavBar from "@/layouts/navBar/NavBar";
+import NavBar from "@/layouts/navBar/NavBar.vue";
 import BibliothequePlante from "@/models/BibliothequePlante";
 import PhotoBibliothequePlante from "@/models/PhotoBibliothequePlante";
 import GuidePlante from "@/models/GuidePlante";
@@ -69,11 +69,25 @@ export default {
   },
   methods: {
     getPlanteId() {
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/id/" + this.idPlante)
+      axios.get("http://127.0.0.1:9000/bibliotheque-plante/id/" + this.idPlante,
+        {
+          withCredentials: false,
+          headers: {
+            'Authorization': 'Bearer ' +this.$store.state.token,
+            'Content-Type': 'application/json',
+          }
+        })
         .then(rep => {
             if (rep.data) {
               this.plante = new BibliothequePlante(rep.data.id, rep.data.nom, rep.data.description, rep.data.typePlante);
-              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/all/idPlante/${rep.data.id}`).then(
+              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/all/idPlante/${rep.data.id}`,
+                {
+                  withCredentials: false,
+                  headers: {
+                    'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
+                  }
+                }).then(
                 photo => {
                   if (photo.status === 200) {
                     for (const photoKey in photo.data) {
@@ -84,7 +98,14 @@ export default {
               ).catch(() => {
 
               })
-              axios.get(`http://127.0.0.1:9000/guide-plante/all/byPlante/${rep.data.id}`).then(
+              axios.get(`http://127.0.0.1:9000/guide-plante/all/byPlante/${rep.data.id}`,
+                {
+                  withCredentials: false,
+                  headers: {
+                    'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
+                  }
+                }).then(
                 guide => {
                   if (guide.status === 200) {
                     for (const guideKey in guide.data) {

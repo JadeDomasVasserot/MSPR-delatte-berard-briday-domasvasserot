@@ -109,5 +109,19 @@ public class GardePlanteController {
         }
 
     }
+    @Operation(summary = "récupère une garde de plante par une plante")
+    @GetMapping("/id/byPlante/{idPlante}")
+    public ResponseEntity<Optional<GardePlanteModel>> findByPlante_Id(@PathVariable("idGardePlante") int idPlante) {
+        try {
+            Optional<GardePlanteModel> gardePlanteModel = this.gardePlanteRepository.findByPlante_Id(idPlante);
+            if (gardePlanteModel.isPresent()) {
+                return new ResponseEntity<>(gardePlanteModel, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 

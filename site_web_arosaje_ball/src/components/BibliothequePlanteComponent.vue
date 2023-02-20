@@ -73,7 +73,7 @@
 
 <script>
 import axios from 'axios';
-import NavBar from "@/layouts/navBar/NavBar";
+import NavBar from "@/layouts/navBar/NavBar.vue";
 import BibliothequePlante from "@/models/BibliothequePlante";
 import TypePlante from "@/models/TypePlante";
 import PhotoBibliothequePlante from "@/models/PhotoBibliothequePlante";
@@ -96,12 +96,26 @@ export default {
   },
   methods:{
     getPlantes(){
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all")
+      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all",
+        {
+          withCredentials: false,
+          headers: {
+            'Authorization': 'Bearer ' +this.$store.state.token,
+            'Content-Type': 'application/json',
+          }
+        })
         .then( rep => {
           if (rep.data) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`).then(
+              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
+                {
+                  withCredentials: false,
+                  headers: {
+                    'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
+                  }
+                }).then(
                 photo => {
                   if (photo.status === 200) {
                     this.plantes.push(new BibliothequePlante(rep.data[repKey].id, rep.data[repKey].nom, rep.data[repKey].description, rep.data[repKey].typePlante, photo.data.photo))
@@ -118,7 +132,14 @@ export default {
       })
     },
     getTypePlante(){
-      axios.get("http://127.0.0.1:9000/type-plante/all")
+      axios.get("http://127.0.0.1:9000/type-plante/all",
+        {
+          withCredentials: false,
+          headers: {
+            'Authorization': 'Bearer ' +this.$store.state.token,
+            'Content-Type': 'application/json',
+          }
+        })
         .then( rep => {
           if (rep.data) {
             for (const repKey in rep.data) {
@@ -130,12 +151,26 @@ export default {
       })
     },
     getAllByTypePlante(typePlanteParam){
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all/byType/"+typePlanteParam)
+      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all/byType/"+typePlanteParam,
+        {
+          withCredentials: false,
+          headers: {
+            'Authorization': 'Bearer ' +this.$store.state.token,
+            'Content-Type': 'application/json',
+          }
+        })
         .then( rep => {
-          if (rep.data) {
+          if (rep.data && rep.status === 200) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`).then(
+              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
+                {
+                  withCredentials: false,
+                  headers: {
+                    'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
+                  }
+                }).then(
                 photo => {
                   if (photo.status === 200) {
                     this.plantes.push(new BibliothequePlante(rep.data[repKey].id, rep.data[repKey].nom, rep.data[repKey].description, rep.data[repKey].typePlante, photo.data.photo))
@@ -147,18 +182,35 @@ export default {
               })
             }
           }
+          else if (rep.status === 204){
+            this.error = "Pas de plante de ce type"
+          }
         }).catch(() => {
         this.error = "Pas de type référencé"
       })
     },
     getPlanteByNom(nomPlante){
 
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all/byNom/"+nomPlante)
+      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all/byNom/"+nomPlante,
+        {
+          withCredentials: false,
+          headers: {
+            'Authorization': 'Bearer ' +this.$store.state.token,
+            'Content-Type': 'application/json',
+          }
+        })
         .then( rep => {
           if (rep.data) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`).then(
+              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
+                {
+                  withCredentials: false,
+                  headers: {
+                    'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
+                  }
+                }).then(
                 photo => {
                   if (photo.status === 200) {
                     this.plantes.push(new BibliothequePlante(rep.data[repKey].id, rep.data[repKey].nom, rep.data[repKey].description, rep.data[repKey].typePlante, photo.data.photo))

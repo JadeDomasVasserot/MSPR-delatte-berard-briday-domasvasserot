@@ -86,7 +86,11 @@ export default {
         if(response.status === 200) {
           this.$store.commit('setUser', response.data.idUser)
           this.$store.commit('setToken', response.data.token)
-          this.$router.push('/home')
+          this.$router.push({
+            path: '/home',
+            query: this.$route.query,
+            hash: this.$route.hash,
+          })
         }
        })
         .catch(() => {

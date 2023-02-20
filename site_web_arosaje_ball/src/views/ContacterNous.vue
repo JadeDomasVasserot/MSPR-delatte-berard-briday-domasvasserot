@@ -3,5 +3,5 @@
 </template>
 
 <script  setup>
-  import ContacterNousComponent from "@/components/ContacterNousComponent";
+  import ContacterNousComponent from "@/components/ContacterNousComponent.vue";
 </script>

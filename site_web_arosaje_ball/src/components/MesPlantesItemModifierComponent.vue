@@ -4,7 +4,7 @@
 
 <script>
 import axios from 'axios';
-import NavBar from "@/layouts/navBar/NavBar";
+import NavBar from "@/layouts/navBar/NavBar.vue";
 
 export default {
   name: "BibliothequePlanteComponent",
