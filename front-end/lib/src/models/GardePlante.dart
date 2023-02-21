@@ -19,8 +19,8 @@ class GardePlante {
   factory GardePlante.fromJson(Map<String, dynamic> json) {
     return GardePlante(
         id: json['id'],
-        dateDebut: json['dateDebut'],
-        dateFin: json['dateFin'],
+        dateDebut: DateTime.parse(json['dateDebut']),
+        dateFin: DateTime.parse(json['dateFin']),
         gardien: Personne.fromJson(json['gardien']),
         plante: Plante.fromJson(json['plante'])
     );
