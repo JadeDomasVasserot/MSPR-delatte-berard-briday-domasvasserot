@@ -13,4 +13,11 @@ class Role {
         nom: json['nom']
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'nom': nom,
+    };
+  }
 }

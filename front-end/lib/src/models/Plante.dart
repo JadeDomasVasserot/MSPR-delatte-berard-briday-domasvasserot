@@ -63,4 +63,14 @@ class Plante {
       statut: StatutPlante.fromJson(json['statut']),
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'localisation': localisation,
+      'bibliothequePlante': bibliothequePlante.toJson(),
+      'proprietaire' : proprietaire.toJson(),
+      'statut': statut.toJson(),
+    };
+  }
 }

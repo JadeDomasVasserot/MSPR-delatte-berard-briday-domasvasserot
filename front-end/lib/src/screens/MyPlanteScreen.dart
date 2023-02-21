@@ -43,7 +43,9 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                   )
                 )
             ),
-            body: Card(
+            body: Column(
+              children: <Widget>[
+                Card(
                 margin: const EdgeInsets.all(20),
                 elevation: 0,
                 color: const Color.fromARGB(100, 233,239, 192),
@@ -79,9 +81,9 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                       margin : const EdgeInsets.only(right: 10, left : 10),
                       padding : const EdgeInsets.only(top : 10),
                       decoration: const BoxDecoration(
-                      border: Border(
-                        top : BorderSide()
-                      )
+                        border: Border(
+                          top : BorderSide()
+                        )
                       ),
                       child : Row (children: [
                         Container(
@@ -156,7 +158,13 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                       ],)
                     ),
                     Container(
-                      padding : const EdgeInsets.only(top : 5),
+                      margin : const EdgeInsets.only(top : 10,right: 10, left : 10),
+                      padding : const EdgeInsets.only(top : 10, bottom: 10),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top : BorderSide()
+                        )
+                      ),
                       child : Row (children: [
                         Spacer(),
                         Container(
@@ -222,7 +230,7 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                         Container(
                           child: OutlinedButton(
                             onPressed: () {
-                              context.go("/create/garde");
+                              context.go("/create/garde/${plante.id}");
                             },
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
@@ -244,7 +252,8 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                     ),
                   ],
                 ),
-              
+                ),
+              ]
             ),
             bottomNavigationBar: const BottomBarComponent()
           );
