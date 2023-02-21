@@ -16,4 +16,12 @@ class TypePlante {
         nom: json['nom']
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'description': description,
+      'nom': nom,
+    };
+  }
 }

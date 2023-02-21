@@ -35,6 +35,7 @@ class BibliothequePlante {
     }
     return ListView(children: list);
   }
+
   static List<BibliothequePlante> listFromJson(List<dynamic> parsedJson) {
 
     List<BibliothequePlante> bibliothequePlantes = <BibliothequePlante>[];
@@ -51,5 +52,14 @@ class BibliothequePlante {
       description: json['description'],
       typePlante: TypePlante.fromJson(json['typePlante'])
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'nom': nom,
+      'description': description,
+      'typePlante' : typePlante.toJson(),
+    };
   }
 }
