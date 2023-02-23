@@ -77,6 +77,7 @@ public class AuthenticationService {
             return AuthenticationResponse.builder()
                     .token(jwtToken)
                     .idUser(currentUser.getId())
+                    .role(currentUser.getRole().getId())
                     .build();
         }
         return null;

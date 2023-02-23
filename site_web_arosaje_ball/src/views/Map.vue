@@ -1,5 +1,5 @@
 <template>
-  <MapComponent />
+  <map-component />
 </template>
 
 <script  setup>

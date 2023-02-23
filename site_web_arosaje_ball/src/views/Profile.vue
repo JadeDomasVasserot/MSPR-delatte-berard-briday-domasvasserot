@@ -1,5 +1,5 @@
 <template>
-  <ProfileComponent />
+  <profile-component />
 </template>
 
 <script  setup>

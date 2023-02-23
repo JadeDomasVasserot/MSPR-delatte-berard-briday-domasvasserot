@@ -77,7 +77,7 @@
             <v-card-subtitle class="ma-3"> {{plante.proprietaire.ville}}, {{plante.proprietaire.cp}}</v-card-subtitle>
             <v-card-actions>
               <v-btn color="green">
-                <router-link class="btn-router-link" :to="{ name: 'PlanteItem', params: { idPlante:  plante.id }}">En savoir plus</router-link>
+                <router-link class="btn-router-link" :to="{ name: 'PlantesAGarderItem', params: { idPlante:  plante.id }}">En savoir plus</router-link>
               </v-btn>
             </v-card-actions>
           </v-card>

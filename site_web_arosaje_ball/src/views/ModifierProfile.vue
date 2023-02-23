@@ -1,5 +1,5 @@
 <template>
-  <ModifierProfileComponent />
+  <modifier-profile-component />
 </template>
 
 <script  setup>

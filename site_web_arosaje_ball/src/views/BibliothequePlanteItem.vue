@@ -1,5 +1,5 @@
 <template>
-  <BibliothequePlanteItemComponent />
+  <bibliotheque-plante-item-component />
 </template>
 
 <script  setup>

@@ -1,5 +1,5 @@
 <template>
-  <MesPlantesItemDeleteComponent />
+  <mes-plantes-item-delete />
 </template>
 
 <script  setup>

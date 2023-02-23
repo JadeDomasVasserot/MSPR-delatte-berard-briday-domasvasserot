@@ -1,5 +1,5 @@
 <template>
-  <MotDePasseComponent />
+  <mot-de-passe-component />
 </template>
 
 <script  setup>

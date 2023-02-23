@@ -1,22 +1,8 @@
 <template>
   <nav-bar />
-  <GMapMap
-    :center="center"
-    :zoom="7"
-    map-type-id="terrain"
-    style="width: 500px; height: 300px"
-  >
-    <GMapCluster>
-      <GMapMarker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        :clickable="true"
-        :draggable="true"
-        @click="center=m.position"
-      />
-    </GMapCluster>
-  </GMapMap>
+ <div id="map">
+
+ </div>
 </template>
 
 <script>
@@ -44,7 +30,12 @@ export default {
     }
   },
   methods:{
-
   }
 }
 </script>
+<style scoped>
+#map {
+  height: 400px; /* The height is 400 pixels */
+  width: 100%; /* The width is the width of the web page */
+}
+</style>

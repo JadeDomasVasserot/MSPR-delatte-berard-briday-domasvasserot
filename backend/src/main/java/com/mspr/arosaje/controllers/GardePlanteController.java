@@ -53,6 +53,7 @@ public class GardePlanteController {
     @Operation(summary = "ajoute une garde de plante")
     public ResponseEntity<GardePlanteModel> createGardePlante(@RequestBody GardePlanteModel gardePlante) {
         try {
+
             GardePlanteModel _gardePlanteModel = gardePlanteRepository
                     .save(gardePlante);
             // rajouter selon les attributs personnalisés
@@ -111,7 +112,7 @@ public class GardePlanteController {
     }
     @Operation(summary = "récupère une garde de plante par une plante")
     @GetMapping("/id/byPlante/{idPlante}")
-    public ResponseEntity<Optional<GardePlanteModel>> findByPlante_Id(@PathVariable("idGardePlante") int idPlante) {
+    public ResponseEntity<Optional<GardePlanteModel>> findByPlante_Id(@PathVariable("idPlante") int idPlante) {
         try {
             Optional<GardePlanteModel> gardePlanteModel = this.gardePlanteRepository.findByPlante_Id(idPlante);
             if (gardePlanteModel.isPresent()) {

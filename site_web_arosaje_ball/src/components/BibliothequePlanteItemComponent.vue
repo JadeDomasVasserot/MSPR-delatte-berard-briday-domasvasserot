@@ -1,12 +1,15 @@
 <template>
   <nav-bar/>
   <v-banner lines="one" :stacked="false">
-    <v-card-title class="text-amber-darken-1 ma-3 font-weight-bold text-center" v-text="plante.nom"></v-card-title>
+    <v-app-bar-title>Guide et conseil Plante</v-app-bar-title>
   </v-banner>
-  <v-card v-if="plante != ''"
+  <v-card v-if="plante !== ''"
           class="ma-10"
           max-width="100%"
   >
+    <v-banner lines="one" :stacked="false">
+      <v-card-title class="text-amber-darken-1 ma-3 font-weight-bold text-center" v-text="plante.nom"></v-card-title>
+    </v-banner>
     <v-carousel show-arrows="hover" v-if="photos.length > 0">
       <v-carousel-item
         v-for="(item) in photos"
@@ -41,6 +44,29 @@
       </v-row>
     </v-container>
   </v-card>
+  <v-card v-if="role === 2" class="pa-5">
+    <div class="d-flex justify-center align-baseline" style="gap: 1rem">
+      <v-file-input
+        id="addPhoto"
+        label="Ajouter une photo"
+        variant="filled"
+        prepend-icon="mdi-camera"
+        color="success"
+        @focusout="addPhoto(this)"
+      ></v-file-input>
+      <router-link :to="{name:'AjouterUnGuide', params: {
+         idPlante:  plante.id
+      }}">
+      <v-btn
+        @click="addGarde()"
+        color="success"
+        prepend-icon="mdi-cloud-upload"
+      >
+      Ajouter un conseil
+      </v-btn>
+      </router-link>
+    </div>
+  </v-card>
 </template>
 
 <script>
@@ -65,6 +91,7 @@ export default {
       plante: '',
       pathPhoto: "/src/assets/photo-plante-bibliotheque/",
       error: '',
+      role: this.$store.state.role
     }
   },
   methods: {
@@ -124,6 +151,26 @@ export default {
         this.error = "Pas de plante référencée"
       })
     },
+    getBase64Image(img) {
+      var canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+
+      var dataURL = canvas.toDataURL("image/png");
+
+      return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    },
+    addPhoto() {
+      const addPhoto = document.getElementById("addPhoto")
+      let imgData = this.getBase64Image(addPhoto);
+      localStorage.setItem("imgData", imgData);
+    },
+    addGarde() {
+
+    }
   }
 }
 </script>

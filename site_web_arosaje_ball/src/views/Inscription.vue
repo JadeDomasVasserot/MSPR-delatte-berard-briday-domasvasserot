@@ -1,5 +1,5 @@
 <template>
-  <InscriptionComponent />
+  <inscription-component />
 </template>
 
 <script  setup>

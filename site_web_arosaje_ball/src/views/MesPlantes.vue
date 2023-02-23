@@ -1,5 +1,5 @@
 <template>
-  <MesPlantesComponent />
+  <mes-plantes-component />
 </template>
 
 <script  setup>

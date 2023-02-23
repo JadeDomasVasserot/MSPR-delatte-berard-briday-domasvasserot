@@ -1,5 +1,5 @@
 <template>
-  <ChatComponent />
+  <chat-component />
 </template>
 
 <script  setup>

@@ -1,5 +1,5 @@
 <template>
-  <AccueilComponent />
+  <accueil-component />
 </template>
 
 <script  setup>

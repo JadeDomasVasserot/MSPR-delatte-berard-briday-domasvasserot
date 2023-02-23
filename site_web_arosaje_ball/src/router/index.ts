@@ -13,7 +13,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Login.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/Login.vue'),
 
       },
       {
@@ -22,7 +22,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Inscription.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/Inscription.vue'),
       },
       {
         path: '/forgot-mdp',
@@ -30,7 +30,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/MotDePasse.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/MotDePasse.vue'),
       },
       {
         path: '/home',
@@ -38,7 +38,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Accueil.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/Accueil.vue'),
       },
       {
         path: '/map',
@@ -46,7 +46,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Map.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/Map.vue'),
       },
       {
         path: '/profile',
@@ -55,7 +55,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Profile.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/Profile.vue'),
       },
       {
         path: '/profil/modifier',
@@ -64,7 +64,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/ModifierProfile.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/ModifierProfile.vue'),
       },
       {
         path: '/contact',
@@ -72,7 +72,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/ContacterNous.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/ContacterNous.vue'),
       },
       {
         path: '/chat',
@@ -81,7 +81,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Chat.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/Chat.vue'),
       },
       {
         path: '/bibliotheque-plante',
@@ -89,16 +89,16 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/BibliothequePlante.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/BibliothequePlante.vue'),
       },
       {
-        path: '/bibliotheque-plante/:idPlante',
+        path: '/bibliotheque-plante/id/:idPlante',
         name: 'BibliothequePlanteItem',
         props: true,
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/BibliothequePlanteItem.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/BibliothequePlanteItem.vue'),
       },
       {
         path: '/mes-gardes',
@@ -107,7 +107,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/MesGardes.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/MesGardes.vue'),
       },
       {
         path: '/mes-plantes',
@@ -116,7 +116,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/MesPlantes.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/MesPlantes.vue'),
       },
       {
         path: '/plantes/:idPlante',
@@ -125,7 +125,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/PlantesItem.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/MesPlantesItem.vue'),
       },
       {
         path: '/mes-plantes/add',
@@ -134,7 +134,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/MesPlantesItemAjout.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/MesPlantesItemAjout.vue'),
       },
       {
         path: '/mes-plantes/delete',
@@ -143,7 +143,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/MesPlantesItemDelete.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/MesPlantesItemDelete.vue'),
       },
       {
         path: '/mes-plantes/garde',
@@ -152,7 +152,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/MesPlantesItemGarde.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/MesPlantesItemGarde.vue'),
       },
       {
         path: '/mes-plantes/edit',
@@ -161,10 +161,36 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/MesPlantesItemModifier.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/MesPlantesItemModifier.vue'),
+      },
+      {
+        path: '/add-guide/:idPlante',
+        name: 'AjouterUnGuide',
+        props: true,
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '../views/AjouterUnGuide.vue'),
+      },
+      {
+        path: '/plantes-a-garder/:idPlante',
+        name: "PlantesAGarderItem",
+        props: true,
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '../views/PlantesAGarderItem.vue'),
+      },
+      {
+        path: '/page-personne/:idPersonne',
+        name: "PagePersonne",
+        props: true,
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '../views/PagePersonne.vue'),
       },
     ],
-
   },
 
 ]
@@ -172,7 +198,7 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })
-router.beforeEach(async (to, from) => {
+/*router.beforeEach(async (to, from) => {
   const authenticated = store.getters.getUser
   const token = store.getters.getToken
   // redirect the user to login page if he is not authenticated
@@ -183,5 +209,5 @@ router.beforeEach(async (to, from) => {
     return { name: 'LoginComponent' }
   }
 })
-
+*/
 export default router

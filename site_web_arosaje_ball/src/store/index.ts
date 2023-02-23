@@ -6,7 +6,8 @@ const store = createStore({
   state () {
     return {
       user: '',
-      token: ''
+      token: '',
+      role: '',
     }
   },
   mutations: {
@@ -16,6 +17,9 @@ const store = createStore({
   setToken(state, tokenConnect) {
     return state.token = tokenConnect;
   },
+  setRole(state, roleConnect) {
+    return state.role = roleConnect;
+  },
   },
   getters: {
     getUser(state) {
@@ -23,6 +27,9 @@ const store = createStore({
     },
     getToken(state) {
       return state.token;
+    },
+    getRole(state) {
+      return state.role;
     },
   }
 })

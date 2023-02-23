@@ -1,5 +1,5 @@
 <template>
-  <ContacterNousComponent />
+  <contacter-nous-component />
 </template>
 
 <script  setup>

@@ -1,6 +1,5 @@
 <template>
   <nav-bar />
-
 </template>
 
 <script>
@@ -8,17 +7,13 @@ import axios from 'axios';
 import NavBar from "@/layouts/navBar/NavBar.vue";
 
 export default {
-  name: "PlantesItemComponent",
+  name: "AjouterUnGuideComponent",
   components: {NavBar},
-  beforeMount() {
+  props: ['idPlante']
+}
 
-  },
-  data () {
-    return {
-
-    }
-  },
-  methods:{
-
-  }}
 </script>
+
+<style scoped>
+
+</style>

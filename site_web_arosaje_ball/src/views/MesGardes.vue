@@ -1,5 +1,5 @@
 <template>
-  <MesGardesComponent />
+  <mes-gardes-component />
 </template>
 
 <script  setup>
