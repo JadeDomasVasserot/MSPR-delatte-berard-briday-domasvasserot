@@ -62,8 +62,11 @@ final GoRouter _router = GoRouter(
       builder: (context, state) => const MyPlantesScreen()
     ),
     GoRoute(
-      path: "/my_plante",
-      builder: (context, state) => const MyPlanteScreen()
+      path: "/my_plante/:id",
+      builder: (context, state) {
+        final id = state.params["id"];
+        return MyPlanteScreen(id: int.parse(id!));
+      }
     ),
     GoRoute(
       path: "/plante",
@@ -78,8 +81,11 @@ final GoRouter _router = GoRouter(
       builder: (context, state) => const ModifyProfileScreen()
     ),
     GoRoute(
-      path: "/create/garde",
-      builder: (context, state) => const CreateGardeScreen()
+      path: "/create/garde/:id",
+      builder: (context, state) {
+        final id = state.params["id"];
+        return CreateGardeScreen(id: int.parse(id!));
+      }
     )
   ],
 );

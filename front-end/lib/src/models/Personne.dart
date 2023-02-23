@@ -45,4 +45,18 @@ class Personne {
       role: Role.fromJson(json['role']),
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'adresse': adresse,
+      'cp': cp,
+      'email' : email,
+      'mdp': mdp,
+      'nom': nom,
+      'prenom': prenom,
+      'ville': ville,
+      'role': role.toJson(),
+    };
+  }
 }
