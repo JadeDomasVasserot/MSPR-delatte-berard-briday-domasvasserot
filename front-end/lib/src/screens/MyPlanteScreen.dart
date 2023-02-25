@@ -20,7 +20,7 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
   @override
   Widget build(BuildContext context,) {
     return FutureBuilder<Plante>(
-      future: getPlante(widget.id), 
+      future: getPlante(widget.id),
       builder: (BuildContext context, AsyncSnapshot<Plante> snapshot) {
         if (snapshot.hasData) {
           final Plante plante = snapshot.data! ;
@@ -228,24 +228,27 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                         ),
                         Spacer(),
                         Container(
-                          child: OutlinedButton(
-                            onPressed: () {
-                              context.go("/create/garde/${plante.id}");
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                side: BorderSide(color: Colors.black)
-                              )
-                            ),
-                            child: const Text('Faire garder',
-                              style: TextStyle(
-                                fontStyle: FontStyle.normal,
-                                fontSize: 15,
-                                color: Colors.black
-                              )
-                            ),
-                          )
+                          child : plante.statut == 3 ?
+                          Container(
+                            child: OutlinedButton(
+                              onPressed: () {
+                                context.go("/create/garde/${plante.id}");
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  side: BorderSide(color: Colors.black)
+                                )
+                              ),
+                              child: const Text('Faire garder',
+                                style: TextStyle(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 15,
+                                  color: Colors.black
+                                )
+                              ),
+                            )
+                          ): null
                         ),
                         Spacer(),
                       ])
