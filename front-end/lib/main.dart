@@ -9,6 +9,7 @@ import 'package:arosaje/src/screens/MyPlantesScreen.dart';
 import 'package:arosaje/src/screens/MyPlanteScreen.dart';
 import 'package:arosaje/src/screens/PlanteScreen.dart';
 import 'package:arosaje/src/screens/ModifyPlanteScreen.dart';
+import 'package:arosaje/src/screens/BibliothequePlanteScreen.dart';
 import 'package:arosaje/src/screens/ModifyProfileScreen.dart';
 import 'package:arosaje/src/screens/CreateGardeScreen.dart';
 import 'package:arosaje/src/screens/SignUpScreen.dart';
@@ -85,6 +86,13 @@ final GoRouter _router = GoRouter(
       builder: (context, state) {
         final id = state.params["id"];
         return CreateGardeScreen(id: int.parse(id!));
+      }
+    ),
+    GoRoute(
+      path: "/bibliotheque_plante/:id",
+      builder: (context, state) {
+        final id = state.params["id"];
+        return BibliothequePlanteScreen(id: int.parse(id!));
       }
     )
   ],

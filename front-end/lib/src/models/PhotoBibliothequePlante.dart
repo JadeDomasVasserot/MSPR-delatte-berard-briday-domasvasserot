@@ -18,4 +18,14 @@ class PhotoBibliothequePlante {
         bibliothequePlante: BibliothequePlante.fromJson(json['bibliothequePlante'])
     );
   }
+
+  static List<PhotoBibliothequePlante> listFromJson(List<dynamic> parsedJson) {
+
+    List<PhotoBibliothequePlante> photoBibliothequePlantes = <PhotoBibliothequePlante>[];
+    for (var photoBibliothequePlante in  parsedJson) {
+      photoBibliothequePlantes.add(PhotoBibliothequePlante.fromJson(photoBibliothequePlante));
+    }
+    return photoBibliothequePlantes;
+  }
+
 }

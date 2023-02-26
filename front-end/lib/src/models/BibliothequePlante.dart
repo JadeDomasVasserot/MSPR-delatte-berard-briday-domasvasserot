@@ -6,7 +6,7 @@ import 'TypePlante.dart';
 class BibliothequePlante {
   final int id;
   final String nom;
-  final String description;
+  final String? description;
   final TypePlante typePlante;
 
 
@@ -40,7 +40,7 @@ class BibliothequePlante {
 
     List<BibliothequePlante> bibliothequePlantes = <BibliothequePlante>[];
     for (var bibliothequePlante in  parsedJson) {
-      bibliothequePlante.add(BibliothequePlante.fromJson(bibliothequePlante));
+      bibliothequePlantes.add(BibliothequePlante.fromJson(bibliothequePlante));
     }
     return bibliothequePlantes;
   }
@@ -55,6 +55,7 @@ class BibliothequePlante {
   }
 
   Map<String, dynamic> toJson() {
+
     return {
       'id': id,
       'nom': nom,

@@ -29,7 +29,7 @@ class _CreateGardeScreen extends State<CreateGardeScreen> {
   late DateTime _dateFin;
 
   void _submitForm() async {
-  if (_formKey.currentState?.validate() ?? false) {
+  if (_formKey.currentState?.validate() ?? false) { 
     try {
       Plante plante = await getPlante(widget.id);
       StatutPlante statut = await getStatutPlante(2);

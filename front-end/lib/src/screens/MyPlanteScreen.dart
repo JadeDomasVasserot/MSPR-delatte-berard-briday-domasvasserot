@@ -228,7 +228,7 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                         ),
                         Spacer(),
                         Container(
-                          child : plante.statut == 3 ?
+                          child : plante.statut.id == 3 ?
                           Container(
                             child: OutlinedButton(
                               onPressed: () {
