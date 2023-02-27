@@ -1,10 +1,13 @@
 import 'package:arosaje/src/models/Plante.dart';
 import 'package:arosaje/src/services/photoPlanteService.dart';
+import 'package:arosaje/src/services/gardePlanteService.dart';
 import 'package:arosaje/src/models/PhotoPlante.dart';
+import 'package:arosaje/src/models/GardePlante.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../components/BottomBarComponent.dart';
 import 'package:arosaje/src/services/planteService.dart';
+import 'package:intl/intl.dart';
 
 
 class MyPlanteScreen extends StatefulWidget {
@@ -165,6 +168,100 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                           top : BorderSide()
                         )
                       ),
+                      child : plante.statut.id != 3 ?
+                        FutureBuilder<GardePlante>(
+                          future: getGardePlanteByPlante(widget.id),
+                          builder: (BuildContext context, AsyncSnapshot<GardePlante> snapshot) {
+                            if (snapshot.hasData) {
+                              final GardePlante gardePlante = snapshot.data! ;
+                              return Row (children: [
+                                Wrap(children: [
+                                  Container(
+                                    child: const Text('Du : ',
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.normal,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                        color: Colors.black
+                                      )
+                                    )
+                                  ),
+                                  Container(
+                                    child:Text('${DateFormat('dd/MM/yyyy').format(gardePlante.dateDebut)}',
+                                      style: const TextStyle(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 15,
+                                        color: Colors.black
+                                      )
+                                    )
+                                  ),
+                                  Container(
+                                    child: const Text(' au ',
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.normal,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                        color: Colors.black
+                                      )
+                                    )
+                                  ),
+                                  Container(
+                                    child:  Text('${DateFormat('dd/MM/yyyy').format(gardePlante.dateFin)}',
+                                      style:  const TextStyle(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 15,
+                                        color: Colors.black
+                                      )
+                                    )
+                                  )
+                                ]),
+                                Container(
+                                  child: plante.statut.id == 1 ?
+                                    Container(
+                                      margin : const EdgeInsets.only(right: 10, left : 10),
+                                      padding : const EdgeInsets.only(top : 10),
+                                      child : Row (children: [
+                                        Container(
+                                          child: const Text('Gardien : ',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            )
+                                          )
+                                        ),
+                                        Container(
+                                          child:  Text('${gardePlante.gardien.nom}',
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15,
+                                            )
+                                          )
+                                        )
+                                      ],)
+                                    )
+                                  :null
+                                )
+                              ]); 
+                            }else if (snapshot.hasError) {
+                              return Text("Une erreur s'est produite : ${snapshot.error}");
+                            } else {
+                              return CircularProgressIndicator();
+                            }
+                          }
+                        )
+                      :null
+                    ),
+                    Container(
+                      margin : const EdgeInsets.only(top : 10,right: 10, left : 10),
+                      padding : const EdgeInsets.only(top : 10, bottom: 10),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top : BorderSide()
+                        )
+                      ),
                       child : Row (children: [
                         Spacer(),
                         Container(
@@ -241,6 +338,52 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                                 )
                               ),
                               child: const Text('Faire garder',
+                                style: TextStyle(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 15,
+                                  color: Colors.black
+                                )
+                              ),
+                            )
+                          ): null
+                        ),
+                        Container(
+                          child : plante.statut.id ==2 ?
+                          Container(
+                            child: OutlinedButton(
+                              onPressed: () {
+                                context.go("");
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  side: BorderSide(color: Colors.black)
+                                )
+                              ),
+                              child: const Text('Modifier la garde',
+                                style: TextStyle(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 15,
+                                  color: Colors.black
+                                )
+                              ),
+                            )
+                          ): null
+                        ),
+                        Container(
+                          child : plante.statut.id ==1 ?
+                          Container(
+                            child: OutlinedButton(
+                              onPressed: () {
+                                context.go("");
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  side: BorderSide(color: Colors.black)
+                                )
+                              ),
+                              child: const Text('Voir profile gardien',
                                 style: TextStyle(
                                   fontStyle: FontStyle.normal,
                                   fontSize: 15,
