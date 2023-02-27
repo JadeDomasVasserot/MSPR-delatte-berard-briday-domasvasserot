@@ -1,6 +1,6 @@
 <template>
   <nav-bar/>
-  <v-banner lines="one" :stacked="false">
+  <v-banner lines="one" :stacked="false" v-if="plante !== ''">
     <v-card-title class="text-amber-darken-1 ma-3 font-weight-bold text-center" v-text="plante.bibliothequePlante.nom"></v-card-title>
   </v-banner>
   <v-card v-if="plante !== ''"
@@ -8,6 +8,19 @@
           max-width="100%"
   >
     <v-carousel show-arrows="hover" v-if="photos.length > 0">
+      <v-row justify="center" class="mb-10">
+      <v-icon icon="mdi-pencil"
+              class="ma-5 pa-5 border"
+              size="x-large">
+
+      </v-icon>
+      <v-icon icon="mdi-delete"
+              class="ma-5 pa-5 border"
+              size="x-large">
+
+      </v-icon>
+        </v-row>
+
       <v-carousel-item
         v-for="(item) in photos"
         :key="item.id"

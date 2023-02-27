@@ -150,9 +150,7 @@ export default {
           }
         })
         .then(rep => {
-            if (rep.data) {
-
-            }
+          this.dialog = false
           }
         ).catch(() => {
         this.error = "Erreur plante"
