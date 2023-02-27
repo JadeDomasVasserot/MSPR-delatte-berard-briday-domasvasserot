@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class PhotoPlante {
   final int id;
   final String photo;
-  final Plante plante;
+  final Plante? plante;
 
   const PhotoPlante({
     required this.id,
     required this.photo,
-    required this.plante,
+    this.plante,
   });
 
   static ListView getLastPhotoPlantesByPlante(List<PhotoPlante> plantes)
