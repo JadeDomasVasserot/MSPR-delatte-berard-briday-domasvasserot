@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = {"http://127.0.0.1:8081", "http://121.0.0.1:3000"})
 @RequestMapping("/photo-plante")
 @RestController
 @Tag(name = "Photo Plante")
@@ -63,16 +63,11 @@ public class PhotoPlanteController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
     @Operation(summary = "modifie une photo de la plante")
-    public ResponseEntity<PhotoPlanteModel> updatePhotoPlante(@PathVariable("id") int id, @RequestBody PhotoPlanteModel photoPlante) {
-        Optional<PhotoPlanteModel> photoPlanteData = photoPlanteRepository.findById(id);
-
-        if (photoPlanteData.isPresent()) {
-            PhotoPlanteModel _photoPlante = photoPlanteData.get();
-            _photoPlante.setId(photoPlante.getId());
-           // a faire pour tous les attributs
-            return new ResponseEntity<>(photoPlanteRepository.save(_photoPlante), HttpStatus.OK);
+    public ResponseEntity<PhotoPlanteModel> updatePhotoPlante(@RequestBody PhotoPlanteModel photoPlante) {
+        if (photoPlante != null) {
+            return new ResponseEntity<>(photoPlanteRepository.save(photoPlante), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -100,7 +95,7 @@ public class PhotoPlanteController {
         }
 
     }
-    @GetMapping("/all/idPlante/{idPhotoPlante}")
+    @GetMapping("/all/idPlante/{idPlante}")
     @Operation(summary = "récupère toutes les photos d'une plante")
 
     public ResponseEntity<List<PhotoPlanteModel>> getByPlante_Id(@PathVariable("idPlante") int idPlante) {
@@ -115,7 +110,7 @@ public class PhotoPlanteController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("/one/idPlante/{idPhotoPlante}")
+    @GetMapping("/one/idPlante/{idPlante}")
     @Operation(summary = "récupère la dernière photo d'une plante")
 
     public ResponseEntity<Optional<PhotoPlanteModel>> getUrlOfPhotoPlante(@PathVariable("idPlante") int idPlante) {

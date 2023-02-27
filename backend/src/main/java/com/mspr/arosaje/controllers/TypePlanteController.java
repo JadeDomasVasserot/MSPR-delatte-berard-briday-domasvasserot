@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = {"http://127.0.0.1:8081", "http://127.0.0.1:3000"})
 @RequestMapping("/type-plante")
 @RestController
 @Tag(name = "Type Plante")
@@ -62,16 +62,11 @@ public class TypePlanteController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
     @Operation(summary = "modifie un type de plante")
-    public ResponseEntity<TypePlanteModel> updateTypePlante(@PathVariable("id") int id, @RequestBody TypePlanteModel typePlante) {
-        Optional<TypePlanteModel> typePlanteData = typePlanteRepository.findById(id);
-
-        if (typePlanteData.isPresent()) {
-            TypePlanteModel _typePlante = typePlanteData.get();
-            _typePlante.setId(typePlante.getId());
-           // a faire pour tous les attributs
-            return new ResponseEntity<>(typePlanteRepository.save(_typePlante), HttpStatus.OK);
+    public ResponseEntity<TypePlanteModel> updateTypePlante(@RequestBody TypePlanteModel typePlante) {
+        if (typePlante != null) {
+            return new ResponseEntity<>(typePlanteRepository.save(typePlante), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

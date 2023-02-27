@@ -28,6 +28,8 @@ public class GardePlanteModel {
     @ManyToOne
     @JoinColumn(name = "gardien", referencedColumnName = "id")
     private PersonneModel gardien;
-
+    @ManyToOne
+    @JoinColumn(name = "statut", referencedColumnName = "id", nullable = false)
+    private StatutPlanteModel statut;
 
 }

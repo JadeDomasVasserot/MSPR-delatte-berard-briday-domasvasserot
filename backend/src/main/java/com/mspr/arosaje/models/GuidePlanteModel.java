@@ -24,6 +24,9 @@ public class GuidePlanteModel {
     @Column(name = "description")
     private String description;
     @ManyToOne
+    @JoinColumn(name = "bibliotheque_plante", referencedColumnName = "id", nullable = false)
+    private BibliothequePlanteModel bibliothequePlante;
+    @ManyToOne
     @JoinColumn(name = "type_guide", referencedColumnName = "id", nullable = false)
     private TypeGuideModel typeGuide;
 

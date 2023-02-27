@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = {"http://127.0.0.1:8081", "http://127.0.0.1:3000"})
 @RequestMapping("/statut-plante")
 @RestController
 @Tag(name = "Statut Plante")
@@ -63,16 +63,11 @@ public class StatutPlanteController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
     @Operation(summary = "modifie un statut de plante")
-    public ResponseEntity<StatutPlanteModel> updateStatutPlante(@PathVariable("id") int id, @RequestBody StatutPlanteModel statutPlante) {
-        Optional<StatutPlanteModel> statutPlanteData = statutPlanteRepository.findById(id);
-
-        if (statutPlanteData.isPresent()) {
-            StatutPlanteModel _statutPlante = statutPlanteData.get();
-            _statutPlante.setId(statutPlante.getId());
-           // a faire pour tous les attributs
-            return new ResponseEntity<>(statutPlanteRepository.save(_statutPlante), HttpStatus.OK);
+    public ResponseEntity<StatutPlanteModel> updateStatutPlante(@RequestBody StatutPlanteModel statutPlante) {
+        if (statutPlante != null) {
+            return new ResponseEntity<>(statutPlanteRepository.save(statutPlante), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

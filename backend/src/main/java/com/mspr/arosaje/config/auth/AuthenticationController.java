@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
 @RestController
-@SecurityRequirement(name = "portal")
+@SecurityRequirement(name = "arosaje")
 @Tag(name = "Authentication")
 @RequestMapping("/auth")
 public class AuthenticationController {

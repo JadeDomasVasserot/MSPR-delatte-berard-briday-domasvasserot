@@ -44,6 +44,8 @@ dependencies:
   gallery_saver: ^2.3.2
   image_picker: ^0.8.6+1
   cross_file_image: ^1.0.0
+  google_fonts: ^4.0.3
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:

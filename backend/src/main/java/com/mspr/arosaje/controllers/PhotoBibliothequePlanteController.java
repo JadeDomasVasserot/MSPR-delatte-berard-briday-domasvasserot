@@ -1,6 +1,7 @@
 package com.mspr.arosaje.controllers;
 
 import com.mspr.arosaje.models.PhotoBibliothequePlanteModel;
+import com.mspr.arosaje.models.PhotoPlanteModel;
 import com.mspr.arosaje.repositories.PhotoBibliothequePlanteRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = {"http://127.0.0.1:8081", "http://127.0.0.1:3000"})
 @RequestMapping("/photo-bibliotheque-plante")
 @RestController
 @Tag(name = "Photo Bibliothèque Plante")
@@ -62,16 +63,11 @@ public class PhotoBibliothequePlanteController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
     @Operation(summary = "modifie une photo de la bibliothèque de plante")
-    public ResponseEntity<PhotoBibliothequePlanteModel> updatePhotoBibliothequePlante(@PathVariable("id") int id, @RequestBody PhotoBibliothequePlanteModel photoBibliothequePlante) {
-        Optional<PhotoBibliothequePlanteModel> photoBibliothequePlanteData = photoBibliothequePlanteRepository.findById(id);
-
-        if (photoBibliothequePlanteData.isPresent()) {
-            PhotoBibliothequePlanteModel _photoBibliothequePlante = photoBibliothequePlanteData.get();
-            _photoBibliothequePlante.setId(photoBibliothequePlante.getId());
-           // a faire pour tous les attributs
-            return new ResponseEntity<>(photoBibliothequePlanteRepository.save(_photoBibliothequePlante), HttpStatus.OK);
+    public ResponseEntity<PhotoBibliothequePlanteModel> updatePhotoBibliothequePlante(@RequestBody PhotoBibliothequePlanteModel photoBibliothequePlante) {
+        if (photoBibliothequePlante != null) {
+            return new ResponseEntity<>(photoBibliothequePlanteRepository.save(photoBibliothequePlante), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -99,5 +95,34 @@ public class PhotoBibliothequePlanteController {
         }
 
     }
+    @GetMapping("/all/idPlante/{idPlante}")
+    @Operation(summary = "récupère toutes les photos d'une plante")
 
+    public ResponseEntity<List<PhotoBibliothequePlanteModel>> getByPlante_Id(@PathVariable("idPlante") int idPlante) {
+        try {
+            List<PhotoBibliothequePlanteModel> photoPlanteModel = this.photoBibliothequePlanteRepository.findByBibliothequePlante_IdOrderByIdDesc(idPlante);
+            if (photoPlanteModel.size() > 0) {
+                return new ResponseEntity<>(photoPlanteModel, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/one/idPlante/{idPlante}")
+    @Operation(summary = "récupère la dernière photo d'une plante")
+
+    public ResponseEntity<Optional<PhotoBibliothequePlanteModel>> getUrlOfPhotoPlante(@PathVariable("idPlante") int idPlante) {
+        try {
+            Optional<PhotoBibliothequePlanteModel> photoPlanteModel = this.photoBibliothequePlanteRepository.findFirstByBibliothequePlante_IdOrderByIdDesc(idPlante);
+            if (photoPlanteModel.isPresent()) {
+                return new ResponseEntity<>(photoPlanteModel, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -3,9 +3,6 @@ package com.mspr.arosaje.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-import java.util.Objects;
-
 @Entity
 @Getter
 @Setter
@@ -18,14 +15,8 @@ public class PlanteModel {
     @Column(name = "id")
     private int id;
     @Basic
-    @Column(name = "nom")
-    private String nom;
-    @Basic
     @Column(name = "localisation")
     private String localisation;
-    @ManyToOne
-    @JoinColumn(name = "statut", referencedColumnName = "id", nullable = false)
-    private StatutPlanteModel statut;
     @ManyToOne
     @JoinColumn(name = "proprietaire", referencedColumnName = "id", nullable = false)
     private PersonneModel proprietaire;

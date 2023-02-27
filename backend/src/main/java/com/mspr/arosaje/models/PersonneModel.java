@@ -20,7 +20,7 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "personne", schema = "arosaje", catalog = "")
+@Table(name = "personne", schema = "arosaje")
 public class PersonneModel implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -53,7 +53,7 @@ public class PersonneModel implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.role.getNom()));
+        return List.of(new SimpleGrantedAuthority(role.getNom()));
     }
     @Override
     public String getPassword() {

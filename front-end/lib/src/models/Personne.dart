@@ -23,11 +23,20 @@ class Personne {
     required this.role,
   });
 
+  static List<Personne> listFromJson(List<dynamic> parsedJson) {
+
+    List<Personne> personne = <Personne>[];
+    for (var personne in  parsedJson) {
+      personne.add(Personne.fromJson(personne));
+    } 
+    return personne;
+  }
+
   factory Personne.fromJson(Map<String, dynamic> json) {
     return Personne(
       id: json['id'],
       adresse: json['adresse'],
-      cp: json['cp'],
+      cp: json['cp'], 
       email: json['email'],
       mdp: json['mdp'],
       nom: json['nom'],
@@ -35,5 +44,19 @@ class Personne {
       ville: json['ville'],
       role: Role.fromJson(json['role']),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'adresse': adresse,
+      'cp': cp,
+      'email' : email,
+      'mdp': mdp,
+      'nom': nom,
+      'prenom': prenom,
+      'ville': ville,
+      'role': role.toJson(),
+    };
   }
 }

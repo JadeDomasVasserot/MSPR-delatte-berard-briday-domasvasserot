@@ -1,13 +1,14 @@
 <template>
+  <router-link to="home">
   <v-app-bar flat>
+    <img src="@/assets/logo_app_x48.png" alt="">
     <v-app-bar-title>
-      <v-icon icon="mdi-circle-slice-4" />
-
-      Base Preset
+      Arosaje Ball App
     </v-app-bar-title>
   </v-app-bar>
+  </router-link>
 </template>
 
-<script lang="ts" setup>
+<script  setup>
   //
 </script>

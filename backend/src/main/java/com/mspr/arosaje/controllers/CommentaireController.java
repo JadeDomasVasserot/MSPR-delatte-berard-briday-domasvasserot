@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = {"http://127.0.0.1:8081", "http://127.0.0.1:3000"})
 @RequestMapping("/commentaire")
 @Tag(name = "Commentaire")
 @RestController
@@ -62,16 +62,11 @@ public class CommentaireController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
     @Operation(summary = "modifie un commentaire")
-    public ResponseEntity<CommentaireModel> updateCommentaire(@PathVariable("id") int id, @RequestBody CommentaireModel commentaire) {
-        Optional<CommentaireModel> commentaireData = commentaireRepository.findById(id);
-
-        if (commentaireData.isPresent()) {
-            CommentaireModel _commentaire = commentaireData.get();
-            _commentaire.setTitre(commentaire.getTitre());
-           // a faire pour tous les attributs
-            return new ResponseEntity<>(commentaireRepository.save(_commentaire), HttpStatus.OK);
+    public ResponseEntity<CommentaireModel> updateCommentaire(@RequestBody CommentaireModel commentaire) {
+        if (commentaire != null) {
+            return new ResponseEntity<>(commentaireRepository.save(commentaire), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
