@@ -4,7 +4,7 @@
 </template>
 
 <script setup>
-import PagePersonneComponent from "@/components/PagePersonneComponent";
+import PagePersonneComponent from "@/components/LoginRegisterMdp/PagePersonneComponent";
 
 </script>
 

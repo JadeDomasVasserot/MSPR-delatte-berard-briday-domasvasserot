@@ -4,28 +4,17 @@
   <v-container align="center" justify="center" fill-height>
     <v-row align="center" justify="center">
       <div class="text-center">
-        <h1 class="mb-2">Profile Contact Card</h1>
+        <h1 class="mb-2">Page de profil</h1>
       </div>
     </v-row>
     <v-row class="bg-img" justify="space-around">
       <v-col cols="12" class="mt-8">
         <v-card width="400">
-          <v-img
-            height="200px"
-            src="https://cdn.pixabay.com/photo/2021/07/09/06/52/lavender-6398415_960_720.jpg"
-          >
             <v-app-bar
               class="mt-8"
               flat
               color="rgba(0, 0, 0, 0)"
             >
-              <v-avatar size="100">
-                <img
-                  alt="user"
-                  src="https://cdn.pixabay.com/photo/2019/12/16/21/39/tree-4700352_960_720.jpg"
-                >
-              </v-avatar>
-
               <v-spacer></v-spacer>
 
               <v-menu offset-y left>
@@ -40,7 +29,7 @@
                   </v-btn>
                 </template>
                 <v-list>
-                  <v-list-item href="https://edu.fedorae.com">
+                  <v-list-item>
                     <v-list-item-title>Edit</v-list-item-title>
                   </v-list-item>
                 </v-list>
@@ -50,38 +39,31 @@
 
             <v-card-title class="white--text mt-8">
               <p class="ml-3">
-                Jane Doe
+             {{user.nom}}, {{ user.prenom}}
               </p>
             </v-card-title>
-          </v-img>
+          <v-card-subtitle> {{ user.role.nom }}</v-card-subtitle>
 
           <v-card-text>
-
-            <div class="font-weight-bold ml-8 mb-2">
-              Details
-            </div>
 
             <v-list two-line>
               <v-list-item href="https://edu.fedorae.com">
                 <v-list-item-icon>
                   <v-icon color="indigo">
-                    mdi-phone
+                    mdi-home-map-marker
                   </v-icon>
                 </v-list-item-icon>
 
                 <v-list-item-content>
-                  <v-list-item-title>1 444 555 8888</v-list-item-title>
-                  <v-list-item-subtitle>Mobile</v-list-item-subtitle>
+                  <v-list-item-title>{{ user.address }}</v-list-item-title>
+                  <v-list-item-subtitle>{{user.ville}}, {{user.cp}}</v-list-item-subtitle>
                 </v-list-item-content>
 
-                <v-list-item-icon>
-                  <v-icon>mdi-message-text</v-icon>
-                </v-list-item-icon>
               </v-list-item>
 
               <v-divider inset></v-divider>
 
-              <v-list-item href="https://edu.fedorae.com">
+              <v-list-item>
                 <v-list-item-icon>
                   <v-icon color="indigo">
                     mdi-email
@@ -89,28 +71,25 @@
                 </v-list-item-icon>
 
                 <v-list-item-content>
-                  <v-list-item-title>jane@edu.fedorae.com</v-list-item-title>
-                  <v-list-item-subtitle>Work</v-list-item-subtitle>
+                  <v-list-item-title>{{ user.email }}</v-list-item-title>
                 </v-list-item-content>
 
-                <v-list-item-icon>
-                  <v-icon>mdi-message-text</v-icon>
-                </v-list-item-icon>
               </v-list-item>
 
               <v-divider inset></v-divider>
-
-              <v-list-item href="https://edu.fedorae.com">
+              <v-list-item>
                 <v-list-item-icon>
                   <v-icon color="indigo">
-                    mdi-map-marker
+                    mdi-edit
                   </v-icon>
                 </v-list-item-icon>
 
                 <v-list-item-content>
-                  <v-list-item-title>Fedorae Education</v-list-item-title>
-                  <v-list-item-subtitle>Online</v-list-item-subtitle>
+               <router-link :to="{ name: 'ModifieProfil'}"><v-btn class="ma-5">Modifier</v-btn></router-link>
+               <v-btn class="ma-5">Supprimer mon compte</v-btn>
+                  <router-link :to="{ name: 'Login'}"><v-btn class="ma-5">Déconnexion</v-btn></router-link>
                 </v-list-item-content>
+
               </v-list-item>
             </v-list>
           </v-card-text>
@@ -130,16 +109,19 @@ import Personne from "@/models/Personne";
 export default {
   name: "ProfileComponent",
   components: {NavBar},
+  beforeMount() {
+    this.getUser()
+  },
   data () {
     return {
-      userId: this.$store.user,
+      userId: this.$store.state.user,
       user: ''
     }
   },
   methods: {
-    getPlanteByNom(nomPlante){
+    getUser(){
 
-      axios.get("http://127.0.0.1:9000/personne/id/"+this.userId,
+      axios.get("http://127.0.0.1:9000/personne/id/"+this.userId.id,
         {
           withCredentials: false,
           headers: {

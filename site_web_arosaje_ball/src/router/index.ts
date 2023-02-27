@@ -173,7 +173,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '../views/AjouterUnGuide.vue'),
       },
       {
-        path: '/plantes-a-garder/:idPlante',
+        path: '/plantes-a-garder/:idGarde',
         name: "PlantesAGarderItem",
         props: true,
         // route level code-splitting
@@ -198,7 +198,7 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })
-/*router.beforeEach(async (to, from) => {
+router.beforeEach(async (to, from) => {
   const authenticated = store.getters.getUser
   const token = store.getters.getToken
   // redirect the user to login page if he is not authenticated
@@ -209,5 +209,5 @@ const router = createRouter({
     return { name: 'LoginComponent' }
   }
 })
-*/
+
 export default router

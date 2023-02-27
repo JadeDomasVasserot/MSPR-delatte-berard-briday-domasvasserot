@@ -46,29 +46,46 @@
       </v-card>
     </v-col>
     <v-col>
-      <v-card>
+      <v-card class="ma-10" prepend-icon="mdi-flower-tulip">
         <v-card-title> INFORMATION PLANTE</v-card-title>
         <v-card-subtitle>{{ plante.localisation }}</v-card-subtitle>
-        <v-card-text>Date de la garde : </v-card-text>
-        <v-btn class="ma-5">CONTACTER</v-btn>
+        <v-card-text>Date de la garde : {{garde.dateDebut}} à {{garde.dateFin}}</v-card-text>
+        <v-btn @click="dialog = true" class="ma-5">GARDER</v-btn>
       </v-card>
     </v-col>
   </v-row>
   </div>
+  <v-dialog
+    v-model="dialog"
+    width="auto"
+  >
+    <v-card>
+      <v-card-title> Garde d'une {{plante.bibliothequePlante.nom}} / {{plante.bibliothequePlante.typePlante.nom}}</v-card-title>
+      <v-card-subtitle>
+        La garde est du {{garde.dateDebut}} au {{garde.dateFin}}
+      </v-card-subtitle>
+      <v-card-text> Vous vous engagez à garder cette plante en appuyant sur le bouton</v-card-text>
+      <v-card-text>Pour plus d'informations pour comment garder cette {{plante.bibliothequePlante.nom}} --> <router-link :to="{ name: 'BibliothequePlanteItem', params: { idPlante:  plante.bibliothequePlante.id }}">ICI</router-link></v-card-text>
+      <v-card-actions>
+        <v-btn color="green" block @click="addGarde()">Garder</v-btn>
+      </v-card-actions>
+      <v-card-actions>
+        <v-btn color="green" block @click="dialog = false">Fermer</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
 import axios from 'axios';
-import NavBar from "@/layouts/navBar/NavBar.vue";
-import BibliothequePlante from "@/models/BibliothequePlante";
-import PhotoBibliothequePlante from "@/models/PhotoBibliothequePlante";
-import GuidePlante from "@/models/GuidePlante";
+import NavBar from "@/layouts/navBar/NavBar.vue"
 import Plante from "@/models/Plante";
 import PhotoPlante from "@/models/PhotoPlante";
+import GardePlante from "@/models/GardePlante";
 
 export default {
   name: "PlantesAgarderItemComponent",
-  props: ['idPlante'],
+  props: ['idGarde'],
   components: {NavBar},
 
   beforeMount() {
@@ -76,8 +93,10 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       photos: [],
       plante: '',
+      garde: '',
       nom: '',
       pathPhoto: "/src/assets/photo-plante/",
       error: '',
@@ -85,7 +104,7 @@ export default {
   },
   methods: {
     getPlanteId() {
-      axios.get("http://127.0.0.1:9000/plante/id/" + this.idPlante,
+      axios.get("http://127.0.0.1:9000/garde-plante/id/" + this.idGarde,
         {
           withCredentials: false,
           headers: {
@@ -95,9 +114,9 @@ export default {
         })
         .then(rep => {
             if (rep.data) {
-              this.plante = new Plante(rep.data.id, rep.data.localisation, rep.data.bibliothequePlante, rep.data.proprietaire, rep.data.statut);
-
-              axios.get(`http://127.0.0.1:9000/photo-plante/all/idPlante/${rep.data.id}`,
+              this.plante = new Plante(rep.data.plante.id, rep.data.plante.localisation, rep.data.plante.bibliothequePlante, rep.data.plante.proprietaire, rep.data.plante.statut);
+              this.garde = new GardePlante(rep.data.id,rep.data.dateDebut, rep.data.dateFin, rep.data.gardien, rep.data.plante)
+              axios.get(`http://127.0.0.1:9000/photo-plante/all/idPlante/${rep.data.plante.id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -121,6 +140,24 @@ export default {
         this.error = "Erreur plante"
       })
     },
+    addGarde() {
+      axios.put("http://127.0.0.1:9000/garde-plante/"+this.garde.id+"/update/gardien/"+this.$store.state.user+"/status",
+        {
+          withCredentials: false,
+          headers: {
+            'Authorization': 'Bearer ' + this.$store.state.token,
+            'Content-Type': 'application/json',
+          }
+        })
+        .then(rep => {
+            if (rep.data) {
+
+            }
+          }
+        ).catch(() => {
+        this.error = "Erreur plante"
+      })
+    }
   }
 }
 </script>

@@ -3,5 +3,5 @@
 </template>
 
 <script  setup>
-  import MesPlantesItemGardeComponent from "@/components/MesPlantesItemGardeComponent.vue";
+  import MesPlantesItemGardeComponent from "@/components/MesPlantes/MesPlantesItemGardeComponent.vue";
 </script>

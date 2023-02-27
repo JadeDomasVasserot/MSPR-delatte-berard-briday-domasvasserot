@@ -75,9 +75,11 @@
             </v-img>
             <v-card-subtitle class="ma-3">{{plante.bibliothequePlante.typePlante.nom}} - {{ plante.localisation }}</v-card-subtitle>
             <v-card-subtitle class="ma-3"> {{plante.proprietaire.ville}}, {{plante.proprietaire.cp}}</v-card-subtitle>
+            <v-card-subtitle class="ma-3"> {{garde.dateDebut}} au {{garde.dateFin}}</v-card-subtitle>
+
             <v-card-actions>
               <v-btn color="green">
-                <router-link class="btn-router-link" :to="{ name: 'PlantesAGarderItem', params: { idPlante:  plante.id }}">En savoir plus</router-link>
+                <router-link class="btn-router-link" :to="{ name: 'PlantesAGarderItem', params: { idGarde:  garde.id }}">En savoir plus</router-link>
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -94,17 +96,19 @@ import axios from "axios";
 import Plante from "@/models/Plante";
 import TypePlante from "@/models/TypePlante";
 import PhotoPlante from "@/models/PhotoPlante";
+import GardePlante from "@/models/GardePlante";
 export default {
   beforeMount() {
     this.getPlantes();
     this.getTypePlante();
   },
-  components: {NavBar},
+  components: { NavBar},
   data () {
     return {
       name: "",
       ville:"",
       typePlantes: [],
+      garde: '',
       plantes: [],
       pathPhoto: "/src/assets/photo-plante/",
       error: '',
@@ -112,7 +116,7 @@ export default {
   },
   methods:{
     getPlantes(){
-      axios.get("http://127.0.0.1:9000/plante/a-garder/all",
+      axios.get("http://127.0.0.1:9000/garde-plante/all/byAGarder",
         {
           withCredentials: false,
           headers: {
@@ -122,9 +126,11 @@ export default {
         })
         .then( rep => {
           if (rep.data) {
+
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              this.garde = new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante)
+              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].plante.id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -134,7 +140,7 @@ export default {
                 }).then(
                 photo => {
                   if (photo.data) {
-                    this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, rep.data[repKey].statut, photo.data.photo))
+                    this.plantes.push(new Plante(rep.data[repKey].plante.id, rep.data[repKey].plante.localisation, rep.data[repKey].plante.bibliothequePlante, rep.data[repKey].plante.proprietaire, rep.data[repKey].plante.statut, photo.data.photo))
                   }
                 }
               ).catch(()=>{

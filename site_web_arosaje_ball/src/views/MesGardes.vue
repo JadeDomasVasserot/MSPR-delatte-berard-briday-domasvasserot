@@ -3,5 +3,5 @@
 </template>
 
 <script  setup>
-  import MesGardesComponent from "@/components/MesGardesComponent.vue";
+  import MesGardesComponent from "@/components/MesGardes/MesGardesComponent.vue";
 </script>

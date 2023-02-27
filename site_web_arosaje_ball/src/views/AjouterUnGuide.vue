@@ -3,5 +3,5 @@
 </template>
 
 <script  setup>
-  import AjouterUnGuideComponent from "@/components/AjouterUnGuideComponent.vue";
+  import AjouterUnGuideComponent from "@/components/Guide/AjouterUnGuideComponent.vue";
 </script>

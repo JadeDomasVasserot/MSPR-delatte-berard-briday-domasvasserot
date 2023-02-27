@@ -3,5 +3,5 @@
 </template>
 
 <script  setup>
-  import InscriptionComponent from "@/components/InscriptionComponent.vue";
+  import InscriptionComponent from "@/components/LoginRegisterMdp/InscriptionComponent.vue";
 </script>

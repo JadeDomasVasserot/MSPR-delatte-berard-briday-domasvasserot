@@ -9,64 +9,47 @@
     <v-row class="bg-img" justify="space-around" v-if="plantes[0] !== ''">
       <v-col cols="12" class="mt-8">
         <v-card width="400">
-            <v-card-title class="white--text mt-8" v-text="proprietaire.nom">
+            <v-card-title class="white--text mt-8" >
+              {{proprietaire.nom}} {{proprietaire.prenom}}
             </v-card-title>
 
           <v-card-text>
-
             <div class="font-weight-bold ml-8 mb-2">
-
             </div>
-
             <v-list two-line>
-              <v-list-item href="https://edu.fedorae.com">
+              <v-list-item>
                 <v-list-item-icon>
-                  <v-icon color="indigo">
-                    mdi-phone
-                  </v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title>1 444 555 8888</v-list-item-title>
-                  <v-list-item-subtitle>Mobile</v-list-item-subtitle>
-                </v-list-item-content>
-
-                <v-list-item-icon>
-                  <v-icon>mdi-message-text</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-
-              <v-divider inset></v-divider>
-
-              <v-list-item href="https://edu.fedorae.com">
-                <v-list-item-icon>
-                  <v-icon color="indigo">
+                  <v-icon color="green">
                     mdi-email
                   </v-icon>
                 </v-list-item-icon>
-
                 <v-list-item-content>
-                  <v-list-item-title>jane@edu.fedorae.com</v-list-item-title>
-                  <v-list-item-subtitle>Work</v-list-item-subtitle>
+                  <v-list-item-title>{{ proprietaire.email }}</v-list-item-title>
                 </v-list-item-content>
-
-                <v-list-item-icon>
-                  <v-icon>mdi-message-text</v-icon>
-                </v-list-item-icon>
               </v-list-item>
-
-              <v-divider inset></v-divider>
-
-              <v-list-item href="https://edu.fedorae.com">
+              <v-divider></v-divider>
+              <v-list-item>
                 <v-list-item-icon>
-                  <v-icon color="indigo">
+                  <v-icon color="green">
                     mdi-map-marker
                   </v-icon>
                 </v-list-item-icon>
 
                 <v-list-item-content>
-                  <v-list-item-title>Fedorae Education</v-list-item-title>
-                  <v-list-item-subtitle>Online</v-list-item-subtitle>
+                  <v-list-item-title>{{proprietaire.ville}}</v-list-item-title>
+                  <v-list-item-subtitle>{{proprietaire.cp}}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-divider></v-divider>
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon color="green" >
+                    mdi-account-star
+                  </v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title>{{role.nom}}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -74,6 +57,39 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-card
+      class="mx-auto ma-10"
+      max-width="95%"
+    >
+      <v-container fluid>
+        <v-row dense >
+          <v-col
+            v-for="plante in plantes"
+            :key="plante.id"
+            cols="4"
+          >
+            <v-card>
+              <v-card-title v-if="!plante.photo" v-text="plante.nom"></v-card-title>
+              <v-img
+                v-if="plante.photo"
+                :src="pathPhoto + plante.photo"
+                class="align-end"
+                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                height="300px"
+                cover
+                alt="no img"
+              >
+
+                <v-card-title class="text-white" v-text="plante.bibliothequePlante.nom"></v-card-title>
+              </v-img>
+              <v-card-subtitle class="ma-3">{{plante.bibliothequePlante.typePlante.nom}} - {{ plante.localisation }}</v-card-subtitle>
+              <v-card-subtitle class="ma-3"> {{plante.proprietaire.ville}}, {{plante.proprietaire.cp}}</v-card-subtitle>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+      <v-container v-if="plantes.length === 0 && error !== ''">{{ error }} </v-container>
+    </v-card>
   </v-container>
 </template>
 
@@ -83,6 +99,7 @@ import Plante from "@/models/Plante";
 import PhotoPlante from "@/models/PhotoPlante";
 import NavBar from "@/layouts/navBar/NavBar";
 import Personne from "@/models/Personne";
+import Role from "@/models/Role";
 
 export default {
   name: "PagePersonneComponent",
@@ -97,6 +114,7 @@ export default {
       photos: [],
       plantes: '',
       proprietaire: '',
+      role: '',
       pathPhoto: "/src/assets/photo-plante/",
       error: '',
     }
@@ -114,6 +132,7 @@ export default {
         .then( rep => {
           if (rep.data) {
             this.proprietaire = new Personne( rep.data[0].proprietaire.id,  rep.data[0].proprietaire.adresse,  rep.data[0].proprietaire.cp,  rep.data[0].proprietaire.email,  rep.data[0].proprietaire.mdp,   rep.data[0].proprietaire.nom,   rep.data[0].proprietaire.prenom,   rep.data[0].proprietaire.ville,   rep.data[0].proprietaire.role )
+            this.role = new Role(rep.data[0].proprietaire.role.id, rep.data[0].proprietaire.role.nom)
             this.plantes = [];
             for (const repKey in rep.data) {
               axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,

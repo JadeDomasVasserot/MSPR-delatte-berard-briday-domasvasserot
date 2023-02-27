@@ -58,7 +58,6 @@
          idPlante:  plante.id
       }}">
       <v-btn
-        @click="addGarde()"
         color="success"
         prepend-icon="mdi-cloud-upload"
       >
@@ -168,9 +167,6 @@ export default {
       let imgData = this.getBase64Image(addPhoto);
       localStorage.setItem("imgData", imgData);
     },
-    addGarde() {
-
-    }
   }
 }
 </script>

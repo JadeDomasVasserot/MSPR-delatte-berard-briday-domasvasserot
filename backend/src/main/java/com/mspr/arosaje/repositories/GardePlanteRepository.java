@@ -15,7 +15,21 @@ public interface GardePlanteRepository extends JpaRepository<GardePlanteModel, I
 
     List<GardePlanteModel> getAllGardePlanteByUser(int idUser);
 
-    Optional<GardePlanteModel> findByPlante_Id(@NonNull int id);
+    List<GardePlanteModel> findByPlante_Proprietaire_IdAndStatut_IdOrderByPlante_BibliothequePlante_NomAsc(int idUser, int idStatus);
+
+    List<GardePlanteModel> findByStatut_IdOrderByPlante_BibliothequePlante_NomAsc(int id);
+
+    List<GardePlanteModel> findByPlante_BibliothequePlante_NomStartsWithAndStatut_IdOrderByPlante_BibliothequePlante_NomAsc(String nom, int id);
+
+    List<GardePlanteModel> findByPlante_Proprietaire_VilleStartsWithAndStatut_IdOrderByPlante_BibliothequePlante_NomAsc(String ville, int id);
+
+    List<GardePlanteModel> findByPlante_BibliothequePlante_TypePlante_IdAndStatut_IdOrderByPlante_BibliothequePlante_NomAsc(int id, int id1);
+
+    
+
+
+
+
 
 
 }

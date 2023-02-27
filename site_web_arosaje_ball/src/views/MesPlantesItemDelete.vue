@@ -3,5 +3,5 @@
 </template>
 
 <script  setup>
-  import MesPlantesItemDeleteComponent from "@/components/MesPlantesItemDeleteComponent.vue";
+  import MesPlantesItemDeleteComponent from "@/components/MesPlantes/MesPlantesItemDeleteComponent.vue";
 </script>

@@ -3,5 +3,5 @@
 </template>
 
 <script  setup>
-  import BibliothequePlanteComponent from "@/components/BibliothequePlanteComponent.vue";
+  import BibliothequePlanteComponent from "@/components/Guide/BibliothequePlanteComponent.vue";
 </script>

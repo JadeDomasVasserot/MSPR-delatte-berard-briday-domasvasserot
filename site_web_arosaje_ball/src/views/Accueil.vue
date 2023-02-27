@@ -3,5 +3,5 @@
 </template>
 
 <script  setup>
-  import AccueilComponent from "@/components/AccueilComponent.vue";
+  import AccueilComponent from "@/components/GardeAccueil/AccueilComponent.vue";
 </script>
