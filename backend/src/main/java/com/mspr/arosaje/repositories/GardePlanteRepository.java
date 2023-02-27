@@ -25,6 +25,9 @@ public interface GardePlanteRepository extends JpaRepository<GardePlanteModel, I
 
     List<GardePlanteModel> findByPlante_BibliothequePlante_TypePlante_IdAndStatut_IdOrderByPlante_BibliothequePlante_NomAsc(int id, int id1);
 
+    List<GardePlanteModel> findByPlante_IdOrderByDateDebutDesc(int id);
+
+
     
 
 

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:arosaje/src/models/BibliothequePlante.dart';
 import 'package:arosaje/src/models/GuidePlante.dart';
 import 'package:arosaje/src/models/Personne.dart';
-import 'package:arosaje/src/models/StatutPlante.dart';
 import 'package:arosaje/src/services/photoPlanteService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

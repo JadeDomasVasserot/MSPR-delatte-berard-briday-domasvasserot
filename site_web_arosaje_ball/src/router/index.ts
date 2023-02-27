@@ -198,6 +198,7 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })
+/*
 router.beforeEach(async (to, from) => {
   const authenticated = store.getters.getUser
   const token = store.getters.getToken
@@ -209,5 +210,5 @@ router.beforeEach(async (to, from) => {
     return { name: 'LoginComponent' }
   }
 })
-
+*/
 export default router

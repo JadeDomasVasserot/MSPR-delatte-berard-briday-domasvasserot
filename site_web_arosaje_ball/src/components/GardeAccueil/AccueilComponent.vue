@@ -175,7 +175,7 @@ export default {
       })
     },
     getAllByTypePlante(typePlanteParam){
-      axios.get("http://127.0.0.1:9000/plante/a-garder/byTypePlante/"+typePlanteParam,
+      axios.get("http://127.0.0.1:9000/garde-plante/a-garder/byTypePlante/"+typePlanteParam,
         {
           withCredentials: false,
           headers: {
@@ -215,7 +215,7 @@ export default {
       })
     },
     getPlanteByNom(nomPlante){
-      axios.get("http://127.0.0.1:9000/plante/a-garder/byNom/"+nomPlante,
+      axios.get("http://127.0.0.1:9000/garde-plante/a-garder/byNom/"+nomPlante,
         {
           withCredentials: false,
           headers: {
@@ -253,7 +253,7 @@ export default {
     },
     getPlanteByVille(ville){
 
-      axios.get("http://127.0.0.1:9000/plante/a-garder/byVille/"+ville,
+      axios.get("http://127.0.0.1:9000/garde-plante/a-garder/byVille/"+ville,
         {
           withCredentials: false,
           headers: {
