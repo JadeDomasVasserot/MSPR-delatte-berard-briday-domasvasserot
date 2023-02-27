@@ -1,12 +1,16 @@
 import 'package:arosaje/src/models/Personne.dart';
 import 'package:arosaje/src/models/Plante.dart';
 
+import 'StatutPlante.dart';
+
 class GardePlante {
   final int id;
   final DateTime dateDebut;
   final DateTime dateFin;
   final Personne gardien;
   final Plante plante;
+  final StatutPlante statut;
+
 
   const GardePlante({
     required this.id,
@@ -14,6 +18,7 @@ class GardePlante {
     required this.dateFin,
     required this.gardien,
     required this.plante,
+    required this.statut,
   });
 
   factory GardePlante.fromJson(Map<String, dynamic> json) {
@@ -22,7 +27,8 @@ class GardePlante {
         dateDebut: DateTime.parse(json['dateDebut']),
         dateFin: DateTime.parse(json['dateFin']),
         gardien: Personne.fromJson(json['gardien']),
-        plante: Plante.fromJson(json['plante'])
+        plante: Plante.fromJson(json['plante']),
+        statut: StatutPlante.fromJson(json['statut']),
     );
   }
 }

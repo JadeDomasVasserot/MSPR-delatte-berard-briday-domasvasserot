@@ -9,16 +9,14 @@ export default class Plante {
   private _localisation: string;
   private _bibliothequePlante: BibliothequePlante;
   private _proprietaire: Personne;
-  private _statut: StatutPlante;
   private _photo?: PhotoPlante;
 
 
-  constructor(id: number, localisation: string, bibliothequePlante: BibliothequePlante, proprietaire: Personne, statut: StatutPlante, photo?: PhotoPlante) {
+  constructor(id: number, localisation: string, bibliothequePlante: BibliothequePlante, proprietaire: Personne, photo?: PhotoPlante) {
     this._id = id;
     this._localisation = localisation;
     this._bibliothequePlante = bibliothequePlante;
     this._proprietaire = proprietaire;
-    this._statut = statut;
     this._photo = photo;
   }
 
@@ -56,13 +54,6 @@ export default class Plante {
     this._proprietaire = value;
   }
 
-  get statut(): StatutPlante {
-    return this._statut;
-  }
-
-  set statut(value: StatutPlante) {
-    this._statut = value;
-  }
   get photo(): PhotoPlante {
     return <PhotoPlante>this._photo;
   }

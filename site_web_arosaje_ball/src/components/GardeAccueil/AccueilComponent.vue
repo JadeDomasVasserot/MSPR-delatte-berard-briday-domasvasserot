@@ -129,7 +129,7 @@ export default {
 
             this.plantes = [];
             for (const repKey in rep.data) {
-              this.garde = new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante)
+              this.garde = new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut)
               axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].plante.id}`,
                 {
                   withCredentials: false,
@@ -140,12 +140,12 @@ export default {
                 }).then(
                 photo => {
                   if (photo.data) {
-                    this.plantes.push(new Plante(rep.data[repKey].plante.id, rep.data[repKey].plante.localisation, rep.data[repKey].plante.bibliothequePlante, rep.data[repKey].plante.proprietaire, rep.data[repKey].plante.statut, photo.data.photo))
+                    this.plantes.push(new Plante(rep.data[repKey].plante.id, rep.data[repKey].plante.localisation, rep.data[repKey].plante.bibliothequePlante, rep.data[repKey].plante.proprietaire, photo.data.photo))
                   }
                 }
               ).catch(()=>{
                 let photoPng = new PhotoPlante(1, "logo_app_x48.png", rep.data[repKey].id)
-                this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, rep.data[repKey].statut, photoPng.photo))
+                this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photoPng.photo))
 
               })
             }
@@ -197,12 +197,12 @@ export default {
                 }).then(
                 photo => {
                   if (photo.data) {
-                    this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, rep.data[repKey].statut, photo.data.photo))
+                    this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photo.data.photo))
                   }
                 }
               ).catch(() => {
                 let photoPng = new PhotoPlante(1, "logo_app_x48.png", rep.data[repKey].id)
-                this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, rep.data[repKey].statut, photoPng.photo))
+                this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photoPng.photo))
 
               })
             }
@@ -237,12 +237,12 @@ export default {
                 }).then(
                 photo => {
                   if (photo.data) {
-                    this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, rep.data[repKey].statut, photo.data.photo))
+                    this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photo.data.photo))
                   }
                 }
               ).catch(() => {
                 let photoPng = new PhotoPlante(1, "logo_app_x48.png", rep.data[repKey].id)
-                this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, rep.data[repKey].statut, photoPng.photo))
+                this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photoPng.photo))
 
               })
             }
@@ -275,13 +275,13 @@ export default {
                 }).then(
                 photo => {
                   if (photo.data) {
-                    this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, rep.data[repKey].statut, photo.data.photo))
+                    this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photo.data.photo))
                   }
 
                 }
               ).catch(() => {
                 let photoPng = new PhotoPlante(1, "logo_app_x48.png", rep.data[repKey].id)
-                this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, rep.data[repKey].statut, photoPng.photo))
+                this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photoPng.photo))
               })
             }
           }

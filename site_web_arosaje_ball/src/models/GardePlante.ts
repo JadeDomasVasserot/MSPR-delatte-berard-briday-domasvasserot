@@ -1,5 +1,6 @@
 import Personne from "@/models/Personne";
 import Plante from "@/models/Plante";
+import StatutPlante from "@/models/StatutPlante";
 
 export default class GardePlante {
   private _id: number;
@@ -7,14 +8,16 @@ export default class GardePlante {
   private _dateFin: Date;
   private _gardien: Personne;
   private _plante: Plante;
+  private _statut: StatutPlante;
 
 
-  constructor(id: number, dateDebut: Date, dateFin: Date, gardien: Personne, plante: Plante) {
+  constructor(id: number, dateDebut: Date, dateFin: Date, gardien: Personne, plante: Plante, statut: StatutPlante,) {
     this._id = id;
     this._dateDebut = dateDebut;
     this._dateFin = dateFin;
     this._gardien = gardien;
     this._plante = plante;
+    this._statut = statut;
   }
 
   get id(): number {
@@ -55,5 +58,13 @@ export default class GardePlante {
 
   set plante(value: Plante) {
     this._plante = value;
+  }
+
+  get statut(): StatutPlante {
+    return this._statut;
+  }
+
+  set statut(value: StatutPlante) {
+    this._statut = value;
   }
 }

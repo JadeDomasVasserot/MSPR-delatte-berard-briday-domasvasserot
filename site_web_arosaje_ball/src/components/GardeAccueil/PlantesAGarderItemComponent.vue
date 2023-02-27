@@ -115,7 +115,7 @@ export default {
         .then(rep => {
             if (rep.data) {
               this.plante = new Plante(rep.data.plante.id, rep.data.plante.localisation, rep.data.plante.bibliothequePlante, rep.data.plante.proprietaire, rep.data.plante.statut);
-              this.garde = new GardePlante(rep.data.id,rep.data.dateDebut, rep.data.dateFin, rep.data.gardien, rep.data.plante)
+              this.garde = new GardePlante(rep.data.id,rep.data.dateDebut, rep.data.dateFin, rep.data.gardien, rep.data.plante, rep.data.status)
               axios.get(`http://127.0.0.1:9000/photo-plante/all/idPlante/${rep.data.plante.id}`,
                 {
                   withCredentials: false,

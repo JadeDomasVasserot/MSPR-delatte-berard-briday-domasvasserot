@@ -145,12 +145,12 @@ export default {
                 }).then(
                 photo => {
                   if (photo.data) {
-                    this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, rep.data[repKey].statut, photo.data.photo))
+                    this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photo.data.photo))
                   }
                 }
               ).catch(()=>{
                 let photoPng = new PhotoPlante(1, "logo_app_x48.png", rep.data[repKey].id)
-                this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, rep.data[repKey].statut, photoPng.photo))
+                this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photoPng.photo))
 
               })
             }

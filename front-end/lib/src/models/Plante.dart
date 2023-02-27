@@ -15,14 +15,12 @@ class Plante {
   final String localisation;
   final BibliothequePlante bibliothequePlante;
   final Personne proprietaire;
-  final StatutPlante statut;
 
   const Plante({
     required this.id,
     required this.localisation,
     required this.bibliothequePlante,
     required this.proprietaire,
-    required this.statut,
   });
 
   static ListView getListPlantes(List<Plante> plantes)
@@ -60,7 +58,6 @@ class Plante {
       localisation: json['localisation'],
       bibliothequePlante:  BibliothequePlante.fromJson(json['bibliothequePlante']),
       proprietaire: Personne.fromJson(json['proprietaire']),
-      statut: StatutPlante.fromJson(json['statut']),
     );
   }
 
@@ -70,7 +67,6 @@ class Plante {
       'localisation': localisation,
       'bibliothequePlante': bibliothequePlante.toJson(),
       'proprietaire' : proprietaire.toJson(),
-      'statut': statut.toJson(),
     };
   }
 }

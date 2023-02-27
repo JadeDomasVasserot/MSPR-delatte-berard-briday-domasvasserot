@@ -78,7 +78,7 @@ export default {
         .then( rep => {
           if (rep.data) {
             for (const repKey in rep.data) {
-              this.planteGarde = new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante)
+              this.planteGarde = new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut)
 
             }
           }
