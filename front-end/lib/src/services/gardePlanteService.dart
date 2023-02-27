@@ -27,11 +27,10 @@ Future<GardePlante> addGardePlante (Plante plante, DateTime debut, DateTime fin)
     },
     body: jsonEncode(<String, dynamic>{
       'plante': plante.toJson(),
-      'debut': debut.toIso8601String(),
-      'fin': fin.toIso8601String(),
+      'dateDebut': debut.toIso8601String(),
+      'dateFin': fin.toIso8601String(),
     }),
   );
-
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.

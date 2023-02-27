@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:arosaje/src/models/Plante.dart';
+import 'package:arosaje/src/models/StatutPlante.dart';
 import 'package:arosaje/src/models/GardePlante.dart';
 import 'package:intl/intl.dart';
 import 'package:arosaje/src/services/gardePlanteService.dart';
 import 'package:arosaje/src/services/planteService.dart';
+import 'package:arosaje/src/services/statutService.dart';
 
 import '../components/BottomBarComponent.dart';
 
@@ -27,12 +29,18 @@ class _CreateGardeScreen extends State<CreateGardeScreen> {
   late DateTime _dateFin;
 
   void _submitForm() async {
-    if (_formKey.currentState?.validate() ?? false) {
+  if (_formKey.currentState?.validate() ?? false) { 
+    try {
       Plante plante = await getPlante(widget.id);
+      StatutPlante statut = await getStatutPlante(2);
+      plante = await updatePlante(plante.id, plante.localisation, statut, plante.proprietaire, plante.bibliothequePlante);
       GardePlante gardePlante =
-          await addGardePlante(plante, _dateDebut, _dateFin);
+          await addGardePlante(plante, _dateDebut, _dateFin);  
+    } catch (e) {
+      print ('Il y a une erreur quand on valide le formulaire');
     }
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +98,7 @@ class _CreateGardeScreen extends State<CreateGardeScreen> {
                       );
                       if(pickedDate != null ){
                         print(pickedDate);  
-                        String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate); 
+                        String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate); 
                         print(formattedDate); 
 
                         setState(() {
@@ -121,7 +129,7 @@ class _CreateGardeScreen extends State<CreateGardeScreen> {
                       );
                       if(pickedDate != null ){
                         print(pickedDate);  
-                        String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate); 
+                        String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate); 
                         print(formattedDate); 
 
                         setState(() {
