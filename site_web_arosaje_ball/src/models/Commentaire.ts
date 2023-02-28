@@ -2,69 +2,69 @@ import Personne from "@/models/Personne";
 import Plante from "@/models/Plante";
 
 export default class Commentaire {
-  private _id: number;
-  private _description: string;
-  private _photo: string;
-  private _titre: string;
-  private _auteur: Personne;
-  private _plante: Plante;
+  private id: number;
+  private description: string;
+  private photo: string;
+  private titre: string;
+  private auteur: Personne;
+  private plante: Plante;
 
 
   constructor(id: number, description: string, photo: string, titre: string, auteur: Personne, plante: Plante) {
-    this._id = id;
-    this._description = description;
-    this._photo = photo;
-    this._titre = titre;
-    this._auteur = auteur;
-    this._plante = plante;
+    this.id = id;
+    this.description = description;
+    this.photo = photo;
+    this.titre = titre;
+    this.auteur = auteur;
+    this.plante = plante;
   }
 
 
-  get id(): number {
-    return this._id;
+  getId(): number {
+    return this.id;
   }
 
-  set id(value: number) {
-    this._id = value;
+  setId(value: number) {
+    this.id = value;
   }
 
-  get description(): string {
-    return this._description;
+ getDescription(): string {
+    return this.description;
   }
 
-  set description(value: string) {
-    this._description = value;
+  setDescription(value: string) {
+    this.description = value;
   }
 
-  get photo(): string {
-    return this._photo;
+  getPhoto(): string {
+    return this.photo;
   }
 
-  set photo(value: string) {
-    this._photo = value;
+  setPhoto(value: string) {
+    this.photo = value;
   }
 
-  get titre(): string {
-    return this._titre;
+ getTitre(): string {
+    return this.titre;
   }
 
-  set titre(value: string) {
-    this._titre = value;
+ setTitre(value: string) {
+    this.titre = value;
   }
 
-  get auteur(): Personne {
-    return this._auteur;
+ getAuteur(): Personne {
+    return this.auteur;
   }
 
-  set auteur(value: Personne) {
-    this._auteur = value;
+ setAuteur(value: Personne) {
+    this.auteur = value;
   }
 
-  get plante(): Plante {
-    return this._plante;
+  getPlante(): Plante {
+    return this.plante;
   }
 
-  set plante(value: Plante) {
-    this._plante = value;
+  setPlante(value: Plante) {
+    this.plante = value;
   }
 }

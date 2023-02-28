@@ -2,58 +2,58 @@ import TypeGuide from "@/models/TypeGuide";
 import BibliothequePlante from "@/models/BibliothequePlante";
 
 export default class GuidePlante {
-   private _id:number;
-   private _description:string;
-   private _titre:string;
-   private _typeGuide: TypeGuide ;
-   private _bibliothequePlante: BibliothequePlante ;
+   private id:number;
+   private description:string;
+   private titre:string;
+   private typeGuide: TypeGuide ;
+   private bibliothequePlante: BibliothequePlante ;
 
 
   constructor(id: number, description: string, titre: string, typeGuide: TypeGuide, bibliothequePlante: BibliothequePlante) {
-    this._id = id;
-    this._description = description;
-    this._titre = titre;
-    this._typeGuide = typeGuide;
-    this._bibliothequePlante = bibliothequePlante;
+    this.id = id;
+    this.description = description;
+    this.titre = titre;
+    this.typeGuide = typeGuide;
+    this.bibliothequePlante = bibliothequePlante;
   }
 
-  get id(): number {
-    return this._id;
+  getId(): number {
+    return this.id;
   }
 
-  set id(value: number) {
-    this._id = value;
+  setId(value: number) {
+    this.id = value;
   }
 
-  get description(): string {
-    return this._description;
+ getDescription(): string {
+    return this.description;
   }
 
-  set description(value: string) {
-    this._description = value;
+  setDescription(value: string) {
+    this.description = value;
   }
 
-  get titre(): string {
-    return this._titre;
+ getTitre(): string {
+    return this.titre;
   }
 
-  set titre(value: string) {
-    this._titre = value;
+ setTitre(value: string) {
+    this.titre = value;
   }
 
-  get typeGuide(): TypeGuide {
-    return this._typeGuide;
+ getTypeGuide(): TypeGuide {
+    return this.typeGuide;
   }
 
-  set typeGuide(value: TypeGuide) {
-    this._typeGuide = value;
+ setTypeGuide(value: TypeGuide) {
+    this.typeGuide = value;
   }
 
-  get bibliothequePlante(): BibliothequePlante {
-    return this._bibliothequePlante;
+ getBibliothequePlante(): BibliothequePlante {
+    return this.bibliothequePlante;
   }
 
-  set bibliothequePlante(value: BibliothequePlante) {
-    this._bibliothequePlante = value;
+  setBibliothequePlante(value: BibliothequePlante) {
+    this.bibliothequePlante = value;
   }
 }

@@ -1,39 +1,39 @@
 import Plante from "@/models/Plante";
 
 export default class PhotoPlante {
-  private _id: number;
-  private _photo: string;
-  private _plante: Plante;
+  private id: number;
+  private photo: string;
+  private plante: Plante;
 
 
   constructor(id: number, photo: string, plante: Plante) {
-    this._id = id;
-    this._photo = photo;
-    this._plante = plante;
+    this.id = id;
+    this.photo = photo;
+    this.plante = plante;
   }
 
 
-  get id(): number {
-    return this._id;
+  getId(): number {
+    return this.id;
   }
 
-  set id(value: number) {
-    this._id = value;
+  setId(value: number) {
+    this.id = value;
   }
 
-  get photo(): string {
-    return this._photo;
+  getPhoto(): string {
+    return this.photo;
   }
 
-  set photo(value: string) {
-    this._photo = value;
+  setPhoto(value: string) {
+    this.photo = value;
   }
 
-  get plante(): Plante {
-    return this._plante;
+  getPlante(): Plante {
+    return this.plante;
   }
 
-  set plante(value: Plante) {
-    this._plante = value;
+  setPlante(value: Plante) {
+    this.plante = value;
   }
 }

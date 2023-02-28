@@ -208,7 +208,7 @@ public class GardePlanteController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("/all/garde/byPlante/{idPlante}}")
+    @GetMapping("/all/garde/byPlante/{idPlante}")
     @Operation(summary = "récupère toutes les gardes d'une plante")
     public ResponseEntity<List<GardePlanteModel>> findByPlante_IdOrderByDateDebutDesc(@PathVariable("idPlante") int idPlante) {
         try {

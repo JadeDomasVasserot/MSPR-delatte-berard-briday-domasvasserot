@@ -1,14 +1,12 @@
 <template>
   <nav-bar />
-  <form @submit.prevent="getFormValues()">
-    <v-select
-      @update:modelValue="getPlanteId()"
-      v-if="plantes.length > 0"
-      v-model="planteSelected"
+  <form @submit.prevent="getFormValues">
+    <v-autocomplete
+      label="Sélectionne une plante"
       :items="nom"
-      :key="plantes"
-      label="Sélectionner une plante"
-    ></v-select>
+      v-model="planteSelected"
+      @update:modelValue="getPlanteNom()"
+    ></v-autocomplete>
     <v-text-field
       v-model="localisation"
       :counter="10"
@@ -47,6 +45,7 @@ export default {
       planteSelected: "",
       plantes: [],
       nom: [],
+      plante: '',
       user :"",
     }
   },
@@ -72,13 +71,13 @@ export default {
         this.error = "Pas de plante référencée"
       })
     },
-    async getFormValues(submitEvent) {
+    async getFormValues() {
       await axios.post(
         'http://127.0.0.1:9000/plante/add',
         {
           localisation: this.localisation,
           proprietaire: this.user,
-          bibliothequePlante: this.planteSelected
+          bibliothequePlante: this.plante
         },
         {
           withCredentials: false,
@@ -87,8 +86,6 @@ export default {
           }
         }
       ) .then( response => {
-        if(response.status === 200) {
-        }
       })
         .catch(() => {
           this.errorLogin = true;
@@ -112,8 +109,8 @@ export default {
         this.error = "Error"
       })
     },
-    getPlanteId() {
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/id/" + this.idPlante,
+    getPlanteNom() {
+      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all/byNom/" + this.planteSelected,
         {
           withCredentials: false,
           headers: {
@@ -123,7 +120,7 @@ export default {
         })
         .then(rep => {
             if (rep.data) {
-              this.planteSelected = new BibliothequePlante(rep.data.id, rep.data.nom, rep.data.description, rep.data.typePlante)
+              this.plante = new BibliothequePlante(rep.data[0].id, rep.data[0].nom, rep.data[0].description, rep.data[0].typePlante)
             }
           }
         ).catch(() => {

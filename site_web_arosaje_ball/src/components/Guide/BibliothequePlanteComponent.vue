@@ -3,7 +3,6 @@
   <v-banner  class="text-h3 ma-10 banner" lines="one" text="Guide de plante">
   </v-banner>
   <v-text-field
-    :loading="loading"
     density="compact"
     variant="solo"
     label="Recherche par nom"

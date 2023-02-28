@@ -3,61 +3,61 @@ import TypePlante from "@/models/TypePlante";
 import PhotoBibliothequePlante from "@/models/PhotoBibliothequePlante";
 
 export default class BibliothequePlante {
-  private _id: number;
-  private _nom: string;
-  private _description: string;
-  private _typePlante: TypePlante;
-  private _photo?: PhotoBibliothequePlante;
+  private id: number;
+  private nom: string;
+  private description: string;
+  private typePlante: TypePlante;
+  private photo?: PhotoBibliothequePlante;
 
 
   constructor(id: number, nom: string,  description: string, typePlante: TypePlante, photo?: PhotoBibliothequePlante) {
-    this._id = id;
-    this._nom = nom;
-    this._description = description;
-    this._typePlante = typePlante;
-    this._photo = photo;
+    this.id = id;
+    this.nom = nom;
+    this.description = description;
+    this.typePlante = typePlante;
+    this.photo = photo;
   }
 
 
-  get id(): number {
-    return this._id;
+  getId(): number {
+    return this.id;
   }
 
-  set id(value: number) {
-    this._id = value;
+  setId(value: number) {
+    this.id = value;
   }
 
-  get nom(): string {
-    return this._nom;
+  getNom(): string {
+    return this.nom;
   }
 
-  set nom(value:  string) {
-    this._nom = value;
-  }
-
-
-  get description(): string {
-    return this._description;
-  }
-
-  set description(value: string) {
-    this._description = value;
+  setNom(value:  string) {
+    this.nom = value;
   }
 
 
-  get typePlante(): TypePlante {
-    return this._typePlante;
+ getDescription(): string {
+    return this.description;
   }
 
-  set typePlante(value: TypePlante) {
-    this._typePlante = value;
+  setDescription(value: string) {
+    this.description = value;
   }
 
-  get photo(): PhotoBibliothequePlante {
-    return <PhotoBibliothequePlante>this._photo;
+
+ getTypePlante(): TypePlante {
+    return this.typePlante;
   }
 
-  set photo(value: PhotoBibliothequePlante) {
-    this._photo = value;
+ setTypePlante(value: TypePlante) {
+    this.typePlante = value;
+  }
+
+  getPhoto(): PhotoBibliothequePlante {
+    return <PhotoBibliothequePlante>this.photo;
+  }
+
+  setPhoto(value: PhotoBibliothequePlante) {
+    this.photo = value;
   }
 }

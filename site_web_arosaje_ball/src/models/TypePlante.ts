@@ -1,36 +1,36 @@
 export default class TypePlante {
-  private _id: number;
-  private _description: string;
-  private _nom: string;
+  private id: number;
+  private description: string;
+  private nom: string;
 
 
   constructor(id: number, description: string, nom: string) {
-    this._id = id;
-    this._description = description;
-    this._nom = nom;
+    this.id = id;
+    this.description = description;
+    this.nom = nom;
   }
 
-  get id(): number {
-    return this._id;
+  getId(): number {
+    return this.id;
   }
 
-  set id(value: number) {
-    this._id = value;
+  setId(value: number) {
+    this.id = value;
   }
 
-  get description(): string {
-    return this._description;
+ getDescription(): string {
+    return this.description;
   }
 
-  set description(value: string) {
-    this._description = value;
+  setDescription(value: string) {
+    this.description = value;
   }
 
-  get nom(): string {
-    return this._nom;
+  getNom(): string {
+    return this.nom;
   }
 
-  set nom(value: string) {
-    this._nom = value;
+  setNom(value: string) {
+    this.nom = value;
   }
 }

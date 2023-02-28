@@ -15,4 +15,5 @@ public interface PlanteRepository extends JpaRepository<PlanteModel, Integer> {
     List<PlanteModel> getAllPlantesByIdUser(int idUser);
 
     List<PlanteModel> findByProprietaire_IdAndBibliothequePlante_TypePlante_IdOrderByBibliothequePlante_NomAsc(int id, int id1);
+
 }

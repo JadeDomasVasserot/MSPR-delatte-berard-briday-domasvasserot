@@ -7,20 +7,21 @@
           class="ma-10"
           max-width="100%"
   >
-    <v-carousel show-arrows="hover" v-if="photos.length > 0">
-      <v-row justify="center" class="mb-10">
-      <v-icon icon="mdi-pencil"
-              class="ma-5 pa-5 border"
-              size="x-large">
-
-      </v-icon>
+    <v-row justify="center" class="mb-10">
+      <router-link :to="{ name: 'MesPlantesItemModifier', params: { idPlante:  plante }}">
+        <v-icon icon="mdi-pencil"
+                class="ma-5 pa-5 border"
+                size="x-large">
+        </v-icon>
+      </router-link>
       <v-icon icon="mdi-delete"
               class="ma-5 pa-5 border"
               size="x-large">
 
       </v-icon>
-        </v-row>
-
+      <v-btn>Faire garder</v-btn>
+    </v-row>
+    <v-carousel show-arrows="hover" v-if="photos.length > 0">
       <v-carousel-item
         v-for="(item) in photos"
         :key="item.id"
