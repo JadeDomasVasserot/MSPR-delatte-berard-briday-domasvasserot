@@ -2,15 +2,17 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:arosaje/src/models/GardePlante.dart';
+import 'package:arosaje/src/models/StatutPlante.dart';
+import 'package:arosaje/src/services/statutService.dart';
 import 'package:arosaje/src/models/Plante.dart';
 
-Future<GardePlante> getGardePlanteByPlante (int idPlante) async {
+Future<List<GardePlante>> getGardePlanteByPlante (int idPlante) async { // Retourne toutes les gardes d'une plante
   final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/garde-plante/id/byPlante/$idPlante"));
+      .get(Uri.parse("http://127.0.0.1:9000/garde-plante/id/$idPlante"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
-    return GardePlante.fromJson(jsonDecode(response.body));
+    return GardePlante.listFromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -18,8 +20,22 @@ Future<GardePlante> getGardePlanteByPlante (int idPlante) async {
   }
 }
 
+Future<List<GardePlante>> getPlantesAGarder() async { // Retourn les gardes a garder avec les plantes 
+  final response = await http
+      .get(Uri.parse("http://127.0.0.1:9000/garde-plante/all/byAGarder"));
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.;
+    return GardePlante.listFromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load plantes');
+  }
+}
 
-Future<GardePlante> addGardePlante (Plante plante, DateTime debut, DateTime fin) async {
+Future<GardePlante> addGardePlante (Plante plante, DateTime debut, DateTime fin, StatutPlante statut) async {
+  print('licorne');
   final response = await http.post(
     Uri.parse("http://127.0.0.1:9000/garde-plante/add"),
     headers: <String, String>{
@@ -29,8 +45,11 @@ Future<GardePlante> addGardePlante (Plante plante, DateTime debut, DateTime fin)
       'plante': plante.toJson(),
       'dateDebut': debut.toIso8601String(),
       'dateFin': fin.toIso8601String(),
+      'statut' : statut.toJson(),
     }),
   );
+  print(response.statusCode);
+
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.

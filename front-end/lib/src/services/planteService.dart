@@ -20,20 +20,6 @@ Future<List<Plante>> getAllPlantes() async {
   }
 }
 
-Future<List<Plante>> getPlantesAGarder() async {
-  final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/plante/a-garder/all"));
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.;
-    return Plante.listFromJson(jsonDecode(response.body));
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load plantes');
-  }
-}
-
 Future<Plante> getPlante (int idPlante) async {
   final response = await http
       .get(Uri.parse("http://127.0.0.1:9000/plante/id/$idPlante"));
@@ -49,7 +35,7 @@ Future<Plante> getPlante (int idPlante) async {
 }
 
 
-Future<Plante> updatePlante (int id, String localisation, StatutPlante statut, Personne proprietaire, BibliothequePlante bibliothequePlante) async {
+Future<Plante> updatePlante (int id, String localisation, Personne proprietaire, BibliothequePlante bibliothequePlante) async {
   final response = await http.put(
     Uri.parse("http://127.0.0.1:9000/plante/update"),
     headers: <String, String>{
@@ -58,7 +44,6 @@ Future<Plante> updatePlante (int id, String localisation, StatutPlante statut, P
     body: jsonEncode(<String, dynamic>{
       'id' : id,
       'localisation': localisation,
-      'statut': statut.toJson(),
       'proprietaire': proprietaire.toJson(),
       'bibliothequePlante': bibliothequePlante.toJson(),
     }),

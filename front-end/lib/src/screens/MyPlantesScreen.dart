@@ -94,7 +94,11 @@ class _MyPlantesScreen extends State<MyPlantesScreen> {
                                             )
                                           );
                                         }else if (snapshot.hasError) {
-                                          return Text("Une erreur s'est produite : ${snapshot.error}");
+                                          return Container(
+                                            child: Expanded(
+                                              child :Image.asset('logo_app.png')
+                                            )
+                                          );
                                         } else {
                                           return CircularProgressIndicator();
                                         }
@@ -129,30 +133,7 @@ class _MyPlantesScreen extends State<MyPlantesScreen> {
                                           )
                                         ),
                                       ],)
-                                    ),
-                                    Container(
-                                      child : Row (children: [
-                                        Container(
-                                          child: const Text('Status : ',
-                                            style: TextStyle(
-                                              fontStyle: FontStyle.normal,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                              color: Colors.black
-                                            )
-                                          )
-                                        ),
-                                        Container(
-                                          child: Text('${plante.statut.nom}',
-                                            style: const TextStyle(
-                                              fontStyle: FontStyle.normal,
-                                              fontSize: 15,
-                                              color: Colors.black
-                                            )
-                                          )
-                                        ),
-                                      ],)
-                                    ),
+                                    )
                                   ]
                                 ),
                               ),

@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreen();
 }
 class _HomeScreen extends State<HomeScreen> {
-  late Future<List<Plante>> futurePlante;
+  late Future<List<GardePlante>> futurePlante;
 
   @override
   void initState() {
@@ -28,12 +28,12 @@ class _HomeScreen extends State<HomeScreen> {
   
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Plante>>(
+    return FutureBuilder<List<GardePlante>>(
       future: getPlantesAGarder(),
-      builder: (BuildContext context, AsyncSnapshot<List<Plante>> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<GardePlante>> snapshot) {
         if (snapshot.hasData) {
           // Si la requête a réussi, on construit la ListView avec les données reçues
-          final List<Plante> plantes = snapshot.data?? [];
+          final List<GardePlante> gardePlantes = snapshot.data?? [];
           return Scaffold(
             appBar: AppBar( // Page en haut
               backgroundColor: const Color.fromARGB(255,131,189,117),
@@ -54,143 +54,136 @@ class _HomeScreen extends State<HomeScreen> {
                     sliver: SliverGrid.count(
                       crossAxisCount: 2,
                       children:<Widget>[
-                        for (Plante plante in plantes)
-                          FutureBuilder<GardePlante>(
-                            future: getGardePlanteByPlante(plante.id),
-                            builder: (BuildContext context, AsyncSnapshot<GardePlante> snapshot) {
-                              if (snapshot.hasData) {
-                                final GardePlante gardePlante = snapshot.data!;
-                                return Container(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color:  const Color.fromARGB(100, 233,239, 192),
-                                      border: Border.all(
-                                        color: const Color.fromARGB(255, 233,239, 192),
-                                      ),
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(5.0),
-                                      ),
+                        for (GardePlante gardePlante in gardePlantes)
+                          Container(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color:  const Color.fromARGB(100, 233,239, 192),
+                                border: Border.all(
+                                  color: const Color.fromARGB(255, 233,239, 192),
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(5.0),
+                                ),
+                              ),
+                              padding: const EdgeInsets.all(8),
+                              margin: const EdgeInsets.all(10),
+                              child: TextButton(
+                                onPressed: () {
+                                  context.go("/plante");
+                                },
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(bottom : 4),
+                                      child: Text('${gardePlante.plante.bibliothequePlante.nom}',
+                                        style: const TextStyle(
+                                          fontStyle: FontStyle.normal,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: Colors.black
+                                        )
+                                      )
                                     ),
-                                    padding: const EdgeInsets.all(8),
-                                    margin: const EdgeInsets.all(10),
-                                    child: TextButton(
-                                      onPressed: () {
-                                        context.go("/plante");
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            margin: const EdgeInsets.only(bottom : 4),
-                                            child: Text('${plante.bibliothequePlante.nom}',
-                                              style: const TextStyle(
-                                                fontStyle: FontStyle.normal,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20,
-                                                color: Colors.black
-                                              )
+                                    FutureBuilder<PhotoPlante>(
+                                      future: getLastPhotoPlante(gardePlante.plante.id),
+                                      builder: (BuildContext context, AsyncSnapshot<PhotoPlante> snapshot) {
+                                        if (snapshot.hasData) {
+                                          final PhotoPlante photoPlante = snapshot.data!;
+                                          return Container(
+                                            child: Expanded(
+                                              child :Image.asset('photo-plante/${photoPlante.photo}')
                                             )
-                                          ),
-                                          FutureBuilder<PhotoPlante>(
-                                            future: getLastPhotoPlante(plante.id),
-                                            builder: (BuildContext context, AsyncSnapshot<PhotoPlante> snapshot) {
-                                              if (snapshot.hasData) {
-                                                final PhotoPlante photoPlante = snapshot.data!;
-                                                return Container(
-                                                  child: Expanded(
-                                                    child :Image.asset('photo-plante/${photoPlante.photo}')
-                                                  )
-                                                );
-                                              }else if (snapshot.hasError) {
-                                                return Text("Une erreur s'est produite : ${snapshot.error}");
-                                              } else {
-                                                return CircularProgressIndicator();
-                                              }
-                                            }
-                                          ),
-                                          Container(
-                                            margin: const EdgeInsets.only(top : 4),
-                                            padding: const EdgeInsets.only(top : 2),
-                                            decoration: const BoxDecoration(
-                                              border: Border(
-                                                top : BorderSide()
-                                              )
-                                            ),
-                                            child : Row (children: [
-                                              Container(
-                                                child: const Text('Du : ',
-                                                  style: TextStyle(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15,
-                                                    color: Colors.black
-                                                  )
-                                                )
-                                              ),
-                                              Container(
-                                                child:Text('${DateFormat('dd/MM/yyyy').format(gardePlante.dateDebut)}',
-                                                  style: const TextStyle(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 15,
-                                                    color: Colors.black
-                                                  )
-                                                )
-                                              ),
-                                              Container(
-                                                child: const Text(' au ',
-                                                  style: TextStyle(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15,
-                                                    color: Colors.black
-                                                  )
-                                                )
-                                              ),
-                                              Container(
-                                                child:  Text('${DateFormat('dd/MM/yyyy').format(gardePlante.dateFin)}',
-                                                  style:  const TextStyle(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 15,
-                                                    color: Colors.black
-                                                  )
-                                                )
-                                              )
-                                            ],)
-                                          ),
-                                          Container(
-                                            child : Row (children: [
-                                              Container(
-                                                child: const Text('A : ',
-                                                  style: TextStyle(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15,
-                                                    color: Colors.black
-                                                  )
-                                                )
-                                              ),
-                                              Container(
-                                                child: Text('${plante.localisation}',
-                                                  style: const TextStyle(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 15,
-                                                    color: Colors.black
-                                                  )
-                                                )
-                                              ),
-                                            ],)
-                                          ),
-                                        ]
-                                      ),
+                                          );
+                                        }else if (snapshot.hasError) {
+                                          return Container(
+                                            child: Expanded(
+                                              child :Image.asset('logo_app.png')
+                                            )
+                                          );
+                                        } else {
+                                          return CircularProgressIndicator();
+                                        }
+                                      }
                                     ),
-                                  ),
-                                );
-                              } else if (snapshot.hasError) {
-                                return Text("Une erreur s'est produite : ${snapshot.error}");
-                              } else {
-                                return CircularProgressIndicator();
-                              }
-                            }
+                                    Container(
+                                      margin: const EdgeInsets.only(top : 4),
+                                      padding: const EdgeInsets.only(top : 2),
+                                        decoration: const BoxDecoration(
+                                        border: Border(
+                                          top : BorderSide()
+                                        )
+                                      ),
+                                      child : Row (children: [
+                                        Container(
+                                          child: const Text('Du : ',
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                                fontSize: 12,
+                                              color: Colors.black
+                                            )
+                                          )
+                                        ),
+                                        Container(
+                                          child:Text('${DateFormat('dd/MM/yyyy').format(gardePlante.dateDebut)}',
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 12,
+                                              color: Colors.black
+                                            )
+                                          )
+                                        ),
+                                        Container(
+                                          child: const Text(' au ',
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Colors.black
+                                            )
+                                          )
+                                        ),
+                                        Container(
+                                          child:  Text('${DateFormat('dd/MM/yyyy').format(gardePlante.dateFin)}',
+                                            style:  const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 12,
+                                              color: Colors.black
+                                            )
+                                          )
+                                        )
+                                      ],)
+                                    ),
+                                    Container(
+                                      child : Row (children: [
+                                        Container(
+                                          child: const Text('Localisation : ',
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Colors.black
+                                            )
+                                          )
+                                        ),
+                                        Container(
+                                          child: Text('${gardePlante.plante.localisation}',
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 12,
+                                              color: Colors.black
+                                            )
+                                          )
+                                        ),
+                                      ],)
+                                    ),
+                                  ]
+                                ),
+                              ),
+                            ),
                           )
+                        
                       ]
                     ),
                   ),

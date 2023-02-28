@@ -31,4 +31,14 @@ class GardePlante {
         statut: StatutPlante.fromJson(json['statut']),
     );
   }
+
+  static List<GardePlante> listFromJson(List<dynamic> parsedJson) {
+
+    List<GardePlante> gardePlantes = <GardePlante>[];
+    for (var gardePlante in  parsedJson) {
+      gardePlantes.add(GardePlante.fromJson(gardePlante));
+    } 
+    return gardePlantes;
+  }
+
 }
