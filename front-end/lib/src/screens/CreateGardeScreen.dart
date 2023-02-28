@@ -29,21 +29,18 @@ class _CreateGardeScreen extends State<CreateGardeScreen> {
   late DateTime _dateFin;
 
   void _submitForm() async {
-  if (_formKey.currentState?.validate() ?? false) { 
-    try {
-      Plante plante = await getPlante(widget.id);
-      print(1);
-      StatutPlante statut = await getStatutPlante(2);
-      plante = await updatePlante(plante.id, plante.localisation, plante.proprietaire, plante.bibliothequePlante);
-      print(2);
-      GardePlante gardePlante =
-          await addGardePlante(plante, _dateDebut, _dateFin, statut);  
-      print(3);
-    } catch (e) {
-      print ('Il y a une erreur quand on valide le formulaire');
+    if (_formKey.currentState?.validate() ?? false) { 
+      try {
+        Plante plante = await getPlante(widget.id);
+        StatutPlante statut = await getStatutPlante(2);
+        plante = await updatePlante(plante.id, plante.localisation, plante.proprietaire, plante.bibliothequePlante);
+        GardePlante gardePlante =
+            await addGardePlante(plante, _dateDebut, _dateFin, statut);
+      } catch (e) {
+        print ('Il y a une erreur quand on valide le formulaire');
+      }
     }
   }
-}
 
   @override
   Widget build(BuildContext context) {

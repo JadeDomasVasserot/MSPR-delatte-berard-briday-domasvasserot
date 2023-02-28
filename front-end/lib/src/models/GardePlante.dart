@@ -7,7 +7,7 @@ class GardePlante {
   final int id;
   final DateTime dateDebut;
   final DateTime dateFin;
-  final Personne gardien;
+  final Personne? gardien;
   final Plante plante;
   final StatutPlante statut;
 
@@ -16,7 +16,7 @@ class GardePlante {
     required this.id,
     required this.dateDebut,
     required this.dateFin,
-    required this.gardien,
+    this.gardien,
     required this.plante,
     required this.statut,
   });
@@ -26,7 +26,7 @@ class GardePlante {
         id: json['id'],
         dateDebut: DateTime.parse(json['dateDebut']),
         dateFin: DateTime.parse(json['dateFin']),
-        gardien: Personne.fromJson(json['gardien']),
+        gardien: json['gardien'] != null ? Personne.fromJson(json['gardien']) : null,
         plante: Plante.fromJson(json['plante']),
         statut: StatutPlante.fromJson(json['statut']),
     );

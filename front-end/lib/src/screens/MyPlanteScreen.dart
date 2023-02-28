@@ -151,15 +151,14 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                                   Container(
                                     margin : const EdgeInsets.only(top : 10,right: 10, left : 10),
                                     padding : const EdgeInsets.only(top : 10, bottom: 10),
+                                    decoration: const BoxDecoration(
+                                      border: Border(
+                                        top : BorderSide()
+                                      )
+                                    ),
                                     child : Wrap( children :[// Garde
                                       Wrap(children: [
                                         Container(
-                                          padding : const EdgeInsets.only(bottom: 10),
-                                          decoration: const BoxDecoration(
-                                            border: Border(
-                                              top : BorderSide()
-                                            )
-                                          ),
                                           child: const Text('Du : ',
                                             style: TextStyle(
                                               fontStyle: FontStyle.normal,
@@ -197,96 +196,86 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                                             )
                                           )
                                         ),
-                                        Container(
-                                          child: gardePlante.gardien == null ? //gardien 
-                                            Container(
-                                              margin : const EdgeInsets.only(right: 10, left : 10),
-                                              padding : const EdgeInsets.only(top : 10),
-                                              child : Row (children: [
-                                                Container(
-                                                  child: const Text('Gardien : ',
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                      fontStyle: FontStyle.normal,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 15,
-                                                    )
-                                                  )
-                                                ),
-                                                Container(
-                                                  child:  Text('${gardePlante.gardien.nom}',
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                      fontStyle: FontStyle.normal,
-                                                      fontSize: 15,
-                                                    )
-                                                  )
-                                                )
-                                              ],)
-                                            )
-                                          :const Text('Erreur')
-                                        ),
-                                        Container(
-                                          margin : const EdgeInsets.only(top : 10,right: 10, left : 10),
-                                          padding : const EdgeInsets.only(top : 10, bottom: 10),
-                                          decoration: const BoxDecoration(
-                                            border: Border(
-                                              top : BorderSide()
+                                      ]),
+                                      Container(
+                                        padding : const EdgeInsets.only(top : 5),
+                                        child: gardePlante.gardien != null ? //gardien 
+                                        Row (children: [
+                                          Container(
+                                            child: const Text('Gardien : ',
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                fontStyle: FontStyle.normal,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15,
+                                              )
                                             )
                                           ),
-                                          child : Row (children: [
-                                            Container(
-                                              child : gardePlante.statut.id == 1 ?
-                                              Container(
-                                                padding : const EdgeInsets.only(left : 2, right: 2),
-                                                child: OutlinedButton(
-                                                  onPressed: () {
-                                                    context.go("");
-                                                  },
-                                                  style: ElevatedButton.styleFrom(
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(5),
-                                                      side: BorderSide(color: Colors.black)
-                                                    )
-                                                  ),
-                                                  child: const Text('Voir profile gardien',
-                                                    style: TextStyle(
-                                                      fontStyle: FontStyle.normal,
-                                                      fontSize: 15,
-                                                      color: Colors.black
-                                                    )
-                                                  ),
-                                                )
-                                              ): null
-                                            ),
+                                          Container(
+                                            child:  Text('${gardePlante.gardien?.nom}',
+                                              textAlign: TextAlign.left,
+                                              style: const TextStyle(
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 15,
+                                              )
+                                            )
+                                          )
+                                        ],)
+                                        :const Text('')
+                                      ),
+                                      Container(
+                                        padding : const EdgeInsets.only(top : 5),
+                                        child : Row (children: [
+                                          Container(
+                                            child : gardePlante.statut.id == 1 ?
                                             Container(
                                               padding : const EdgeInsets.only(left : 2, right: 2),
-                                              child : gardePlante.statut.id == 2 ?
-                                              Container(
-                                                child: OutlinedButton(
-                                                  onPressed: () {
-                                                    context.go("");
-                                                  },
-                                                  style: ElevatedButton.styleFrom(
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(5),
-                                                      side: BorderSide(color: Colors.black)
-                                                    )
-                                                  ),
-                                                  child: const Text('Modifier garde',
-                                                    style: TextStyle(
-                                                      fontStyle: FontStyle.normal,
-                                                      fontSize: 15,
-                                                      color: Colors.black
-                                                    )
-                                                  ),
-                                                )
-                                              ): null
-                                            ),
-                                          ])
-                                        )
-                                      ]),
-                                    ])
+                                              child: OutlinedButton(
+                                                onPressed: () {
+                                                  context.go("");
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(5),
+                                                    side: BorderSide(color: Colors.black)
+                                                  )
+                                                ),
+                                                child: const Text('Voir profile gardien',
+                                                  style: TextStyle(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 15,
+                                                    color: Colors.black
+                                                  )
+                                                ),
+                                              )
+                                            ): null
+                                          ),
+                                          Container(
+                                            child : gardePlante.statut.id == 2 ?
+                                            Container(
+                                              child: OutlinedButton(
+                                                onPressed: () {
+                                                  context.go("");
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(5),
+                                                    side: BorderSide(color: Colors.black)
+                                                  )
+                                                ),
+                                                child: const Text('Modifier garde',
+                                                  style: TextStyle(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 15,
+                                                    color: Colors.black
+                                                  )
+                                                ),
+                                              )
+                                            ): null
+                                          ),
+                                        ])
+                                      )
+                                    ]),
                                   ),
                               ]
                             );
@@ -298,7 +287,7 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                         }
                       ),
                       Container(
-                        margin : const EdgeInsets.only(top : 10,right: 10, left : 10),
+                        margin : const EdgeInsets.only(top : 5,right: 10, left : 10),
                         padding : const EdgeInsets.only(top : 10, bottom: 10),
                         decoration: const BoxDecoration(
                           border: Border(

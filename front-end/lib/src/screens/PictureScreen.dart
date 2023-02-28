@@ -41,14 +41,14 @@ class _PictureScreen extends State<PictureScreen> {
                   ),
                   RichText(
                       text: TextSpan(
-                        text: 'Plante : ${photoPlante != null ? photoPlante!.plante?.nom : 'Unknown'}',
+                        text: 'Plante : ${photoPlante != null ? photoPlante!.plante?.bibliothequePlante.nom : 'Unknown'}',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black
                         ),
                         children: <TextSpan>[
                           TextSpan(
-                              text: '\nStatus : ${photoPlante != null ? photoPlante!.plante?.statut.nom : 'no status'}',
+                              // text: '\nStatus : ${photoPlante != null ? photoPlante!.plante?.statut.nom : 'no status'}',
                               style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.black)),
                           TextSpan(
                               text: photoPlante != null ? '\nPropriétaire : ${photoPlante!.plante?.proprietaire.nom}, ${photoPlante!.plante?.proprietaire.prenom}, (${photoPlante!.plante?.proprietaire.ville.toUpperCase()})' : '\nPropriétaire : Unknown (UNKNOWN)',

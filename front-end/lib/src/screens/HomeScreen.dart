@@ -70,7 +70,7 @@ class _HomeScreen extends State<HomeScreen> {
                               margin: const EdgeInsets.all(10),
                               child: TextButton(
                                 onPressed: () {
-                                  context.go("/plante");
+                                  context.go("/plante/${gardePlante.id}");
                                 },
                                 child: Column(
                                   children: [

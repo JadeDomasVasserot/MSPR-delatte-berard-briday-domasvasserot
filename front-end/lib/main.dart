@@ -79,8 +79,11 @@ final GoRouter _router = GoRouter(
       }
     ),
     GoRoute(
-      path: "/plante",
-      builder: (context, state) => const PlanteScreen()
+      path: "/plante/:id",
+      builder: (context, state) {
+        final id = state.params["id"];
+        return PlanteScreen(id: int.parse(id!));
+      }
     ),
     GoRoute(
       path: "/modify/plante",
