@@ -3,6 +3,17 @@
   <v-banner  class="text-h3 ma-10 banner" lines="one" text="Mes Plantes">
   </v-banner>
   <div class="d-flex justify-space-between ma-10">
+    <router-link  class="text-decoration-none" :to="{ name: 'AjoutePlante'}">
+      <v-btn
+        variant="elevated"
+        size="large"
+        color="green"
+        class="ma-2">
+        Ajouter une plante
+      </v-btn>
+    </router-link>
+  </div>
+  <div class="d-flex justify-space-between ma-10">
     <v-btn
       v-for="type in typePlantes"
       variant="tonal"

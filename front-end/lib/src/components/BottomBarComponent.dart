@@ -7,13 +7,12 @@ class BottomBarComponent extends StatefulWidget {
 
   @override
   State<BottomBarComponent> createState() => _BottomBarComponent();
-  }
-
+}
+int _selectedIndex = 1;
 class _BottomBarComponent extends State<BottomBarComponent> {
 
-  int _selectedIndex = 0;
   void _tap(BuildContext context, int index) {
-    setState(() => _selectedIndex = index);
+    setState(() { _selectedIndex = index; });
     print(index);
     switch (index){
       case 0:
@@ -31,14 +30,18 @@ class _BottomBarComponent extends State<BottomBarComponent> {
       case 4:
         context.go('/my_plantes');
         break;
+      case 5:
+        context.go('/picture');
+        break;
     }
   }
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
+
         BottomNavigationBarItem(
-          icon: Icon(Icons.map),
+          icon: Icon(Icons.map,),
           label: "Map",
           ),
         BottomNavigationBarItem(
@@ -57,7 +60,12 @@ class _BottomBarComponent extends State<BottomBarComponent> {
             icon: Icon(Icons.person),
             label: "Plantes"
         ),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.image),
+            label: "Image"
+        ),
       ],
+      currentIndex: _selectedIndex,
       showUnselectedLabels: true,
       showSelectedLabels: true,
       selectedFontSize: 15,
@@ -65,7 +73,6 @@ class _BottomBarComponent extends State<BottomBarComponent> {
       selectedItemColor: Colors.black38,
       unselectedItemColor: const Color.fromARGB(255,131,189,117),
       elevation: 20,
-      iconSize: 30,
       onTap: (index) => _tap(context, index),
     );
   }

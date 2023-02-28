@@ -3,68 +3,68 @@ import Plante from "@/models/Plante";
 import StatutPlante from "@/models/StatutPlante";
 
 export default class GardePlante {
-  private _id: number;
-  private _dateDebut: Date;
-  private _dateFin: Date;
-  private _gardien: Personne;
-  private _plante: Plante;
-  private _statut: StatutPlante;
+  private id: number;
+  private dateDebut: Date;
+  private dateFin: Date;
+  private gardien: Personne;
+  private plante: Plante;
+  private statut: StatutPlante;
 
 
   constructor(id: number, dateDebut: Date, dateFin: Date, gardien: Personne, plante: Plante, statut: StatutPlante,) {
-    this._id = id;
-    this._dateDebut = dateDebut;
-    this._dateFin = dateFin;
-    this._gardien = gardien;
-    this._plante = plante;
-    this._statut = statut;
+    this.id = id;
+    this.dateDebut = dateDebut;
+    this.dateFin = dateFin;
+    this.gardien = gardien;
+    this.plante = plante;
+    this.statut = statut;
   }
 
-  get id(): number {
-    return this._id;
+  getId(): number {
+    return this.id;
   }
 
-  set id(value: number) {
-    this._id = value;
+  setId(value: number) {
+    this.id = value;
   }
 
-  get dateDebut(): Date {
-    return this._dateDebut;
+ getDateDebut(): Date {
+    return this.dateDebut;
   }
 
-  set dateDebut(value: Date) {
-    this._dateDebut = value;
+  setDateDebut(value: Date) {
+    this.dateDebut = value;
   }
 
-  get dateFin(): Date {
-    return this._dateFin;
+ getDateFin(): Date {
+    return this.dateFin;
   }
 
-  set dateFin(value: Date) {
-    this._dateFin = value;
+  setDateFin(value: Date) {
+    this.dateFin = value;
   }
 
-  get gardien(): Personne {
-    return this._gardien;
+ getGardien(): Personne {
+    return this.gardien;
   }
 
-  set gardien(value: Personne) {
-    this._gardien = value;
+  setGardien(value: Personne) {
+    this.gardien = value;
   }
 
-  get plante(): Plante {
-    return this._plante;
+  getPlante(): Plante {
+    return this.plante;
   }
 
-  set plante(value: Plante) {
-    this._plante = value;
+  setPlante(value: Plante) {
+    this.plante = value;
   }
 
-  get statut(): StatutPlante {
-    return this._statut;
+  getStatut(): StatutPlante {
+    return this.statut;
   }
 
-  set statut(value: StatutPlante) {
-    this._statut = value;
+  setStatut(value: StatutPlante) {
+    this.statut = value;
   }
 }

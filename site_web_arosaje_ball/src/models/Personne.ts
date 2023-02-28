@@ -1,99 +1,99 @@
 import Role from "@/models/Role";
 
 export default class Personne {
-  private _id: number;
-  private _adresse: string;
-  private _cp: number;
-  private _email: string;
-  private _mdp: string;
-  private _nom: string;
-  private _prenom: string;
-  private _ville: string;
-  private _role: Role;
+  private id: number;
+  private adresse: string;
+  private cp: number;
+  private email: string;
+  private mdp: string;
+  private nom: string;
+  private prenom: string;
+  private ville: string;
+  private role: Role;
 
 
   constructor(id: number, adresse: string, cp: number, email: string, mdp: string, nom: string, prenom: string, ville: string, role: Role) {
-    this._id = id;
-    this._adresse = adresse;
-    this._cp = cp;
-    this._email = email;
-    this._mdp = mdp;
-    this._nom = nom;
-    this._prenom = prenom;
-    this._ville = ville;
-    this._role = role;
+    this.id = id;
+    this.adresse = adresse;
+    this.cp = cp;
+    this.email = email;
+    this.mdp = mdp;
+    this.nom = nom;
+    this.prenom = prenom;
+    this.ville = ville;
+    this.role = role;
   }
 
 
-  get id(): number {
-    return this._id;
+  getId(): number {
+    return this.id;
   }
 
-  set id(value: number) {
-    this._id = value;
+  setId(value: number) {
+    this.id = value;
   }
 
-  get adresse(): string {
-    return this._adresse;
+ getAdresse(): string {
+    return this.adresse;
   }
 
-  set adresse(value: string) {
-    this._adresse = value;
+ setAdresse(value: string) {
+    this.adresse = value;
   }
 
-  get cp(): number {
-    return this._cp;
+  getCp(): number {
+    return this.cp;
   }
 
-  set cp(value: number) {
-    this._cp = value;
+  setCp(value: number) {
+    this.cp = value;
   }
 
-  get email(): string {
-    return this._email;
+  getEmail(): string {
+    return this.email;
   }
 
-  set email(value: string) {
-    this._email = value;
+  setEmail(value: string) {
+    this.email = value;
   }
 
-  get mdp(): string {
-    return this._mdp;
+  getMdp(): string {
+    return this.mdp;
   }
 
-  set mdp(value: string) {
-    this._mdp = value;
+  setMdp(value: string) {
+    this.mdp = value;
   }
 
-  get nom(): string {
-    return this._nom;
+  getNom(): string {
+    return this.nom;
   }
 
-  set nom(value: string) {
-    this._nom = value;
+  setNom(value: string) {
+    this.nom = value;
   }
 
-  get prenom(): string {
-    return this._prenom;
+  getPrenom(): string {
+    return this.prenom;
   }
 
-  set prenom(value: string) {
-    this._prenom = value;
+  setPrenom(value: string) {
+    this.prenom = value;
   }
 
-  get ville(): string {
-    return this._ville;
+  getVille(): string {
+    return this.ville;
   }
 
-  set ville(value: string) {
-    this._ville = value;
+  setVille(value: string) {
+    this.ville = value;
   }
 
-  get role(): Role {
-    return this._role;
+  getRole(): Role {
+    return this.role;
   }
 
-  set role(value: Role) {
-    this._role = value;
+  setRole(value: Role) {
+    this.role = value;
   }
 }

@@ -121,7 +121,7 @@ export default {
   methods: {
     getUser(){
 
-      axios.get("http://127.0.0.1:9000/personne/id/"+this.userId.id,
+      axios.get("http://127.0.0.1:9000/personne/id/"+this.userId,
         {
           withCredentials: false,
           headers: {

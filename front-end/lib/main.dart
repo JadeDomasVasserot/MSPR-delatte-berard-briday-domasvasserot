@@ -4,6 +4,7 @@ import 'package:arosaje/src/screens/GuideScreen.dart';
 import 'package:arosaje/src/screens/HomeScreen.dart';
 import 'package:arosaje/src/screens/LoginScreen.dart';
 import 'package:arosaje/src/screens/MapScreen.dart';
+import 'package:arosaje/src/screens/PictureScreen.dart';
 import 'package:arosaje/src/screens/ProfileScreen.dart';
 import 'package:arosaje/src/screens/MyPlantesScreen.dart';
 import 'package:arosaje/src/screens/MyPlanteScreen.dart';
@@ -14,10 +15,17 @@ import 'package:arosaje/src/screens/ModifyProfileScreen.dart';
 import 'package:arosaje/src/screens/CreateGardeScreen.dart';
 import 'package:arosaje/src/screens/ProfileExterieurScreen.dart';
 import 'package:arosaje/src/screens/SignUpScreen.dart';
+import 'package:arosaje/src/screens/CamScreen.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-void main() {
+late List<CameraDescription> cameras;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  cameras = await availableCameras();
   runApp(const MyApp());
 }
 

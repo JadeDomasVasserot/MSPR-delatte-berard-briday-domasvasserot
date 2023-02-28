@@ -1,26 +1,26 @@
 export default class TypeGuide {
-   private _id:number;
-   private _nom:string;
+   private id:number;
+   private nom:string;
 
 
   constructor(id: number, nom: string) {
-    this._id = id;
-    this._nom = nom;
+    this.id = id;
+    this.nom = nom;
   }
 
-  get id(): number {
-    return this._id;
+  getId(): number {
+    return this.id;
   }
 
-  set id(value: number) {
-    this._id = value;
+  setId(value: number) {
+    this.id = value;
   }
 
-  get nom(): string {
-    return this._nom;
+  getNom(): string {
+    return this.nom;
   }
 
-  set nom(value: string) {
-    this._nom = value;
+  setNom(value: string) {
+    this.nom = value;
   }
 }

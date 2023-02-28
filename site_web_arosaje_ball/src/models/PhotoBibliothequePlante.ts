@@ -1,39 +1,39 @@
 import BibliothequePlante from "@/models/BibliothequePlante";
 
 export default class PhotoBibliothequePlante {
-  private _id: number;
-  private _photo: string;
-  private _bibliothequePlante: BibliothequePlante;
+  private id: number;
+  private photo: string;
+  private bibliothequePlante: BibliothequePlante;
 
 
   constructor(id: number, photo: string, bibliothequePlante: BibliothequePlante) {
-    this._id = id;
-    this._photo = photo;
-    this._bibliothequePlante = bibliothequePlante;
+    this.id = id;
+    this.photo = photo;
+    this.bibliothequePlante = bibliothequePlante;
   }
 
 
-  get id(): number {
-    return this._id;
+  getId(): number {
+    return this.id;
   }
 
-  set id(value: number) {
-    this._id = value;
+  setId(value: number) {
+    this.id = value;
   }
 
-  get photo(): string {
-    return this._photo;
+  getPhoto(): string {
+    return this.photo;
   }
 
-  set photo(value: string) {
-    this._photo = value;
+  setPhoto(value: string) {
+    this.photo = value;
   }
 
-  get bibliothequePlante(): BibliothequePlante {
-    return this._bibliothequePlante;
+ getBibliothequePlante(): BibliothequePlante {
+    return this.bibliothequePlante;
   }
 
-  set bibliothequePlante(value: BibliothequePlante) {
-    this._bibliothequePlante = value;
+  setBibliothequePlante(value: BibliothequePlante) {
+    this.bibliothequePlante = value;
   }
 }

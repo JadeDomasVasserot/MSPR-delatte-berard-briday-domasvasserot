@@ -24,7 +24,8 @@
           class="mb-2"
           v-model="password"
           label="Mot de passe"
-          type="input"
+          type="password"
+
           hint="Enter your password to access this website"
         ></v-text-field>
       </v-responsive>
