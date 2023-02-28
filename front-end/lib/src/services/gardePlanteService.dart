@@ -21,6 +21,20 @@ Future<List<GardePlante>> getGardePlanteByPlante (int idPlante) async { // Retou
   }
 }
 
+Future<List<GardePlante>> getGardePlanteByUser (int idUser) async { // Retourne toutes les gardes d'un user
+  final response = await http
+      .get(Uri.parse("http://127.0.0.1:9000/garde-plante/all/byUser/$idUser/byStatus/1"));
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.;
+    return GardePlante.listFromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load plantes');
+  }
+}
+
 Future<GardePlante> getGardePlante (int idGardePlante) async { // Retourne une garde
   final response = await http
       .get(Uri.parse("http://127.0.0.1:9000/garde-plante/id/$idGardePlante"));
@@ -78,11 +92,38 @@ Future<GardePlante> addGardePlante (Plante plante, DateTime debut, DateTime fin,
 
 Future<GardePlante> updateGardePlante (int id, Plante plante, DateTime debut, DateTime fin, StatutPlante statut, Personne gardien) async {
   final response = await http.put(
-    Uri.parse("http://127.0.0.1:9000/plante/update"),
+    Uri.parse("http://127.0.0.1:9000/garde-plante/update"),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, dynamic>{
+      'id': id,
+      'plante': plante.toJson(),
+      'dateDebut': debut.toIso8601String(),
+      'dateFin': fin.toIso8601String(),
+      'statut' : statut.toJson(),
+      'gardien' : gardien.toJson(),
+    }),
+  );
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    return GardePlante.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to add Plante');
+  }
+}
+
+Future<GardePlante> addGardienGardePlante (int id, Plante plante, DateTime debut, DateTime fin, StatutPlante statut, Personne gardien) async {
+  final response = await http.put(
+    Uri.parse("http://127.0.0.1:9000/garde-plante/${id}/update/gardien/${gardien.id}/status"),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, dynamic>{
+      'id': id,
       'plante': plante.toJson(),
       'dateDebut': debut.toIso8601String(),
       'dateFin': fin.toIso8601String(),

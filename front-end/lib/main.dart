@@ -14,6 +14,7 @@ import 'package:arosaje/src/screens/BibliothequePlanteScreen.dart';
 import 'package:arosaje/src/screens/ModifyProfileScreen.dart';
 import 'package:arosaje/src/screens/CreateGardeScreen.dart';
 import 'package:arosaje/src/screens/ProfileExterieurScreen.dart';
+import 'package:arosaje/src/screens/CreateVisiteScreen.dart';
 import 'package:arosaje/src/screens/SignUpScreen.dart';
 import 'package:arosaje/src/screens/CamScreen.dart';
 import 'package:camera/camera.dart';
@@ -112,6 +113,13 @@ final GoRouter _router = GoRouter(
       builder: (context, state) {
         final id = state.params["id"];
         return ProfileExterieurScreen(id: int.parse(id!));
+      }
+    ),
+    GoRoute(
+      path: "/create/visite/:id",
+      builder: (context, state) {
+        final id = state.params["id"];
+        return CreateVisiteScreen(id: int.parse(id!));
       }
     )
   ],

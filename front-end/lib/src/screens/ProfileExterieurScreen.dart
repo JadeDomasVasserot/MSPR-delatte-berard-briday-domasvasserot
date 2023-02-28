@@ -17,7 +17,7 @@ class _ProfileExterieurScreen extends State<ProfileExterieurScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Personne>(
-      future: getUser(widget.id), // Mettre ID session 
+      future: getUser(widget.id),
       builder: (BuildContext context, AsyncSnapshot<Personne> snapshot) {
         if (snapshot.hasData) {
           final Personne personnes = snapshot.data! ;

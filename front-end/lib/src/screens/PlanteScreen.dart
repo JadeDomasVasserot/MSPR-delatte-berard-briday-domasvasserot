@@ -33,7 +33,7 @@ class _PlanteScreen extends State<PlanteScreen> {
         StatutPlante statut = await getStatutPlante(2);
         GardePlante gardePlante = await getGardePlante(widget.id);
         GardePlante gardePlante2 =
-            await updateGardePlante (gardePlante.id, gardePlante.plante, gardePlante.dateDebut, gardePlante.dateFin, statut, gardien);
+            await addGardienGardePlante (gardePlante.id, gardePlante.plante, gardePlante.dateDebut, gardePlante.dateFin, statut, gardien);
       } catch (e) {
         print ('Il y a une erreur  quand on valide le formulaire');
       }
@@ -121,6 +121,31 @@ class _PlanteScreen extends State<PlanteScreen> {
                             Container(
                               child: Text('${gardePlante.plante.bibliothequePlante.typePlante.nom}',
                                 textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 15,
+                                )
+                              )
+                            )
+                          ],)
+                        ),
+                        Container(
+                          margin : const EdgeInsets.only(right: 10, left : 10),
+                          padding : const EdgeInsets.only(top : 10),
+                          child : Row (children: [
+                            Container(
+                              child: const Text('Lieux : ',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontStyle: FontStyle.normal,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                )
+                              )
+                            ),
+                            Container(
+                              child: Text('${gardePlante.plante.proprietaire.adresse}, ${gardePlante.plante.proprietaire.cp} ${gardePlante.plante.proprietaire.ville}',
+                              textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontStyle: FontStyle.normal,
                                   fontSize: 15,
@@ -259,7 +284,7 @@ class _PlanteScreen extends State<PlanteScreen> {
                                   padding : const EdgeInsets.only( right: 2),
                                   child: OutlinedButton(
                                     onPressed: () {
-                                      context.go("");
+                                      context.go("/profile/${gardePlante.plante.proprietaire.id}");
                                     },
                                     style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
@@ -278,47 +303,49 @@ class _PlanteScreen extends State<PlanteScreen> {
                                 ),
                                 Container(
                                   padding : const EdgeInsets.only(left : 2, right: 2),
-                                  child: OutlinedButton(
-                                    onPressed: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        _submitForm();
-                                        showDialog<String>(
-                                          context: context,
-                                          builder: (BuildContext context) => AlertDialog(
-                                            title: const Text('Garder la plante'),
-                                            content: const Text('Voulez vous garder cette plante ? '),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                onPressed: () {
-                                                  context.go("/home"); 
-                                                }                ,
-                                                child: const Text('OUI'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () {
-                                                  context.go("/");
-                                                },
-                                                child: const Text('NON'),
-                                              )
-                                            ]
-                                          )
-                                        );
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5),
-                                        side: BorderSide(color: Colors.black)
-                                      )
-                                    ),
-                                    child: const Text('Garder',
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 15,
-                                        color: Colors.black
-                                      )
-                                    ),
-                                  )
+                                  child: gardePlante.gardien != null ?
+                                    OutlinedButton(
+                                      onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          _submitForm();
+                                          showDialog<String>(
+                                            context: context,
+                                            builder: (BuildContext context) => AlertDialog(
+                                              title: const Text('Garder la plante'),
+                                              content: const Text('Voulez vous garder cette plante ? '),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () {
+                                                    context.go("/home"); 
+                                                  }                ,
+                                                  child: const Text('OUI'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    context.go("/");
+                                                  },
+                                                  child: const Text('NON'),
+                                                )
+                                              ]
+                                            )
+                                          );
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5),
+                                          side: BorderSide(color: Colors.black)
+                                        )
+                                      ),
+                                      child: const Text('Garder',
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 15,
+                                          color: Colors.black
+                                        )
+                                      ),
+                                    )
+                                  :const Text('')
                                 ),
                               ])
                             ),
