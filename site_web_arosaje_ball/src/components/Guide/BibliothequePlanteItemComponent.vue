@@ -135,7 +135,6 @@ export default {
                 guide => {
                   if (guide.status === 200) {
                     for (const guideKey in guide.data) {
-                      console.log(guide.data[guideKey])
                       this.guidePlantes.push(new GuidePlante(guide.data[guideKey].id, guide.data[guideKey].description, guide.data[guideKey].titre, guide.data[guideKey].typeGuide, guide.data[guideKey].bibliothequePlante));
 
                     }

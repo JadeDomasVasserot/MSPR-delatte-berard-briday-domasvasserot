@@ -7,25 +7,36 @@
           class="ma-10"
           max-width="100%"
   >
-    <v-row justify="center" class="mb-10">
-      <router-link :to="{ name: 'MesPlantesItemModifier', params: { idPlante:  plante }}">
+    <v-row justify="center" class="mb-10" v-if="plante.proprietaire.id === user">
+      <router-link :to="{ name: 'ModifiePlante', params: { idPlante:  plante.id }}" class="text-decoration-none">
         <v-icon icon="mdi-pencil"
                 class="ma-5 pa-5 border"
-                size="x-large">
+                size="x-large"
+                color="green">
         </v-icon>
       </router-link>
-      <v-icon icon="mdi-delete"
-              class="ma-5 pa-5 border"
-              size="x-large">
-
-      </v-icon>
-      <v-btn>Faire garder</v-btn>
+      <router-link :to="{ name: 'SupprimePlante', params: { idPlante:  plante.id }}" class="text-decoration-none">
+        <v-icon icon="mdi-delete"
+                class="ma-5 pa-5 border"
+                size="x-large"
+                color="green">
+        </v-icon>
+      </router-link>
+      <router-link :to="{ name: 'GarderPlante', params: { idPlante:  plante.id }}" class="text-decoration-none">
+      <v-btn class="ma-5 border">Faire garder</v-btn>
+      </router-link>
     </v-row>
     <v-carousel show-arrows="hover" v-if="photos.length > 0">
       <v-carousel-item
         v-for="(item) in photos"
         :key="item.id"
         :src="pathPhoto+item.photo"
+      >
+      </v-carousel-item>
+    </v-carousel>
+    <v-carousel show-arrows="hover" v-if="photos.length === 0">
+      <v-carousel-item
+        src="/src/assets/logo_app.png"
       >
       </v-carousel-item>
     </v-carousel>
@@ -66,6 +77,7 @@ export default {
       plante: '',
       pathPhoto: "/src/assets/photo-plante/",
       error: '',
+      user: this.$store.state.user
     }
   },
   methods: {

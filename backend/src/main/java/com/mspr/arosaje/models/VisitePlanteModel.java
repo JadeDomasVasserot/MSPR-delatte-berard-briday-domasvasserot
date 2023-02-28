@@ -31,5 +31,8 @@ public class VisitePlanteModel {
     @ManyToOne
     @JoinColumn(name = "garde_plante", referencedColumnName = "id", nullable = false)
     private GardePlanteModel gardePlante;
+    @ManyToOne
+    @JoinColumn(name = "commentaire", referencedColumnName = "id", nullable = false)
+    private CommentaireModel commentaire;
 
 }

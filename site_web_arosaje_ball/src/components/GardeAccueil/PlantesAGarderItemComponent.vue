@@ -22,6 +22,12 @@
       >
       </v-carousel-item>
     </v-carousel>
+    <v-carousel show-arrows="hover" v-if="photos.length === 0">
+      <v-carousel-item
+        src="/src/assets/logo_app.png"
+      >
+      </v-carousel-item>
+    </v-carousel>
     <v-card-title>
       {{ plante.bibliothequePlante.typePlante.nom }}
       <v-tooltip
@@ -84,7 +90,7 @@ import PhotoPlante from "@/models/PhotoPlante";
 import GardePlante from "@/models/GardePlante";
 
 export default {
-  name: "PlantesAgarderItemComponent",
+  name: "PlantesAGarderItemComponent",
   props: ['idGarde'],
   components: {NavBar},
 

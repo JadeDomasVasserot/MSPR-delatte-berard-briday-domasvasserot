@@ -221,6 +221,18 @@ public class GardePlanteController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @GetMapping("/all/byGardien/{idGardien}")
+    @Operation(summary = "récupère toutes les plantes à garder par nom")
+    public ResponseEntity<List<GardePlanteModel>> findByGardien_IdOrderByDateDebutAsc(@PathVariable("idGardien") int idGardien) {
+        try {
+            List<GardePlanteModel> plantes = this.gardePlanteRepository.findByGardien_IdOrderByDateDebutAsc(idGardien);
+            if (plantes.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(plantes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 

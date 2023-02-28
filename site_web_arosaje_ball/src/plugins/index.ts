@@ -5,10 +5,13 @@
  */
 
 // Plugins
+
+import 'vuetify/dist/vuetify.min.css'
+import 'v-calendar/dist/style.css';
 import { loadFonts } from './webfontloader'
 import vuetify from './vuetify'
-import 'vuetify/dist/vuetify.min.css'
 import VueGoogleMaps from '@fawmi/vue-google-maps'
+import VCalendar from 'v-calendar';
 
 
 import router from '../router'
@@ -28,6 +31,7 @@ export function registerPlugins (app: App) {
     .use(vuetify)
     .use(router)
     .use(store)
+    .use(VCalendar, {})
 
 
 }

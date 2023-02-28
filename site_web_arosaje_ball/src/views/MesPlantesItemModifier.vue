@@ -1,5 +1,5 @@
 <template>
-  <mes-plantes-item-modifier />
+  <mes-plantes-item-modifier-component />
 </template>
 
 <script  setup>

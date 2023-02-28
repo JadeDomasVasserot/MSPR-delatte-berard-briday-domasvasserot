@@ -119,7 +119,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '../views/MesPlantes.vue'),
       },
       {
-        path: '/plantes/:idPlante',
+        path: '/mes-plantes/:idPlante',
         name: "PlanteItem",
         props: true,
         // route level code-splitting
@@ -137,7 +137,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '../views/MesPlantesItemAjout.vue'),
       },
       {
-        path: '/mes-plantes/delete',
+        path: '/mes-plantes/delete/:idPlante',
         name: 'SupprimePlante',
         props: true,
         // route level code-splitting
@@ -146,8 +146,9 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '../views/MesPlantesItemDelete.vue'),
       },
       {
-        path: '/mes-plantes/garde',
+        path: '/mes-plantes/garde/:idPlante',
         name: 'GarderPlante',
+        props: true,
 
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
@@ -155,7 +156,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '../views/MesPlantesItemGarde.vue'),
       },
       {
-        path: '/mes-plantes/edit',
+        path: '/mes-plantes/edit/:idPlante',
         name: 'ModifiePlante',
         props: true,
         // route level code-splitting

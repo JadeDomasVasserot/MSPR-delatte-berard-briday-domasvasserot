@@ -17,7 +17,6 @@
     @update:modelValue="searchName(name)"
   ></v-text-field>
   <v-text-field
-    :loading="loading"
     density="compact"
     variant="solo"
     label="Recherche par ville"
@@ -51,10 +50,10 @@
     class="mx-auto ma-10"
     max-width="95%"
   >
-    <v-container fluid v-if="plantes.length > 0">
+    <v-container fluid v-if="garde.length > 0">
       <v-row dense >
         <v-col
-          v-for="plante in plantes"
+          v-for="plante in garde"
           :key="plante.id"
           cols="4"
         >
@@ -70,22 +69,22 @@
               alt="no img"
             >
 
-              <v-card-title class="text-white" v-text="plante.bibliothequePlante.nom"></v-card-title>
+              <v-card-title class="text-white" v-text="plante.plante.bibliothequePlante.nom"></v-card-title>
             </v-img>
-            <v-card-subtitle class="ma-3">{{plante.bibliothequePlante.typePlante.nom}} - {{ plante.localisation }}</v-card-subtitle>
-            <v-card-subtitle class="ma-3"> {{plante.proprietaire.ville}}, {{plante.proprietaire.cp}}</v-card-subtitle>
-            <v-card-subtitle class="ma-3"> {{garde.dateDebut}} au {{garde.dateFin}}</v-card-subtitle>
+            <v-card-subtitle class="ma-3">{{plante.plante.bibliothequePlante.typePlante.nom}} - {{ plante.plante.localisation }}</v-card-subtitle>
+            <v-card-subtitle class="ma-3"> {{plante.plante.proprietaire.ville}}, {{plante.plante.proprietaire.cp}}</v-card-subtitle>
+            <v-card-subtitle class="ma-3"> {{plante.dateDebut}} au {{plante.dateFin}}</v-card-subtitle>
 
             <v-card-actions>
               <v-btn color="green">
-                <router-link class="btn-router-link" :to="{ name: 'PlantesAGarderItem', params: { idGarde:  garde.id }}">En savoir plus</router-link>
+                <router-link class="btn-router-link" :to="{ name: 'PlantesAGarderItem', params: { idGarde:  plante.id }}">En savoir plus</router-link>
               </v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
     </v-container>
-    <v-container v-if="plantes.length === 0 && error !== ''">{{ error }} </v-container>
+    <v-container v-if="garde.length === 0 && error !== ''">{{ error }} </v-container>
   </v-card>
 </template>
 
@@ -107,8 +106,7 @@ export default {
       name: "",
       ville:"",
       typePlantes: [],
-      garde: '',
-      plantes: [],
+      garde: [],
       pathPhoto: "/src/assets/photo-plante/",
       error: '',
     }
@@ -125,10 +123,8 @@ export default {
         })
         .then( rep => {
           if (rep.data) {
-
             this.plantes = [];
             for (const repKey in rep.data) {
-              this.garde = new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut)
               axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].plante.id}`,
                 {
                   withCredentials: false,
@@ -139,16 +135,15 @@ export default {
                 }).then(
                 photo => {
                   if (photo.data) {
-                    this.plantes.push(new Plante(rep.data[repKey].plante.id, rep.data[repKey].plante.localisation, rep.data[repKey].plante.bibliothequePlante, rep.data[repKey].plante.proprietaire, photo.data.photo))
+                    this.garde.push(new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut, photo.data.photo))
                   }
                 }
               ).catch(()=>{
                 let photoPng = new PhotoPlante(1, "logo_app_x48.png", rep.data[repKey].id)
-                this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photoPng.photo))
+                this.garde.push(new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut, photoPng.photo))
 
               })
             }
-            console.log(this.plantes)
           }
         }).catch(() => {
         this.error = "Pas de plante à garder"
@@ -196,12 +191,12 @@ export default {
                 }).then(
                 photo => {
                   if (photo.data) {
-                    this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photo.data.photo))
+                    this.garde.push(new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut, photo.data.photo))
                   }
                 }
               ).catch(() => {
                 let photoPng = new PhotoPlante(1, "logo_app_x48.png", rep.data[repKey].id)
-                this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photoPng.photo))
+                this.garde.push(new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut, photoPng.photo))
 
               })
             }
@@ -236,12 +231,12 @@ export default {
                 }).then(
                 photo => {
                   if (photo.data) {
-                    this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photo.data.photo))
+                    this.garde.push(new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut, photo.data.photo))
                   }
                 }
               ).catch(() => {
                 let photoPng = new PhotoPlante(1, "logo_app_x48.png", rep.data[repKey].id)
-                this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photoPng.photo))
+                this.garde.push(new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut, photoPng.photo))
 
               })
             }
@@ -274,13 +269,13 @@ export default {
                 }).then(
                 photo => {
                   if (photo.data) {
-                    this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photo.data.photo))
+                    this.garde.push(new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut, photo.data.photo))
                   }
 
                 }
               ).catch(() => {
                 let photoPng = new PhotoPlante(1, "logo_app_x48.png", rep.data[repKey].id)
-                this.plantes.push(new Plante(rep.data[repKey].id, rep.data[repKey].localisation, rep.data[repKey].bibliothequePlante, rep.data[repKey].proprietaire, photoPng.photo))
+                this.garde.push(new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut, photoPng.photo))
               })
             }
           }

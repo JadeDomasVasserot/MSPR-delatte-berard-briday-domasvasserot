@@ -1,6 +1,7 @@
 import Plante from "@/models/Plante";
 import GardePlante from "@/models/GardePlante";
 import Personne from "@/models/Personne";
+import Commentaire from "@/models/Commentaire";
 
 export default class VisitePlante {
    private id:number;
@@ -9,15 +10,18 @@ export default class VisitePlante {
    private gardePlante:GardePlante;
    private gardien:Personne;
    private plante: Plante;
+  private commentaire: Commentaire;
 
 
-  constructor(id: number, dateVisite: Date, photo: string, gardePlante: GardePlante, gardien: Personne, plante: Plante) {
+
+  constructor(id: number, dateVisite: Date, photo: string, gardePlante: GardePlante, gardien: Personne, plante: Plante, commentaire: Commentaire) {
     this.id = id;
     this.dateVisite = dateVisite;
     this.photo = photo;
     this.gardePlante = gardePlante;
     this.gardien = gardien;
     this.plante = plante;
+    this.commentaire = commentaire;
   }
 
   getId(): number {
@@ -66,5 +70,12 @@ export default class VisitePlante {
 
   setPlante(value: Plante) {
     this.plante = value;
+  }
+  getCommentaire(): Commentaire {
+    return this.commentaire;
+  }
+
+  setCommentaire(value: Commentaire) {
+    this.commentaire = value;
   }
 }

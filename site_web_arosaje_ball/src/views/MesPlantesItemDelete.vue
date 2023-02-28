@@ -1,5 +1,5 @@
 <template>
-  <mes-plantes-item-delete />
+  <mes-plantes-item-delete-component />
 </template>
 
 <script  setup>

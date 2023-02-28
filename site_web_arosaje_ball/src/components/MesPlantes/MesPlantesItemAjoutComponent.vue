@@ -35,6 +35,7 @@ import GuidePlante from "@/models/GuidePlante";
 export default {
   name: "MesPlantesAjoutComponent",
   components: {NavBar},
+  props: ['idPlante'],
   beforeMount() {
     this.getBibliothequePlante();
     this.getUser();
@@ -86,6 +87,11 @@ export default {
           }
         }
       ) .then( response => {
+        this.$router.push({
+          path: '/mes-plantes',
+          query: this.$route.query,
+          hash: this.$route.hash,
+        })
       })
         .catch(() => {
           this.errorLogin = true;
