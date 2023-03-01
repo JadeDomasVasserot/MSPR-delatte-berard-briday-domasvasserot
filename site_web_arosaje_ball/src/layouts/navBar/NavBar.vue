@@ -1,5 +1,5 @@
 <template v-slot:extension>
-  <v-tabs class="ma-10">
+  <v-toolbar>
     <v-tab><router-link to="/home" class="btn-router-link">Accueil</router-link></v-tab>
     <v-tab><router-link to="/map" class="btn-router-link">Carte des plantes</router-link></v-tab>
     <v-tab><router-link to="/mes-plantes" class="btn-router-link">Mes plantes</router-link></v-tab>
@@ -50,7 +50,7 @@
         </v-menu>
       </v-row>
     </v-tab>
-  </v-tabs>
+  </v-toolbar>
 </template>
 
 <script>

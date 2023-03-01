@@ -9,7 +9,7 @@
       <v-list-item
         v-for="item in planteGarde"
       >
-        <router-link :to="{ name: 'PlanteItem', params: { idPlante:  item.id }}"
+        <router-link :to="{ name: 'PlantesAGarderItem', params: { idGarde:  item.id }}"
                      class="text-decoration-none btn-router-link">
           <v-list-item-title>{{ item.plante.bibliothequePlante.nom }}</v-list-item-title>
           <v-list-item-subtitle>{{ item.dateDebut }} à {{ item.dateFin }}</v-list-item-subtitle>
@@ -28,7 +28,7 @@
       <v-list-item
         v-for="item in planteAGarde"
       >
-        <router-link :to="{ name: 'PlanteItem', params: { idPlante:  item.id }}"
+        <router-link :to="{ name: 'PlantesAGarderItem', params: { idGarde:  item.id }}"
                      class="text-decoration-none btn-router-link">
           <v-list-item-title>{{ item.plante.bibliothequePlante.nom }}</v-list-item-title>
         </router-link>
@@ -46,7 +46,7 @@
       <v-list-item
         v-for="item in gardeUser"
       >
-        <router-link :to="{ name: 'PlanteItem', params: { idPlante:  item.id }}"
+        <router-link :to="{ name: 'PlantesAGarderItem', params: { idGarde:  item.id }}"
                      class="text-decoration-none btn-router-link">
           <v-list-item-title>{{ item.plante.bibliothequePlante.nom }}</v-list-item-title>
           <v-list-item-subtitle>{{ item.dateDebut }} à {{ item.dateFin }}</v-list-item-subtitle>

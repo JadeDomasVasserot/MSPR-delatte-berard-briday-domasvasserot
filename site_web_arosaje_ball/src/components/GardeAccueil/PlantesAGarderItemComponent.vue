@@ -15,6 +15,11 @@
       </router-link>
     </v-banner>
     <v-carousel show-arrows="hover" v-if="photos.length > 0">
+      <v-row justify="center" class="mb-10" v-if="plante.proprietaire.id === user">
+        <router-link :to="{ name: 'ModifierGarde', params: { idGarde:  garde.id }}" class="text-decoration-none">
+          <v-btn class="ma-5 border">Modifier la garde</v-btn>
+        </router-link>
+      </v-row>
       <v-carousel-item
         v-for="(item) in photos"
         :key="item.id"
@@ -56,7 +61,13 @@
         <v-card-title> INFORMATION PLANTE</v-card-title>
         <v-card-subtitle>{{ plante.localisation }}</v-card-subtitle>
         <v-card-text>Date de la garde : {{garde.dateDebut}} à {{garde.dateFin}}</v-card-text>
-        <v-btn @click="dialog = true" class="ma-5">GARDER</v-btn>
+        <v-card-text>
+          Statut : {{garde.statut.nom}}
+        </v-card-text>
+        <v-card-text v-if="garde.gardien != null">
+          Gardien : {{garde.gardien.nom}}, {{garde.gardien.prenom}}
+        </v-card-text>
+        <v-btn v-if="plante.proprietaire.id !== user && garde.statut.id !== 1" @click="dialog = true" class="ma-5">GARDER</v-btn>
       </v-card>
     </v-col>
   </v-row>
@@ -80,6 +91,47 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
+  <v-container  v-if="visite.length > 0 && garde.length > 0 ">
+    <v-row justify="space-around">
+      <v-card width="100%">
+        <v-card-text>
+          <div class="font-weight-bold ms-1 mb-2">
+            Historique des visites
+          </div>
+
+          <v-timeline density="compact" align="start">
+            <v-timeline-item
+              v-for="v in visite"
+              :key="v.id"
+              size="small"
+            >
+              <v-card>
+                <v-img
+                  :src="pathPhotoVisite+v.photo"
+                  height="200px"
+                  cover
+                ></v-img>
+                <v-card-title>
+                  Date de la visite : {{ v.dateVisite }}
+                </v-card-title>
+                <v-card-text class="bg-white text--primary">
+                  <h4>Commentaire :</h4>
+                  <p>
+                    {{v.commentaire.description}}
+                  </p>
+                  <v-divider></v-divider>
+                 <p>Auteur : {{v.commentaire.auteur.prenom}}, {{v.commentaire.auteur.nom}}</p>
+                </v-card-text>
+              </v-card>
+            </v-timeline-item>
+          </v-timeline>
+        </v-card-text>
+      </v-card>
+    </v-row>
+  </v-container>
+  <v-btn
+    v-if="isGardien === true"
+    class="ma-10">Ajouter une visite</v-btn>
 </template>
 
 <script>
@@ -88,6 +140,7 @@ import NavBar from "@/layouts/navBar/NavBar.vue"
 import Plante from "@/models/Plante";
 import PhotoPlante from "@/models/PhotoPlante";
 import GardePlante from "@/models/GardePlante";
+import VisitePlante from "@/models/VisitePlante";
 
 export default {
   name: "PlantesAGarderItemComponent",
@@ -96,6 +149,7 @@ export default {
 
   beforeMount() {
     this.getPlanteId();
+    this.getVisiteByGarde();
   },
   data() {
     return {
@@ -103,9 +157,13 @@ export default {
       photos: [],
       plante: '',
       garde: '',
+      isGardien: false,
       nom: '',
       pathPhoto: "/src/assets/photo-plante/",
+      pathPhotoVisite: "/src/assets/photo_visite/",
       error: '',
+      user: this.$store.state.user,
+      visite: [],
     }
   },
   methods: {
@@ -120,8 +178,11 @@ export default {
         })
         .then(rep => {
             if (rep.data) {
-              this.plante = new Plante(rep.data.plante.id, rep.data.plante.localisation, rep.data.plante.bibliothequePlante, rep.data.plante.proprietaire, rep.data.plante.statut);
-              this.garde = new GardePlante(rep.data.id,rep.data.dateDebut, rep.data.dateFin, rep.data.gardien, rep.data.plante, rep.data.status)
+              this.plante = new Plante(rep.data.plante.id, rep.data.plante.localisation, rep.data.plante.bibliothequePlante, rep.data.plante.proprietaire);
+              this.garde = new GardePlante(rep.data.id,rep.data.dateDebut, rep.data.dateFin, rep.data.gardien, rep.data.plante, rep.data.statut)
+              if(this.user === rep.data.gardien.id){
+                this.isGardien = true;
+              }
               axios.get(`http://127.0.0.1:9000/photo-plante/all/idPlante/${rep.data.plante.id}`,
                 {
                   withCredentials: false,
@@ -156,12 +217,31 @@ export default {
           }
         })
         .then(rep => {
-          this.dialog = false
+          window.reload();
           }
         ).catch(() => {
         this.error = "Erreur plante"
       })
-    }
+    },
+    getVisiteByGarde() {
+      axios.get("http://127.0.0.1:9000/visite-plante/all/byGarde/" +this.idGarde,
+        {
+          withCredentials: false,
+          headers: {
+            'Authorization': 'Bearer ' + this.$store.state.token,
+            'Content-Type': 'application/json',
+          }
+        })
+        .then(rep => {
+          if (rep.data) {
+            for (const repKey in rep.data) {
+              this.visite.push(new VisitePlante(rep.data[repKey].id, rep.data[repKey].dateVisite, rep.data[repKey].photo, rep.data[repKey].gardePlante, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].commentaire))
+            }
+          }
+        }).catch(() => {
+        this.error = "Pas de plante à garder"
+      })
+    },
   }
 }
 </script>

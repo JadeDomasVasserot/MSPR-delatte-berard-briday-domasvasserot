@@ -1,8 +1,11 @@
 <template>
   <nav-bar />
- <div id="map">
-
- </div>
+  <GMapMap
+    class="ma-5"
+    :center="{lat: 51.093048, lng: 6.842120}"
+    :zoom="20"
+    style="width: 95vw; height: 40rem"
+  />
 </template>
 
 <script>
@@ -34,8 +37,5 @@ export default {
 }
 </script>
 <style scoped>
-#map {
-  height: 400px; /* The height is 400 pixels */
-  width: 100%; /* The width is the width of the web page */
-}
+
 </style>
