@@ -94,11 +94,11 @@ public class CommentaireController {
         }
 
     }
-    @GetMapping("/all/byPlante/{idPlante}")
+    @GetMapping("/all/byGardePlante/{idPlante}")
     @Operation(summary = "récupère tous les commentaires d'une plante")
-    public ResponseEntity<List<CommentaireModel>> getAllCommentaireByPlante(@PathVariable("idPlante") int idPlante) {
+    public ResponseEntity<List<CommentaireModel>> findByGardePlante_Id(@PathVariable("idPlante") int idPlante) {
         try {
-            List<CommentaireModel> commentaires = this.commentaireRepository.getAllCommentaireByPlante(idPlante);
+            List<CommentaireModel> commentaires = this.commentaireRepository.findByGardePlante_Id(idPlante);
             if (commentaires.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }

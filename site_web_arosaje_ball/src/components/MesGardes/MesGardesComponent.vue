@@ -66,19 +66,6 @@
     :min-date="new Date() - 31536000000 "
     :max-date="new Date() + 31536000000"
     :attributes='attributes'>
-    <template #day-popover="{ day, dayTitle, attributes }">
-      <div>
-        <div class="text-xs text-gray-300 font-semibold text-center">
-          {{ dayTitle }}
-        </div>
-        <popover-row
-          v-for="attr in attributes"
-          :key="attr.key"
-          :attribute="attr">
-          {{ attr.customData.description }}
-        </popover-row>
-      </div>
-    </template>
   </v-calendar>
 </template>
 <script>
