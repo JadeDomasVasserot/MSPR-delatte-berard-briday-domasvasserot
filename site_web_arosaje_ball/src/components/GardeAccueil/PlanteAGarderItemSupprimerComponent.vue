@@ -2,7 +2,7 @@
   <nav-bar />
 
   <v-card v-if="plante">
-    <v-card-title v-if="!plante.photo"> Êtes-vous sur de vouloir supprimer cette plante ? {{plante.nom}}</v-card-title>
+    <v-card-title v-if="!plante.photo"> Êtes-vous sur de vouloir supprimer cette garde ? {{plante.plante.bibliothequePlante.nom}}</v-card-title>
     <v-carousel show-arrows="hover" v-if="photos.length > 0">
       <v-carousel-item
         v-for="(item) in photos"
@@ -18,15 +18,11 @@
       </v-carousel-item>
     </v-carousel>
     <v-card-title>
-      {{ plante.typePlante.nom}}
-      <v-tooltip
-        activator="parent"
-        location="top"
-      >{{ plante.typePlante.description }}</v-tooltip>
+      Date de la garde
     </v-card-title>
 
     <v-card-text>
-      {{ plante.description}}
+      {{ plante.dateDebut}} à {{plante.dateFin}}
     </v-card-text>
     <v-card-actions>
       <v-btn @click="deletePlante()">Supprimer</v-btn>
@@ -37,13 +33,11 @@
 <script>
 import axios from 'axios';
 import NavBar from "@/layouts/navBar/NavBar.vue";
-import Plante from "@/models/Plante";
-import PhotoPlante from "@/models/PhotoPlante";
-import BibliothequePlante from "@/models/BibliothequePlante";
 import PhotoBibliothequePlante from "@/models/PhotoBibliothequePlante";
+import GardePlante from "@/models/GardePlante";
 
 export default {
-  name: "BibliothequePlanteDeleteComponent",
+  name: "PlanteAGarderItemSupprimerComponent",
   props: ['idPlante'],
   components: {NavBar},
   beforeMount() {
@@ -59,7 +53,7 @@ export default {
   },
   methods: {
     getPlanteId() {
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/id/" + this.idPlante,
+      axios.get("http://127.0.0.1:9000/garde-plante/id/" + this.idPlante,
         {
           withCredentials: false,
           headers: {
@@ -69,8 +63,8 @@ export default {
         })
         .then(rep => {
             if (rep.data) {
-              this.plante = new BibliothequePlante(rep.data.id, rep.data.nom, rep.data.description, rep.data.typePlante);
-              axios.get(`http://127.0.0.1:9000/photo-plante/all/idPlante/${rep.data.id}`,
+              this.plante = new GardePlante(rep.data.id,rep.data.dateDebut, rep.data.dateFin, rep.data.gardien, rep.data.plante, rep.data.statut)
+              axios.get(`http://127.0.0.1:9000/photo-plante/all/idPlante/${rep.data.plante.id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -79,7 +73,6 @@ export default {
                   }
                 }).then(
                 photo => {
-                  console.log(rep.data)
                   if (photo.status === 200) {
                     for (const photoKey in photo.data) {
                       this.photos.push(new PhotoBibliothequePlante(photo.data[photoKey].id, photo.data[photoKey].photo, photo.data[photoKey].bibliothequePlante));
@@ -95,7 +88,7 @@ export default {
       })
     },
     deletePlante() {
-      axios.delete("http://127.0.0.1:9000/bibliotheque-plante/delete/" + this.idPlante,
+      axios.delete("http://127.0.0.1:9000/garde-plante/delete/" + this.idPlante,
         {
           withCredentials: false,
           headers: {
@@ -105,7 +98,7 @@ export default {
         })
         .then(rep => {
           this.$router.push({
-            path: '/bibliotheque-plante',
+            path: '/mes-gardes',
             query: this.$route.query,
             hash: this.$route.hash,
           })

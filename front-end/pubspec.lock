@@ -166,6 +166,55 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.8"
+  flutter_secure_storage:
+    dependency: "direct main"
+    description:
+      name: flutter_secure_storage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "8.0.0"
+  flutter_secure_storage_linux:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.3"
+  flutter_secure_storage_macos:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
+  flutter_secure_storage_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
+  flutter_secure_storage_web:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.1"
+  flutter_secure_storage_windows:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  flutter_session_manager:
+    dependency: "direct main"
+    description:
+      name: flutter_session_manager
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -184,6 +233,20 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  geocoding:
+    dependency: "direct main"
+    description:
+      name: geocoding
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.5"
+  geocoding_platform_interface:
+    dependency: transitive
+    description:
+      name: geocoding_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   geolocator:
     dependency: "direct main"
     description:
@@ -248,6 +311,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.3"
+  google_maps:
+    dependency: transitive
+    description:
+      name: google_maps
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.2.0"
   google_maps_flutter:
     dependency: "direct main"
     description:
@@ -280,6 +350,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.6"
+  google_maps_flutter_web:
+    dependency: "direct main"
+    description:
+      name: google_maps_flutter_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0+6"
   html:
     dependency: transitive
     description:
@@ -359,7 +436,18 @@ packages:
       sha256: f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
+    version: "0.6.4"
+  js_wrapping:
+    dependency: transitive
+    description:
+      name: js_wrapping
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.4"
+=======
     version: "0.6.7"
+>>>>>>> 6f14f2bbbd02dc0ee04b77579d7ee632d921dc24
   lints:
     dependency: transitive
     description:
@@ -488,6 +576,62 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
+  sanitize_html:
+    dependency: transitive
+    description:
+      name: sanitize_html
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  shared_preferences:
+    dependency: "direct main"
+    description:
+      name: shared_preferences
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.18"
+  shared_preferences_android:
+    dependency: transitive
+    description:
+      name: shared_preferences_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.16"
+  shared_preferences_foundation:
+    dependency: transitive
+    description:
+      name: shared_preferences_foundation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.4"
+  shared_preferences_linux:
+    dependency: transitive
+    description:
+      name: shared_preferences_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.4"
+  shared_preferences_platform_interface:
+    dependency: transitive
+    description:
+      name: shared_preferences_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
+  shared_preferences_web:
+    dependency: transitive
+    description:
+      name: shared_preferences_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.5"
+  shared_preferences_windows:
+    dependency: transitive
+    description:
+      name: shared_preferences_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.4"
   sky_engine:
     dependency: transitive
     description: flutter

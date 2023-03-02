@@ -5,8 +5,8 @@ import 'package:arosaje/src/models/BibliothequePlante.dart';
 import 'package:arosaje/src/models/PhotoBibliothequePlante.dart';
 
 Future<List<BibliothequePlante>> getAllPlantesGuide() async {
-  final response = await http
-      .get(Uri.parse("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all"));
+  final response = await http.get(Uri.parse(
+      "https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -19,11 +19,9 @@ Future<List<BibliothequePlante>> getAllPlantesGuide() async {
   }
 }
 
-
 Future<PhotoBibliothequePlante> getPhotoBibliothequePlante(int planteId) async {
-  final response = await http
-      .get(
-      Uri.parse('https://arosaje-mspr.mrartemus.cloud/photo-bibliotheque-plante/one/idPlante/$planteId'));
+  final response = await http.get(Uri.parse(
+      'https://arosaje-mspr.mrartemus.cloud/photo-bibliotheque-plante/one/idPlante/$planteId'));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -37,9 +35,8 @@ Future<PhotoBibliothequePlante> getPhotoBibliothequePlante(int planteId) async {
 }
 
 Future<BibliothequePlante> getOneBibliothequePlante(int planteId) async {
-  final response = await http
-      .get(
-      Uri.parse('https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/id/$planteId'));
+  final response = await http.get(Uri.parse(
+      'https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/id/$planteId'));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;

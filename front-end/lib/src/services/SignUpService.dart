@@ -16,7 +16,7 @@ Future<void> addDataToDB(final data) async {
     print('Data added successfully to the database');
   } else {
     print(response.statusCode);
-    print(jsonEncode(data));
+    print(data);
     print('Failed to add data to the database');
   }
 }

@@ -51,24 +51,24 @@ export default {
   },
   data() {
     return {
-      localisation: "",
-      planteSelected: "",
+      localisation: null,
+      planteSelected: null,
       plantes: [],
       nom: [],
-      plante: '',
-      user :"",
+      plante: null,
+      user :null,
       rule: [
         value => {
           if (value) return true
           return 'Le champs doit être rempli'
         },
       ],
-      error:'',
+      error:null,
     }
   },
   methods: {
     getBibliothequePlante(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all",
+      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -90,7 +90,7 @@ export default {
     },
     async getFormValues() {
       await axios.post(
-        'https://arosaje-mspr.mrartemus.cloud/plante/add',
+        'http://127.0.0.1:9000/plante/add',
         {
           localisation: this.localisation,
           proprietaire: this.user,
@@ -99,7 +99,8 @@ export default {
         {
           withCredentials: false,
           headers: {
-            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
           }
         }
       ) .then( response => {
@@ -117,7 +118,7 @@ export default {
     },
     getUser(){
 
-      axios.get("https://arosaje-mspr.mrartemus.cloud/personne/id/"+this.$store.state.user,
+      axios.get("http://127.0.0.1:9000/personne/id/"+this.$store.state.user,
         {
           withCredentials: false,
           headers: {
@@ -134,7 +135,7 @@ export default {
       })
     },
     getPlanteNom() {
-      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all/byNom/" + this.planteSelected,
+      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all/byNom/" + this.planteSelected,
         {
           withCredentials: false,
           headers: {

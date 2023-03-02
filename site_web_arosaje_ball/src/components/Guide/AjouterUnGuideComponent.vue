@@ -57,7 +57,7 @@ export default {
       typeGuideItemObjet: null,
       nom: [],
       description: null,
-      plante: '',
+      plante: null,
       titre: null,
       rule: [
         value => {
@@ -65,12 +65,12 @@ export default {
           return 'Le champs doit être rempli'
         },
       ],
-      error:'',
+      error:null,
     }
   },
   methods:{
     getBibliothequePlante(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/id/"+this.idPlante,
+      axios.get("http://127.0.0.1:9000/bibliotheque-plante/id/"+this.idPlante,
         {
           withCredentials: false,
           headers: {
@@ -87,7 +87,7 @@ export default {
       })
     },
     getAllTypeGuide(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/type-guide/all",
+      axios.get("http://127.0.0.1:9000/type-guide/all",
         {
           withCredentials: false,
           headers: {
@@ -114,7 +114,7 @@ export default {
         }
       }
       await axios.post(
-        'https://arosaje-mspr.mrartemus.cloud/guide-plante/add',
+        'http://127.0.0.1:9000/guide-plante/add',
         {
           description: this.description,
           titre: this.titre,
@@ -124,7 +124,8 @@ export default {
         {
           withCredentials: false,
           headers: {
-            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
           }
         }
       ) .then( response => {

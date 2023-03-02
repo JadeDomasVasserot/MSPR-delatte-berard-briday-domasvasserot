@@ -3,11 +3,11 @@
   <v-banner lines="one" :stacked="false">
     <v-app-bar-title>Guide et conseil Plante</v-app-bar-title>
   </v-banner>
-  <v-card v-if="plante !== ''"
-          class="ma-10"
+  <v-card v-if="plante !== null"
+          class="ma-5"
           max-width="100%"
   >
-    <v-row justify="center" class="mb-10" v-if=" 2 === role">
+    <v-row justify="center"  v-if=" 2 === role">
       <router-link :to="{ name: 'BibliothequePlanteModifier', params: { idPlante:  plante.id }}" class="text-decoration-none">
         <v-icon icon="mdi-pencil"
                 class="ma-5 pa-5 border"
@@ -15,7 +15,7 @@
                 color="green">
         </v-icon>
       </router-link>
-      <router-link :to="{ name: 'SupprimePlante', params: { idPlante:  plante.id }}" class="text-decoration-none">
+      <router-link :to="{ name: 'BibliothequePlanteSupprimer', params: { idPlante:  plante.id }}" class="text-decoration-none">
         <v-icon icon="mdi-delete"
                 class="ma-5 pa-5 border"
                 size="x-large"
@@ -34,6 +34,12 @@
       >
       </v-carousel-item>
     </v-carousel>
+    <v-carousel show-arrows="hover" v-if="photos.length === 0">
+      <v-carousel-item
+        src="/src/assets/logo_app.png"
+      >
+      </v-carousel-item>
+    </v-carousel>
     <v-card-title>
       {{ plante.typePlante.nom}}
       <v-tooltip
@@ -45,7 +51,7 @@
     <v-card-text>
       {{ plante.description}}
     </v-card-text>
-    <v-container fluid v-if="guidePlantes.length > 0">
+    <v-container fluid v-if="guidePlantes !== null">
       <v-row dense>
         <v-col v-for="guide in guidePlantes"
           :keys="guide.id"
@@ -60,7 +66,7 @@
       </v-row>
     </v-container>
   </v-card>
-  <v-card v-if="role === 2 && plante !== ''" class="pa-5">
+  <v-card v-if="role === 2 && plante !== null" class="pa-5">
     <div class="d-flex justify-center align-baseline" style="gap: 1rem">
       <v-file-input
         id="addPhoto"
@@ -103,15 +109,15 @@ export default {
     return {
       guidePlantes: [],
       photos: [],
-      plante: '',
+      plante: null,
       pathPhoto: "/src/assets/photo-plante-bibliotheque/",
-      error: '',
+      error: null,
       role: this.$store.state.role,
     }
   },
   methods: {
     getPlanteId() {
-      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/id/" + this.idPlante,
+      axios.get("http://127.0.0.1:9000/bibliotheque-plante/id/" + this.idPlante,
         {
           withCredentials: false,
           headers: {
@@ -122,7 +128,7 @@ export default {
         .then(rep => {
             if (rep.data) {
               this.plante = new BibliothequePlante(rep.data.id, rep.data.nom, rep.data.description, rep.data.typePlante);
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-bibliotheque-plante/all/idPlante/${rep.data.id}`,
+              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/all/idPlante/${rep.data.id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -140,7 +146,7 @@ export default {
               ).catch(() => {
 
               })
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/guide-plante/all/byPlante/${rep.data.id}`,
+              axios.get(`http://127.0.0.1:9000/guide-plante/all/byPlante/${rep.data.id}`,
                 {
                   withCredentials: false,
                   headers: {
