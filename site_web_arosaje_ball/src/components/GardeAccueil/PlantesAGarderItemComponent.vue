@@ -8,7 +8,7 @@
           class="ma-10"
           max-width="100%"
   >
-    <v-row justify="center"  v-if=" garde !== null && plante.proprietaire.id === user">
+    <v-row justify="center"  v-if=" garde !== null && garde.plante.proprietaire.id === user">
       <router-link :to="{ name: 'PlanteAGarderItemModifier', params: { idPlante:  garde.id }}" class="text-decoration-none">
         <v-icon icon="mdi-pencil"
                 class="ma-5 pa-5 border"

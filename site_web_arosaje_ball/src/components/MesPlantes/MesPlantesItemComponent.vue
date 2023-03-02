@@ -51,6 +51,9 @@
     <v-card-text>
       {{ plante.bibliothequePlante.description}}
     </v-card-text>
+    <v-card-text>
+      {{ plante.localisation}}
+    </v-card-text>
   </v-card>
 </template>
 

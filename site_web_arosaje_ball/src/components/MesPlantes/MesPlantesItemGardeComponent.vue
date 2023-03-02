@@ -1,6 +1,6 @@
 <template>
   <nav-bar />
-  <v-row justify="center">
+  <v-row justify="center" class="ma-10">
     <v-date-picker v-model="picker" is-range></v-date-picker>
   </v-row>
   <v-row justify="center" class="mt-10">

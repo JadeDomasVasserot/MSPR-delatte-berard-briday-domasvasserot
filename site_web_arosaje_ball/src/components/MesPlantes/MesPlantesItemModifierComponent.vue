@@ -47,6 +47,7 @@ export default {
       await axios.put(
         'http://127.0.0.1:9000/plante/update',
         {
+          id: this.plante.id,
           localisation: this.localisation,
           proprietaire: this.user,
           bibliothequePlante: this.plante.bibliothequePlante
@@ -60,7 +61,7 @@ export default {
         }
       ) .then( response => {
         this.$router.push({
-          path: '/mes-plantes',
+          path: '/mes-plantes/'+ this.idPlante,
           query: this.$route.query,
           hash: this.$route.hash,
         })
