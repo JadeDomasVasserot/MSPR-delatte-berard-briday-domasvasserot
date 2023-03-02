@@ -80,6 +80,13 @@ final GoRouter _router = GoRouter(
           final id = state.params["id"];
           return MyPlanteScreen(id: int.parse(id!));
         }),
+
+    GoRoute(
+        path: "/create/garde/:id",
+        builder: (context, state) {
+          final id = state.params["id"];
+          return MyPlanteScreen(id: int.parse(id!));
+        }),
     GoRoute(
         path: "/plante/:id",
         builder: (context, state) {

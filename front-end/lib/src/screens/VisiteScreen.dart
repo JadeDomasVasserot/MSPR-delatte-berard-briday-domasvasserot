@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:arosaje/src/models/VisitePlante.dart';
 import 'package:arosaje/src/services/visiteService.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert';
 
 import '../components/BottomBarComponent.dart';
 
@@ -125,7 +126,7 @@ class _VisiteScreen extends State<VisiteScreen> {
                                       )
                                     ),
                                   Container(
-                                      child: Text('${visite.commentaire.description}',
+                                      child: Text(utf8.decode('${visite.commentaire.description}'.codeUnits),
                                         textAlign: TextAlign.left,
                                         style: const TextStyle(
                                           fontStyle: FontStyle.normal,

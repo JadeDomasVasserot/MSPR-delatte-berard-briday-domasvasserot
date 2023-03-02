@@ -299,7 +299,64 @@ class _GardeScreen extends State<GardeScreen> {
             bottomNavigationBar: const BottomBarComponent()
           );
         } else if (snapshot.hasError) {
-          return Text("Une erreur s'est produite : ${snapshot.error}");
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Mes gardes !',
+                style: TextStyle(
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                )
+              ),
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.edit_calendar),
+                  onPressed: () {
+                    context.go("/garde/fermer");
+                  }, 
+                )
+              ],
+              backgroundColor: const Color.fromARGB(255,131,189,117),
+            ),
+            body: Column(
+              children: <Widget>[
+                Card(
+                  margin: const EdgeInsets.only(left: 20.0, right: 20.0, top : 20),
+                  elevation: 0,
+                  color: const Color.fromARGB(100, 233,239, 192),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    side: const BorderSide(
+                      color: const Color.fromARGB(255, 233,239, 192),
+                    )
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          child : Row (children: [
+                            Container(
+                              child: const Text('Vous avez aucune garde en cours ',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontStyle: FontStyle.normal,
+                                fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    )
+                                  )
+                                ),
+                              ],)
+                            ),
+                          ],
+                        ),
+                      )
+                    )
+              ],
+            ),
+            bottomNavigationBar: const BottomBarComponent()
+          );
         } else {
           return CircularProgressIndicator();
         } 
