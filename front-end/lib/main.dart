@@ -106,8 +106,12 @@ final GoRouter _router = GoRouter(
       builder: (context, state) => const ModifyProfileScreen()
     ),
     GoRoute(
-      path: "/camera",
+      path: "/cam",
       builder: (context, state) => const CameraExampleHome()
+    ),
+    GoRoute(
+        path: "/picture",
+        builder: (context, state) => const PictureScreen()
     ),
     GoRoute(
       path: "/create/garde/:id",

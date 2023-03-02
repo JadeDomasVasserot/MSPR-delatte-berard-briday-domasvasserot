@@ -152,7 +152,7 @@ class _CreateVisiteScreen extends State<CreateVisiteScreen> {
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
-                                  context.go("/camera");
+                                  context.go("/picture");
                                 },
                                 child: const Text('OUI'),
                               ),
