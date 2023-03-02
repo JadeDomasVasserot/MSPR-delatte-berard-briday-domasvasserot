@@ -91,7 +91,6 @@
 <script >
 import NavBar from "@/layouts/navBar/NavBar.vue"
 import axios from "axios";
-import Plante from "@/models/Plante";
 import TypePlante from "@/models/TypePlante";
 import PhotoPlante from "@/models/PhotoPlante";
 import GardePlante from "@/models/GardePlante";
@@ -103,12 +102,12 @@ export default {
   components: { NavBar},
   data () {
     return {
-      name: "",
-      ville:"",
+      name: null,
+      ville:null,
       typePlantes: [],
       garde: [],
       pathPhoto: "/src/assets/photo-plante/",
-      error: '',
+      error: null,
     }
   },
   methods:{
@@ -123,7 +122,7 @@ export default {
         })
         .then( rep => {
           if (rep.data) {
-            this.plantes = [];
+            this.garde = [];
             for (const repKey in rep.data) {
               axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].plante.id}`,
                 {
@@ -179,7 +178,7 @@ export default {
         })
         .then( rep => {
           if (rep.data && rep.status === 200) {
-            this.plantes = [];
+            this.garde = [];
             for (const repKey in rep.data) {
               axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
@@ -209,6 +208,7 @@ export default {
       })
     },
     getPlanteByNom(nomPlante){
+      this.garde = [];
       axios.get("http://127.0.0.1:9000/garde-plante/a-garder/byNom/"+nomPlante,
         {
           withCredentials: false,
@@ -219,7 +219,6 @@ export default {
         })
         .then( rep => {
           if (rep.data) {
-            this.plantes = [];
             for (const repKey in rep.data) {
               axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
@@ -246,7 +245,7 @@ export default {
       })
     },
     getPlanteByVille(ville){
-
+      this.garde = [];
       axios.get("http://127.0.0.1:9000/garde-plante/a-garder/byVille/"+ville,
         {
           withCredentials: false,
@@ -257,7 +256,6 @@ export default {
         })
         .then( rep => {
           if (rep.data) {
-            this.plantes = [];
             for (const repKey in rep.data) {
               axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
@@ -271,11 +269,11 @@ export default {
                   if (photo.data) {
                     this.garde.push(new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut, photo.data.photo))
                   }
-
                 }
               ).catch(() => {
                 let photoPng = new PhotoPlante(1, "logo_app_x48.png", rep.data[repKey].id)
                 this.garde.push(new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut, photoPng.photo))
+
               })
             }
           }

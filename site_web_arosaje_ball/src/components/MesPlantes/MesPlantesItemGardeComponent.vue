@@ -29,11 +29,11 @@ export default {
     return {
       picker: new Date(),
       photos: [],
-      plante: '',
+      plante: null,
       pathPhoto: "/src/assets/photo-plante/",
-      error: '',
-      user:'',
-      statut: '',
+      error: null,
+      user:null,
+      statut: null,
     }
   },
   methods: {

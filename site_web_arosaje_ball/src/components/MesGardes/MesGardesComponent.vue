@@ -8,6 +8,7 @@
     <v-list lines="one" v-if="planteGarde.length > 0">
       <v-list-item
         v-for="item in planteGarde"
+        :key="item.id"
       >
         <router-link :to="{ name: 'PlantesAGarderItem', params: { idGarde:  item.id }}"
                      class="text-decoration-none btn-router-link">
@@ -27,6 +28,7 @@
     <v-list lines="one" v-if="planteAGarde.length > 0">
       <v-list-item
         v-for="item in planteAGarde"
+        :key="item.id"
       >
         <router-link :to="{ name: 'PlantesAGarderItem', params: { idGarde:  item.id }}"
                      class="text-decoration-none btn-router-link">
@@ -45,6 +47,7 @@
     <v-list lines="one" v-if="gardeUser.length > 0">
       <v-list-item
         v-for="item in gardeUser"
+        :key="item.id"
       >
         <router-link :to="{ name: 'PlantesAGarderItem', params: { idGarde:  item.id }}"
                      class="text-decoration-none btn-router-link">

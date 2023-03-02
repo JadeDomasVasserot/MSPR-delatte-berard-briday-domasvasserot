@@ -25,4 +25,13 @@ class GuidePlante {
         bibliothequePlante: BibliothequePlante.fromJson(json['bibliothequePlante'])
     );
   }
+
+  static List<GuidePlante> listFromJson(List<dynamic> parsedJson) {
+
+    List<GuidePlante> guides = <GuidePlante>[];
+    for (var guide in  parsedJson) {
+        guides.add(GuidePlante.fromJson(guide));
+    }
+    return guides;
+  }
 }

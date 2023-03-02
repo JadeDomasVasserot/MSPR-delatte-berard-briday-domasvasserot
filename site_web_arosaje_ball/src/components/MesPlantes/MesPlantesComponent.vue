@@ -33,7 +33,7 @@
     class="mx-auto ma-10"
     max-width="95%"
   >
-    <v-container fluid v-if="plantes.length > 0">
+    <v-container fluid v-if="plantes !== null">
       <v-row dense >
         <v-col
           v-for="plante in plantes"
@@ -64,8 +64,9 @@
           </v-card>
         </v-col>
       </v-row>
+
     </v-container>
-    <v-container v-if="plantes.length === 0 && error !== ''">{{ error }} </v-container>
+    <v-container v-if="plantes.length === 0 && error !== null">{{ error }} </v-container>
   </v-card>
 </template>
 
@@ -75,6 +76,7 @@ import axios from "axios";
 import Plante from "@/models/Plante";
 import TypePlante from "@/models/TypePlante";
 import PhotoPlante from "@/models/PhotoPlante";
+import Personne from "@/models/Personne";
 export default {
   beforeMount() {
     this.getPlantes();
@@ -86,7 +88,7 @@ export default {
       typePlantes: [],
       plantes: [],
       pathPhoto: "/src/assets/photo-plante/",
-      error: '',
+      error: null,
     }
   },
   methods:{

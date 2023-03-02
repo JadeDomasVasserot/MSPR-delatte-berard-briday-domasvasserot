@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       padding: const EdgeInsets.only(top: 2),
                                       decoration: const BoxDecoration(
                                           border: Border(top: BorderSide())),
-                                      child: Row(
+                                      child: Wrap(
                                         children: [
                                           Container(
                                               child: const Text('Du : ',
@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ],
                                       )),
                                   Container(
-                                      child: Row(
+                                      child: Wrap(
                                     children: [
                                       Container(
                                           child: const Text('Localisation : ',
@@ -165,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   color: Colors.black))),
                                       Container(
                                           child: Text(
-                                              '${gardePlante.plante.localisation}',
+                                              '${gardePlante.plante.proprietaire.adresse}, ${gardePlante.plante.proprietaire.cp} ${gardePlante.plante.proprietaire.ville}',
                                               style: const TextStyle(
                                                   fontStyle: FontStyle.normal,
                                                   fontSize: 12,

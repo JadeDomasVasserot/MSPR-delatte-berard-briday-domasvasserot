@@ -1,13 +1,15 @@
 <template>
   <nav-bar />
-  <form @submit.prevent="getFormValues">
+  <form @submit.prevent="getFormValues" class="ma-5">
     <v-autocomplete
+      :rules="rule"
       label="Sélectionne une plante"
       :items="nom"
       v-model="planteSelected"
       @update:modelValue="getPlanteNom()"
     ></v-autocomplete>
     <v-text-field
+      :rules="rule"
       v-model="localisation"
       :counter="10"
       label="Localisation"
@@ -19,7 +21,14 @@
     >
       Ajouter
     </v-btn>
-
+    <div v-if="error === true">
+      <v-alert
+        color="error"
+        icon="$error"
+        title="PROBLEME"
+        text="Un champ n'est pas valide"
+      ></v-alert>
+    </div>
   </form>
 </template>
 
@@ -42,12 +51,19 @@ export default {
   },
   data() {
     return {
-      localisation: "",
-      planteSelected: "",
+      localisation: null,
+      planteSelected: null,
       plantes: [],
       nom: [],
-      plante: '',
-      user :"",
+      plante: null,
+      user :null,
+      rule: [
+        value => {
+          if (value) return true
+          return 'Le champs doit être rempli'
+        },
+      ],
+      error:null,
     }
   },
   methods: {
@@ -83,10 +99,13 @@ export default {
         {
           withCredentials: false,
           headers: {
-            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
           }
         }
       ) .then( response => {
+        let plante = response.data
+
         this.$router.push({
           path: '/mes-plantes',
           query: this.$route.query,
@@ -94,7 +113,7 @@ export default {
         })
       })
         .catch(() => {
-          this.errorLogin = true;
+          this.error = true;
         })
     },
     getUser(){

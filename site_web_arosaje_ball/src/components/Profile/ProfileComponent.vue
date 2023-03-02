@@ -36,18 +36,18 @@
               </v-menu>
 
             </v-app-bar>
-
-            <v-card-title class="white--text mt-8">
+           <div v-if="user !== null">
+            <v-card-title class="white--text mt-8" >
               <p class="ml-3">
              {{user.nom}}, {{ user.prenom}}
               </p>
             </v-card-title>
           <v-card-subtitle> {{ user.role.nom }}</v-card-subtitle>
-
+          </div>
           <v-card-text>
 
-            <v-list two-line>
-              <v-list-item href="https://edu.fedorae.com">
+            <v-list two-line v-if="user !== null">
+              <v-list-item>
                 <v-list-item-icon>
                   <v-icon color="indigo">
                     mdi-home-map-marker
@@ -87,7 +87,7 @@
                 <v-list-item-content>
                <router-link :to="{ name: 'ModifieProfil'}"><v-btn class="ma-5">Modifier</v-btn></router-link>
                <v-btn class="ma-5">Supprimer mon compte</v-btn>
-                  <router-link :to="{ name: 'Login'}"><v-btn class="ma-5">Déconnexion</v-btn></router-link>
+                  <router-link to="/"><v-btn class="ma-5">Déconnexion</v-btn></router-link>
                 </v-list-item-content>
 
               </v-list-item>
@@ -115,7 +115,7 @@ export default {
   data () {
     return {
       userId: this.$store.state.user,
-      user: ''
+      user: null
     }
   },
   methods: {

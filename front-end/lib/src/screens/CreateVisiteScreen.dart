@@ -1,12 +1,12 @@
+import 'package:arosaje/src/models/Commentaire.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:arosaje/src/models/Plante.dart';
-import 'package:arosaje/src/models/StatutPlante.dart';
 import 'package:arosaje/src/models/GardePlante.dart';
+import 'package:arosaje/src/models/VisitePlante.dart';
 import 'package:intl/intl.dart';
 import 'package:arosaje/src/services/gardePlanteService.dart';
-import 'package:arosaje/src/services/planteService.dart';
-import 'package:arosaje/src/services/statutService.dart';
+import 'package:arosaje/src/services/visiteService.dart';
+import 'package:arosaje/src/services/commentaireService.dart';
 
 import '../components/BottomBarComponent.dart';
 
@@ -20,24 +20,24 @@ class CreateVisiteScreen extends StatefulWidget {
 
 
 class _CreateVisiteScreen extends State<CreateVisiteScreen> {
-  TextEditingController dateDebutController = TextEditingController();
-  TextEditingController dateFinController = TextEditingController();
+  TextEditingController dateVisiteController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController titreController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _planteController = TextEditingController();
-  late DateTime _dateDebut;
-  late DateTime _dateFin;
+  late DateTime dateVisite;
+  late String titre;
+  late String description;
 
   void _submitForm() async {
     if (_formKey.currentState?.validate() ?? false) { 
       try {
-        Plante plante = await getPlante(widget.id);
-        StatutPlante statut = await getStatutPlante(2);
-        plante = await updatePlante(plante.id, plante.localisation, plante.proprietaire, plante.bibliothequePlante);
-        GardePlante gardePlante =
-            await addGardePlante(plante, _dateDebut, _dateFin, statut);
+        GardePlante gardePlante = await getGardePlante(widget.id);
+        Commentaire commentaire = await addCommentaire ( titre, description, gardePlante.plante.proprietaire, gardePlante);
+        VisitePlante visite =
+            await addVisite (gardePlante.gardien!, dateVisite, gardePlante.plante , gardePlante, commentaire );
       } catch (e) {
-        print ('Il y a une erreur quand on valide le formulaire');
+        print (e);
       }
     }
   }
@@ -55,7 +55,7 @@ class _CreateVisiteScreen extends State<CreateVisiteScreen> {
           )
         ],
         backgroundColor: const Color.fromARGB(255,131,189,117),
-        title: const Text('Créer une garde : ',
+        title: const Text('Ajouter visite : ',
             style: TextStyle(
               fontStyle: FontStyle.normal,
               fontWeight: FontWeight.bold,
@@ -83,10 +83,10 @@ class _CreateVisiteScreen extends State<CreateVisiteScreen> {
                 Container(
                   padding: const EdgeInsets.all(20),
                   child: TextField(
-                    controller: dateDebutController,
+                    controller: dateVisiteController,
                     decoration: const InputDecoration( 
                       icon: Icon(Icons.calendar_today), 
-                      labelText: "Date de début" 
+                      labelText: "Date de la visite" 
                     ),
                     readOnly: true,  
                     onTap: () async {
@@ -102,8 +102,8 @@ class _CreateVisiteScreen extends State<CreateVisiteScreen> {
                         print(formattedDate); 
 
                         setState(() {
-                          _dateDebut = pickedDate;
-                          dateDebutController.text = formattedDate; 
+                          dateVisite= pickedDate;
+                          dateVisiteController.text = formattedDate; 
                         });
                       }else{
                           print("Date is not selected");
@@ -113,34 +113,31 @@ class _CreateVisiteScreen extends State<CreateVisiteScreen> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(20),
-                  child: TextField(
-                    controller: dateFinController,
+                  child: TextFormField(
+                    controller: titreController,
                     decoration: const InputDecoration( 
-                      icon: Icon(Icons.calendar_today), 
-                      labelText: "Date de fin" 
+                      icon: Icon(Icons.comment), 
+                      labelText: "Titre" 
                     ),
-                    readOnly: true,  
-                    onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(), 
-                        firstDate:DateTime.now(), 
-                        lastDate: DateTime(2101)
-                      );
-                      if(pickedDate != null ){
-                        print(pickedDate);  
-                        String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate); 
-                        print(formattedDate); 
-
-                        setState(() {
-                          _dateFin = pickedDate;
-                          dateFinController.text = formattedDate; 
-                        });
-                      }else{
-                          print("Date is not selected");
-                      }
-                    }
-                  )
+                    onChanged: (value) {
+                      titre = value;
+                    },
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  child: TextFormField(
+                    controller: descriptionController,
+                    decoration: const InputDecoration( 
+                      icon: Icon(Icons.comment), 
+                      labelText: "Commentaire" 
+                    ),
+                    maxLines: null,
+                    keyboardType: TextInputType.multiline,
+                    onChanged: (value) {
+                      description = value;
+                    },
+                  ),
                 ),
                 Container(
                   child: OutlinedButton(
@@ -150,14 +147,20 @@ class _CreateVisiteScreen extends State<CreateVisiteScreen> {
                         showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Garde ajouté'),
-                            content: const Text('Votre garde à bien été ajouté'),
+                            title: const Text('Visite ajouté'),
+                            content: const Text('Voullez vous ajouter une photo'),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
-                                  context.go("/my_plante/${widget.id}");
+                                  context.go("/picture");
                                 },
-                                child: const Text('OK'),
+                                child: const Text('OUI'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  context.go("/garde");
+                                },
+                                child: const Text('NON'),
                               )
                             ]
                           )

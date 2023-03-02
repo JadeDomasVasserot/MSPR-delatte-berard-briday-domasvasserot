@@ -15,6 +15,17 @@
     @click:appendInner="search(searchName)"
     @update:modelValue="search(searchName)"
   ></v-text-field>
+  <div class="d-flex justify-space-between ma-10" v-if="user !== null && user.role.id === 2">
+    <router-link  class="text-decoration-none" :to="{ name: 'BibliothequePlanteAdd'}">
+      <v-btn
+        variant="elevated"
+        size="large"
+        color="green"
+        class="ma-2">
+        Ajouter une plante
+      </v-btn>
+    </router-link>
+  </div>
   <div class="d-flex justify-space-between ma-10">
   <v-btn
   v-for="type in typePlantes"
@@ -35,7 +46,7 @@
     class="mx-auto ma-10"
     max-width="95%"
   >
-    <v-container fluid v-if="plantes.length > 0">
+    <v-container fluid v-if="plantes !== null">
       <v-row dense >
         <v-col
           v-for="plante in plantes"
@@ -43,7 +54,7 @@
           cols="4"
         >
           <v-card>
-            <v-card-title v-if="!plante.photo" v-text="plante.nom"></v-card-title>
+            <v-card-title v-if="!plante.photo">{{plante.nom}}</v-card-title>
             <v-img
               v-if="plante.photo"
               :src="pathPhoto + plante.photo"
@@ -54,9 +65,9 @@
               alt="no img"
             >
 
-              <v-card-title class="text-white" v-text="plante.nom"></v-card-title>
+              <v-card-title class="text-white">{{plante.nom}}</v-card-title>
             </v-img>
-            <v-card-subtitle v-text="plante.typePlante.nom" class="ma-3"></v-card-subtitle>
+            <v-card-subtitle class="ma-3">{{plante.typePlante.nom}}</v-card-subtitle>
             <v-card-actions>
               <v-btn color="green">
                 <router-link class="btn-router-link" :to="{ name: 'BibliothequePlanteItem', params: { idPlante:  plante.id }}">En savoir plus</router-link>
@@ -66,7 +77,7 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-container v-if="plantes.length === 0 && error !== ''">{{ error }} </v-container>
+    <v-container v-if="plantes.length === 0 && error !== null">{{ error }} </v-container>
   </v-card>
 </template>
 
@@ -76,6 +87,7 @@ import NavBar from "@/layouts/navBar/NavBar.vue";
 import BibliothequePlante from "@/models/BibliothequePlante";
 import TypePlante from "@/models/TypePlante";
 import PhotoBibliothequePlante from "@/models/PhotoBibliothequePlante";
+import Personne from "@/models/Personne";
 
 export default {
   name: "BibliothequePlanteComponent",
@@ -83,14 +95,16 @@ export default {
   beforeMount() {
     this.getPlantes();
     this.getTypePlante();
+    this.getUser();
   },
   data () {
     return {
-      searchName: "",
+      searchName: null,
       typePlantes: [],
+      user:null,
       plantes: [],
       pathPhoto: "/src/assets/photo-plante-bibliotheque/",
-      error: '',
+      error: null,
     }
   },
   methods:{
@@ -232,7 +246,25 @@ export default {
       else {
         this.getPlanteByNom(nomPlante)
       }
-    }
+    },
+    getUser(){
+
+      axios.get("http://127.0.0.1:9000/personne/id/"+this.$store.state.user,
+        {
+          withCredentials: false,
+          headers: {
+            'Authorization': 'Bearer ' +this.$store.state.token,
+            'Content-Type': 'application/json',
+          }
+        })
+        .then( rep => {
+          if (rep.data) {
+            this.user = new Personne(rep.data.id, rep.data.adresse,  rep.data.cp, rep.data.email, rep.data.mdp, rep.data.nom, rep.data.prenom, rep.data.ville, rep.data.role)
+          }
+        }).catch(() => {
+        this.error = "Error"
+      })
+    },
   },
 
 }

@@ -1,6 +1,6 @@
 <template>
   <nav-bar />
-  <form @submit.prevent="getFormValues" v-if="plante">
+  <form @submit.prevent="getFormValues" v-if="plante" class="ma-10">
    <v-text-field disabled :model-value="plante.bibliothequePlante.nom"></v-text-field>
     <v-text-field
       v-model="localisation"
@@ -37,8 +37,8 @@ export default {
   },
   data() {
     return {
-      localisation: "",
-      plante: '',
+      localisation: null,
+      plante: null,
 
     }
   },
@@ -54,7 +54,8 @@ export default {
         {
           withCredentials: false,
           headers: {
-            'Content-Type': 'application/json',
+           'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
           }
         }
       ) .then( response => {
@@ -74,7 +75,7 @@ export default {
           withCredentials: false,
           headers: {
             'Authorization': 'Bearer ' +this.$store.state.token,
-            'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
           }
         })
         .then( rep => {

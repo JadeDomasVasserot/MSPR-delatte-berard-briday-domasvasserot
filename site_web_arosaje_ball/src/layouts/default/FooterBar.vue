@@ -6,13 +6,21 @@
         <img id="btn-play-store" src="@/assets/Google-Play-Logo.png" alt=""/>
         <v-spacer></v-spacer>
         <v-btn
-          v-for="icon in icons"
-          :key="icon"
           class="mx-4"
-          :icon="icon"
+          icon="mdi-trello"
           variant="plain"
           size="small"
-        ></v-btn>
+          href="https://trello.com/b/gsxJlWal/msprgroupe-erine-jade-hugo-duncan"
+        >
+        </v-btn>
+        <v-btn
+          class="mx-4"
+          icon="mdi-github"
+          variant="plain"
+          size="small"
+          href="https://github.com/JadeDomasVasserot/MSPR-delatte-berard-briday-domasvasserot"
+        >
+        </v-btn>
       </div>
 
       <div class="px-4 py-2 bg-grey-lighten-1 text-center w-100">
@@ -25,10 +33,6 @@
     export default {
         name: "FooterBar",
         data: () => ({
-          icons: [
-            'mdi-trello',
-            'mdi-github',
-          ],
           aspectRatio: 16 / 9,
           aspectRatios: [
             {

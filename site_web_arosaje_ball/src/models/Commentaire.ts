@@ -12,7 +12,6 @@ export default class Commentaire {
   constructor(id: number, description: string, titre: string, auteur: Personne, gardePlante: GardePlante) {
     this.id = id;
     this.description = description;
-
     this.titre = titre;
     this.auteur = auteur;
     this.gardePlante = gardePlante;

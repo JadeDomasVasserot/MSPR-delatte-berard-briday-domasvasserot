@@ -50,9 +50,9 @@ export default {
   data() {
     return {
       photos: [],
-      plante: '',
+      plante: null,
       pathPhoto: "/src/assets/photo-plante/",
-      error: '',
+      error: null,
     }
   },
   methods: {

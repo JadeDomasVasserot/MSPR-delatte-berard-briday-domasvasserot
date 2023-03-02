@@ -1,6 +1,6 @@
 import 'package:arosaje/src/models/BibliothequePlante.dart';
-import 'package:arosaje/src/services/photoPlanteService.dart';
-import 'package:arosaje/src/models/PhotoPlante.dart';
+import 'package:arosaje/src/services/guideService.dart';
+import 'package:arosaje/src/models/GuidePlante.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../components/BottomBarComponent.dart';
@@ -44,12 +44,12 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                   )
                 )
             ),
-            body: Center(
-              child: CustomScrollView( 
+            body: CustomScrollView( 
                 primary: false,
                 slivers:<Widget>[
                   SliverToBoxAdapter(
                     child:Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Card(
                           margin: const EdgeInsets.all(20),
@@ -61,127 +61,293 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                               color: Color.fromARGB(255, 233,239, 192),
                             )
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              FutureBuilder<PhotoBibliothequePlante>(
-                                future: getPhotoBibliothequePlante(plante.id),
-                                builder: (BuildContext context, AsyncSnapshot<PhotoBibliothequePlante> snapshot) {
-                                  if (snapshot.hasData) {
-                                    final   PhotoBibliothequePlante photoPlante = snapshot.data!;
-                                    return Container(
-                                      child :Image.asset('photo-plante-bibliotheque/${photoPlante.photo}')
-                                    );
-                                  }else if (snapshot.hasError) {
-                                    return Text("Une erreur s'est produite : ${snapshot.error}");
-                                  } else {
-                                    return CircularProgressIndicator();
-                                  } 
-                                }
-                              ),
-                              Container(
-                                margin : const EdgeInsets.only(right: 10, left : 10, top : 10),
-                                padding : const EdgeInsets.only(top : 10),
-                                decoration: const BoxDecoration(
-                                  border: Border(
-                                    top : BorderSide()
-                                  )
-                                ),
-                                child : Wrap (children: [
-                                  Container(
-                                    child: const Text('Description : ',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15,
-                                      )
-                                    )
-                                  ),
-                                  Container(
-                                    child: Text('${plante.description}',
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 15,
+                          child: FutureBuilder<List<GuidePlante>>(
+                            future: getGuideByPlante(plante.id),
+                            builder: (BuildContext context, AsyncSnapshot<List<GuidePlante>> snapshot) {
+                              if (snapshot.hasData) {
+                                final   List<GuidePlante> guides = snapshot.data!;
+                                return Column(
+                                  children: [
+                                    FutureBuilder<PhotoBibliothequePlante>(
+                                      future: getPhotoBibliothequePlante(plante.id),
+                                      builder: (BuildContext context, AsyncSnapshot<PhotoBibliothequePlante> snapshot) {
+                                        if (snapshot.hasData) {
+                                          final   PhotoBibliothequePlante photoPlante = snapshot.data!;
+                                          return Container(
+                                            margin: const EdgeInsets.all(4),
+                                            child :Image.asset('photo-plante-bibliotheque/${photoPlante.photo}')
+                                          );
+                                        }else if (snapshot.hasError) {
+                                          return Text("Une erreur s'est produite : ${snapshot.error}");
+                                        } else {
+                                          return CircularProgressIndicator();
+                                        } 
+                                      }
+                                    ),
+                                    Container(
+                                      margin : const EdgeInsets.only(right: 10, left : 10, top : 10),
+                                      padding : const EdgeInsets.only(top : 10),
+                                      decoration: const BoxDecoration(
+                                        border: Border(
+                                          top : BorderSide()
+                                        )
                                       ),
-                                      softWrap: true,
-                                    )
-                                  )
-                                ],)
-                              ),
-                              Container(
-                                margin : const EdgeInsets.only(right: 10, left : 10),
-                                padding : const EdgeInsets.only(top : 10),
-                                child : Row (children: [
-                                  Container(
-                                    child: const Text('Type : ',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15,
-                                      )
-                                    )
-                                  ),
-                                  Container(
-                                    child: Text('${plante.typePlante.nom}',
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 15,
+                                      child : Wrap (children: [
+                                        Container(
+                                          child: const Text('Description : ',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            )
+                                          )
+                                        ),
+                                        Container(
+                                          child: Text('${plante.description}',
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15,
+                                            ),
+                                            softWrap: true,
+                                          )
+                                        )
+                                      ],)
+                                    ),
+                                    Container(
+                                      margin : const EdgeInsets.only(right: 10, left : 10),
+                                      padding : const EdgeInsets.only(top : 10),
+                                      child : Row (children: [
+                                        Container(
+                                          child: const Text('Type : ',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            )
+                                          )
+                                        ),
+                                        Container(
+                                          child: Text('${plante.typePlante.nom}',
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15,
+                                            ),
+                                            softWrap: true,
+                                          )
+                                        )
+                                      ],)
+                                    ),
+                                    Container(
+                                      margin : const EdgeInsets.only(right: 10, left : 10),
+                                      padding : const EdgeInsets.only(top : 10, bottom: 10),
+                                      child : Wrap (children: [
+                                        Container(
+                                          child: const Text('Description du type : ',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            ),
+                                            softWrap: true,
+                                          )
+                                        ),
+                                        Container(
+                                          child:  Text('${plante.typePlante.description}',
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15,
+                                            )
+                                          )
+                                        )
+                                      ],)
+                                    ),
+                                    Container(
+                                      margin : const EdgeInsets.only(right: 10, left : 10),
+                                      padding : const EdgeInsets.only(top : 10),
+                                      child : Row (children: [
+                                        Container(
+                                          child: const Text('Guide : ',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            ),
+                                            softWrap: true,
+                                          )
+                                        ),
+                                        Container(
+                                          child:  Text('${guides[0].typeGuide.nom}',
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15,
+                                            )
+                                          )
+                                        )
+                                      ],)
+                                    ),
+                                    Container(
+                                      margin : const EdgeInsets.only(right: 10, left : 10),
+                                      child:  Row (children: [
+                                        Text('${guides[0].titre}',
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 15,
+                                          ),
+                                          softWrap: true,
+                                        )
+                                      ]),
+                                    ),
+                                    Container(
+                                      margin : const EdgeInsets.only(right: 10, left : 10),
+                                      padding : const EdgeInsets.only(bottom: 10),
+                                      child : Wrap (children: [
+                                        Container(
+                                          child:  Text('${guides[0].description}',
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15,
+                                            ),
+                                            softWrap: true,
+                                          )
+                                          )
+                                        ],)
                                       ),
-                                      softWrap: true,
-                                    )
-                                  )
-                                ],)
-                              ),
-                              Container(
-                                margin : const EdgeInsets.only(right: 10, left : 10),
-                                padding : const EdgeInsets.only(top : 10, bottom: 10),
-                                child : Wrap (children: [
-                                  Container(
-                                    child: const Text('Type description : ',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15,
+                                    ],
+                                );
+                              }else if (snapshot.hasError) {
+                                return Column(
+                                  children: [
+                                    FutureBuilder<PhotoBibliothequePlante>(
+                                      future: getPhotoBibliothequePlante(plante.id),
+                                      builder: (BuildContext context, AsyncSnapshot<PhotoBibliothequePlante> snapshot) {
+                                        if (snapshot.hasData) {
+                                          final   PhotoBibliothequePlante photoPlante = snapshot.data!;
+                                          return Container(
+                                            child :Image.asset('photo-plante-bibliotheque/${photoPlante.photo}')
+                                          );
+                                        }else if (snapshot.hasError) {
+                                          return Text("Une erreur s'est produite : ${snapshot.error}");
+                                        } else {
+                                          return CircularProgressIndicator();
+                                        } 
+                                      }
+                                    ),
+                                    Container(
+                                      margin : const EdgeInsets.only(right: 10, left : 10, top : 10),
+                                      padding : const EdgeInsets.only(top : 10),
+                                      decoration: const BoxDecoration(
+                                        border: Border(
+                                          top : BorderSide()
+                                        )
                                       ),
-                                      softWrap: true,
-                                    )
-                                  ),
-                                  Container(
-                                    child:  Text('${plante.typePlante.description}',
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 15,
-                                      )
-                                    )
-                                  )
-                                ],)
-                              ),
-                            ],
+                                      child : Wrap (children: [
+                                        Container(
+                                          child: const Text('Description : ',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            )
+                                          )
+                                        ),
+                                        Container(
+                                          child: Text('${plante.description}',
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15,
+                                            ),
+                                            softWrap: true,
+                                          )
+                                        )
+                                      ],)
+                                    ),
+                                    Container(
+                                      margin : const EdgeInsets.only(right: 10, left : 10),
+                                      padding : const EdgeInsets.only(top : 10),
+                                      child : Row (children: [
+                                        Container(
+                                          child: const Text('Type : ',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            )
+                                          )
+                                        ),
+                                        Container(
+                                          child: Text('${plante.typePlante.nom}',
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15,
+                                            ),
+                                            softWrap: true,
+                                          )
+                                        )
+                                      ],)
+                                    ),
+                                    Container(
+                                      margin : const EdgeInsets.only(right: 10, left : 10),
+                                      padding : const EdgeInsets.only(top : 10, bottom: 10),
+                                      child : Wrap (children: [
+                                        Container(
+                                          child: const Text('Description du type : ',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            ),
+                                            softWrap: true,
+                                          )
+                                        ),
+                                        Container(
+                                          child:  Text('${plante.typePlante.description}',
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15,
+                                            )
+                                          )
+                                        )
+                                      ],)
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return CircularProgressIndicator();
+                              } 
+                            }
                           ),
                         ),
                       ]
                     )
                   )
                 ]
-              )
-            ),
-            bottomNavigationBar: const BottomBarComponent()
-          );
-        } else if (snapshot.hasError) {
-          return Text("Une erreur s'est produite : ${snapshot.error}");
-        } else {
-          return CircularProgressIndicator();
-        } 
-      }
-    );
+              ),
+              bottomNavigationBar: const BottomBarComponent()
+            );
+          } else if (snapshot.hasError) {
+            return Text("Une erreur s'est produite : ${snapshot.error}");
+          } else {
+            return CircularProgressIndicator();
+          } 
+        }
+      );
+    }
   }
-}
 
 

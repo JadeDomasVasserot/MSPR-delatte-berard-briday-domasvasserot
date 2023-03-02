@@ -58,9 +58,9 @@
   export default {
     data() {
       return {
-        email: '',
+        email: null,
         errorLogin: false,
-        password: '',
+        password: null,
         rules: [
           value => {
             if (value) return true
@@ -80,7 +80,7 @@
           {
             withCredentials: false,
             headers: {
-              'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
             }
           }
         ) .then( response => {

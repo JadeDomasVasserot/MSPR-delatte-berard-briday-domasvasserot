@@ -108,5 +108,20 @@ public class CommentaireController {
         }
 
     }
+    @GetMapping("/all/byBotaniste/{idPlante}")
+    @Operation(summary = "récupère tous les commentaires des botanistes selon une garde de plante")
+    public ResponseEntity<List<CommentaireModel>> findByAuteur_Role_IdAndGardePlante_IdOrderByIdDesc(@PathVariable("idPlante") int idPlante) {
+        try {
+            List<CommentaireModel> commentaires = this.commentaireRepository.findByAuteur_Role_IdAndGardePlante_IdOrderByIdDesc( 2, idPlante);
+            if (commentaires.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(commentaires, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 
 }

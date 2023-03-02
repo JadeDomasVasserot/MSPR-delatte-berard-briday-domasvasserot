@@ -194,7 +194,7 @@ class _PlanteScreen extends State<PlanteScreen> {
                               )
                             ),
                             Container(
-                              child: Text('${gardePlante.plante.proprietaire}',
+                              child: Text('${gardePlante.plante.proprietaire.nom} ${gardePlante.plante.proprietaire.prenom}',
                               textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontStyle: FontStyle.normal,
@@ -279,7 +279,7 @@ class _PlanteScreen extends State<PlanteScreen> {
                             ),
                             Container(
                               padding : const EdgeInsets.only(top : 10, bottom: 10),
-                              child : Row (children: [
+                              child : Wrap (children: [
                                 Container(
                                   padding : const EdgeInsets.only( right: 2),
                                   child: OutlinedButton(
@@ -292,7 +292,7 @@ class _PlanteScreen extends State<PlanteScreen> {
                                         side: BorderSide(color: Colors.black)
                                       )
                                     ),
-                                    child: const Text('Voir profile propriétaire',
+                                    child: const Text('Voir profil propriétaire',
                                       style: TextStyle(
                                         fontStyle: FontStyle.normal,
                                         fontSize: 15,
@@ -303,7 +303,7 @@ class _PlanteScreen extends State<PlanteScreen> {
                                 ),
                                 Container(
                                   padding : const EdgeInsets.only(left : 2, right: 2),
-                                  child: gardePlante.gardien != null ?
+                                  child: gardePlante.statut.id == 2 ?
                                     OutlinedButton(
                                       onPressed: () {
                                         if (_formKey.currentState!.validate()) {
@@ -346,6 +346,41 @@ class _PlanteScreen extends State<PlanteScreen> {
                                       ),
                                     )
                                   :const Text('')
+                                ),
+                                FutureBuilder<Personne>(
+                                  future: getUser(2), // ID session 
+                                  builder: (BuildContext context, AsyncSnapshot<Personne> snapshot) {
+                                    if (snapshot.hasData) {
+                                      final Personne personne = snapshot.data! ;
+                                      return Container(
+                                        padding : const EdgeInsets.only( right: 2),
+                                        child: personne.role.id == 2 || personne.role.id == 3 || personne.role.id == 4?
+                                          OutlinedButton(
+                                            onPressed: () {
+                                              context.go("/create/commentaire/${gardePlante.plante.id}");
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(5),
+                                                side: BorderSide(color: Colors.black)
+                                              )
+                                            ),
+                                            child: const Text('Ajouter commentaire',
+                                              style: TextStyle(
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 15,
+                                                color: Colors.black
+                                              )
+                                            ),
+                                          )
+                                        : null
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text('');
+                                    } else {
+                                      return CircularProgressIndicator();
+                                    }
+                                  } 
                                 ),
                               ])
                             ),

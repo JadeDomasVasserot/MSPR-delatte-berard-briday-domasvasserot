@@ -26,8 +26,6 @@ public class CommentaireModel {
     @JoinColumn(name = "auteur", referencedColumnName = "id", nullable = false)
     private PersonneModel auteur;
     @ManyToOne
-    @JoinColumn(name = "plante", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "garde_plante", referencedColumnName = "id", nullable = false)
     private GardePlanteModel gardePlante;
-
-
 }

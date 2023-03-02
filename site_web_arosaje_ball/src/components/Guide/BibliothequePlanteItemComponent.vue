@@ -3,10 +3,26 @@
   <v-banner lines="one" :stacked="false">
     <v-app-bar-title>Guide et conseil Plante</v-app-bar-title>
   </v-banner>
-  <v-card v-if="plante !== ''"
-          class="ma-10"
+  <v-card v-if="plante !== null"
+          class="ma-5"
           max-width="100%"
   >
+    <v-row justify="center"  v-if=" 2 === role">
+      <router-link :to="{ name: 'BibliothequePlanteModifier', params: { idPlante:  plante.id }}" class="text-decoration-none">
+        <v-icon icon="mdi-pencil"
+                class="ma-5 pa-5 border"
+                size="x-large"
+                color="green">
+        </v-icon>
+      </router-link>
+      <router-link :to="{ name: 'BibliothequePlanteSupprimer', params: { idPlante:  plante.id }}" class="text-decoration-none">
+        <v-icon icon="mdi-delete"
+                class="ma-5 pa-5 border"
+                size="x-large"
+                color="green">
+        </v-icon>
+      </router-link>
+    </v-row>
     <v-banner lines="one" :stacked="false">
       <v-card-title class="text-amber-darken-1 ma-3 font-weight-bold text-center" v-text="plante.nom"></v-card-title>
     </v-banner>
@@ -15,6 +31,12 @@
         v-for="(item) in photos"
         :key="item.id"
         :src="pathPhoto+item.photo"
+      >
+      </v-carousel-item>
+    </v-carousel>
+    <v-carousel show-arrows="hover" v-if="photos.length === 0">
+      <v-carousel-item
+        src="/src/assets/logo_app.png"
       >
       </v-carousel-item>
     </v-carousel>
@@ -29,7 +51,7 @@
     <v-card-text>
       {{ plante.description}}
     </v-card-text>
-    <v-container fluid v-if="guidePlantes.length > 0">
+    <v-container fluid v-if="guidePlantes !== null">
       <v-row dense>
         <v-col v-for="guide in guidePlantes"
           :keys="guide.id"
@@ -44,7 +66,7 @@
       </v-row>
     </v-container>
   </v-card>
-  <v-card v-if="role === 2" class="pa-5">
+  <v-card v-if="role === 2 && plante !== null" class="pa-5">
     <div class="d-flex justify-center align-baseline" style="gap: 1rem">
       <v-file-input
         id="addPhoto"
@@ -55,7 +77,7 @@
         @focusout="addPhoto(this)"
       ></v-file-input>
       <router-link :to="{name:'AjouterUnGuide', params: {
-         idPlante:  plante.id
+         idPlante:  idPlante
       }}">
       <v-btn
         color="success"
@@ -87,10 +109,10 @@ export default {
     return {
       guidePlantes: [],
       photos: [],
-      plante: '',
+      plante: null,
       pathPhoto: "/src/assets/photo-plante-bibliotheque/",
-      error: '',
-      role: this.$store.state.role
+      error: null,
+      role: this.$store.state.role,
     }
   },
   methods: {

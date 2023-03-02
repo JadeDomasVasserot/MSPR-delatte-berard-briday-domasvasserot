@@ -14,9 +14,13 @@ import 'package:arosaje/src/screens/BibliothequePlanteScreen.dart';
 import 'package:arosaje/src/screens/ModifyProfileScreen.dart';
 import 'package:arosaje/src/screens/CreateGardeScreen.dart';
 import 'package:arosaje/src/screens/ProfileExterieurScreen.dart';
+import 'package:arosaje/src/screens/CreateCommentaireScreen.dart';
 import 'package:arosaje/src/screens/CreateVisiteScreen.dart';
+import 'package:arosaje/src/screens/VisiteScreen.dart';
 import 'package:arosaje/src/screens/SignUpScreen.dart';
+import 'package:arosaje/src/screens/GardeFermerScreen.dart';
 import 'package:arosaje/src/screens/CamScreen.dart';
+import 'package:arosaje/src/screens/CommentaireScreen.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -82,11 +86,21 @@ final GoRouter _router = GoRouter(
           return PlanteScreen(id: int.parse(id!));
         }),
     GoRoute(
-        path: "/modify/plante",
-        builder: (context, state) => const ModifyPlanteScreen()),
+        path: "/garde/fermer",
+        builder: (context, state) => const GardeFermerScreen()),
+    GoRoute(
+        path: "/modify/plante/:id",
+        builder: (context, state) {
+          final id = state.params["id"];
+          return ModifyPlanteScreen(id: int.parse(id!));
+        }),
     GoRoute(
         path: "/modify/profile",
         builder: (context, state) => const ModifyProfileScreen()),
+    GoRoute(
+        path: "/cam", builder: (context, state) => const CameraExampleHome()),
+    GoRoute(
+        path: "/picture", builder: (context, state) => const PictureScreen()),
     GoRoute(
         path: "/create/garde/:id",
         builder: (context, state) {
@@ -110,6 +124,24 @@ final GoRouter _router = GoRouter(
         builder: (context, state) {
           final id = state.params["id"];
           return CreateVisiteScreen(id: int.parse(id!));
+        }),
+    GoRoute(
+        path: "/visite/:id",
+        builder: (context, state) {
+          final id = state.params["id"];
+          return VisiteScreen(id: int.parse(id!));
+        }),
+    GoRoute(
+        path: "/commentaire/:id",
+        builder: (context, state) {
+          final id = state.params["id"];
+          return CommentaireScreen(id: int.parse(id!));
+        }),
+    GoRoute(
+        path: "/create/commentaire/:id",
+        builder: (context, state) {
+          final id = state.params["id"];
+          return CreateCommentaireScreen(id: int.parse(id!));
         })
   ],
 );
