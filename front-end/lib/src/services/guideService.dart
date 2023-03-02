@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 Future<List<GuidePlante>> getGuideByPlante (int idPlante) async { // Retourne toutes les visites d'une plante
   final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/guide-plante/all/byPlante/$idPlante"));
+      .get(Uri.parse("https://arosaje-mspr.mrartemus.cloud/guide-plante/all/byPlante/$idPlante"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -23,7 +23,7 @@ Future<List<GuidePlante>> getGuideByPlante (int idPlante) async { // Retourne to
 Future<GuidePlante> addGuide (String titre, String description,  BibliothequePlante bibliothequePlante, TypeGuide typeGuide) async {
   try {
     final response = await http.post(
-      Uri.parse("http://127.0.0.1:9000/guide-plante/add"),
+      Uri.parse("https://arosaje-mspr.mrartemus.cloud/guide-plante/add"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

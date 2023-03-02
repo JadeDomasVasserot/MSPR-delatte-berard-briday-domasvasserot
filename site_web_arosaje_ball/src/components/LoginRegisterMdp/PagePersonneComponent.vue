@@ -121,7 +121,7 @@ export default {
   },
   methods: {
     getPlantes(){
-      axios.get("http://127.0.0.1:9000/plante/all/byUser/"+this.idPersonne,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/plante/all/byUser/"+this.idPersonne,
         {
           withCredentials: false,
           headers: {
@@ -135,7 +135,7 @@ export default {
             this.role = new Role(rep.data[0].proprietaire.role.id, rep.data[0].proprietaire.role.nom)
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:arosaje/src/components/BottomBarComponent.dart';
 import 'package:arosaje/src/models/GardePlante.dart';
 import 'package:arosaje/src/models/Plante.dart';
@@ -82,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Container(
                                       margin: const EdgeInsets.only(bottom: 4),
                                       child: Text(
-                                          '${gardePlante.plante.bibliothequePlante.nom}',
+              utf8.decode('${gardePlante.plante.bibliothequePlante.nom}'.codeUnits),
                                           style: const TextStyle(
                                               fontStyle: FontStyle.normal,
                                               fontWeight: FontWeight.bold,
@@ -127,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       color: Colors.black))),
                                           Container(
                                               child: Text(
-                                                  '${DateFormat('dd/MM/yyyy').format(gardePlante.dateDebut)}',
+              utf8.decode('${DateFormat('dd/MM/yyyy').format(gardePlante.dateDebut)}'.codeUnits),
                                                   style: const TextStyle(
                                                       fontStyle:
                                                           FontStyle.normal,
@@ -144,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       color: Colors.black))),
                                           Container(
                                               child: Text(
-                                                  '${DateFormat('dd/MM/yyyy').format(gardePlante.dateFin)}',
+              utf8.decode('${DateFormat('dd/MM/yyyy').format(gardePlante.dateFin)}'.codeUnits),
                                                   style: const TextStyle(
                                                       fontStyle:
                                                           FontStyle.normal,
@@ -164,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   color: Colors.black))),
                                       Container(
                                           child: Text(
-                                              '${gardePlante.plante.proprietaire.adresse}, ${gardePlante.plante.proprietaire.cp} ${gardePlante.plante.proprietaire.ville}',
+                                              utf8.decode('${gardePlante.plante.proprietaire.adresse}, ${gardePlante.plante.proprietaire.cp} ${gardePlante.plante.proprietaire.ville}'.codeUnits),
                                               style: const TextStyle(
                                                   fontStyle: FontStyle.normal,
                                                   fontSize: 12,

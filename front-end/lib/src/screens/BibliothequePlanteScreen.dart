@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:arosaje/src/models/BibliothequePlante.dart';
 import 'package:arosaje/src/models/Personne.dart';
 import 'package:arosaje/src/services/personneService.dart';
@@ -30,7 +32,7 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: const Color.fromARGB(255,131,189,117),
-              title: Text('${plante.nom}',
+              title: Text(utf8.decode('${plante.nom}'.codeUnits),
                   style: const TextStyle(
                     fontStyle: FontStyle.normal,
                     fontWeight: FontWeight.bold,
@@ -100,7 +102,7 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                                             )
                                           ),
                                           Container(
-                                            child: Text('${plante.description}',
+                                            child: Text(utf8.decode('{$plante.description}'.codeUnits),
                                               textAlign: TextAlign.left,
                                               style: const TextStyle(
                                                 fontStyle: FontStyle.normal,
@@ -126,7 +128,7 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                                             )
                                           ),
                                           Container(
-                                            child: Text('${plante.typePlante.nom}',
+                                            child: Text(utf8.decode('${plante.typePlante.nom}'.codeUnits),
                                               textAlign: TextAlign.left,
                                               style: const TextStyle(
                                                 fontStyle: FontStyle.normal,
@@ -153,7 +155,7 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                                             )
                                           ),
                                           Container(
-                                            child:  Text('${plante.typePlante.description}',
+                                            child:  Text(utf8.decode('${plante.typePlante.description}'.codeUnits),
                                               textAlign: TextAlign.left,
                                               style: const TextStyle(
                                                 fontStyle: FontStyle.normal,
@@ -172,7 +174,7 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                                               padding : const EdgeInsets.only(top : 10),
                                               child : Row (children: [
                                                 Container(
-                                                  child: Text('${guide.typeGuide.nom}',
+                                                  child: Text(utf8.decode('${guide.typeGuide.nom}'.codeUnits),
                                                     textAlign: TextAlign.left,
                                                     style: const TextStyle(
                                                       fontStyle: FontStyle.normal,
@@ -187,7 +189,7 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                                             Container(
                                               margin : const EdgeInsets.only(right: 10, left : 10),
                                               child:  Row (children: [
-                                                Text('${guide.titre}',
+                                                Text(utf8.decode('${guide.titre}'.codeUnits),
                                                   textAlign: TextAlign.left,
                                                   style: const TextStyle(
                                                     fontStyle: FontStyle.normal,
@@ -202,7 +204,7 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                                               padding : const EdgeInsets.only(bottom: 10),
                                               child : Wrap (children: [
                                                 Container(
-                                                  child:  Text('${guide.description}',
+                                                  child:  Text(utf8.decode('${guide.description}'.codeUnits),
                                                     textAlign: TextAlign.left,
                                                     style: const TextStyle(
                                                       fontStyle: FontStyle.normal,
@@ -290,7 +292,7 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                                             )
                                           ),
                                           Container(
-                                            child: Text('${plante.description}',
+                                            child: Text(utf8.decode('${plante.description}'.codeUnits),
                                               textAlign: TextAlign.left,
                                               style: const TextStyle(
                                                 fontStyle: FontStyle.normal,
@@ -316,7 +318,7 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                                             )
                                           ),
                                           Container(
-                                            child: Text('${plante.typePlante.nom}',
+                                            child: Text(utf8.decode('${plante.typePlante.nom}'.codeUnits),
                                               textAlign: TextAlign.left,
                                               style: const TextStyle(
                                                 fontStyle: FontStyle.normal,
@@ -343,7 +345,7 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                                             )
                                           ),
                                           Container(
-                                            child:  Text('${plante.typePlante.description}',
+                                            child:  Text(utf8.decode('${plante.typePlante.description}'.codeUnits),
                                               textAlign: TextAlign.left,
                                               style: const TextStyle(
                                                 fontStyle: FontStyle.normal,

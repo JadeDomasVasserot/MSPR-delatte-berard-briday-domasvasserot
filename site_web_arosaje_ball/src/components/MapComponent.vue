@@ -110,7 +110,7 @@ export default {
       this.openedMarkerID = id
     },
     getPlantes() {
-      axios.get("http://127.0.0.1:9000/garde-plante/all/byAGarder",
+      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/all/byAGarder",
         {
           withCredentials: false,
           headers: {
@@ -142,7 +142,7 @@ export default {
       }
     },
     getUser() {
-      axios.get("http://127.0.0.1:9000/personne/id/" + this.$store.state.user,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/personne/id/" + this.$store.state.user,
         {
           withCredentials: false,
           headers: {

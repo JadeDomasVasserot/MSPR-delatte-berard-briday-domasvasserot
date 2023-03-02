@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:arosaje/src/models/Personne.dart';
@@ -22,7 +24,7 @@ class _ProfileScreen extends State<ProfileScreen> {
           final Personne personnes = snapshot.data! ;
           return Scaffold(
             appBar: AppBar(
-              title: Text('Bonjour ${personnes.prenom} !',
+              title: Text(utf8.decode('Bonjour ${personnes.prenom} !'.codeUnits),
                 style: const TextStyle(
                   fontStyle: FontStyle.normal,
                   fontWeight: FontWeight.bold,
@@ -61,7 +63,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                                   )
                                 ),
                                 Container(
-                                  child: Text('${personnes.nom}',
+                                  child: Text(utf8.decode('${personnes.nom}'.codeUnits),
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       fontStyle: FontStyle.normal,
@@ -84,7 +86,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                                   )
                                 ),
                                 Container(
-                                  child: Text('${personnes.prenom}',
+                                  child: Text(utf8.decode('${personnes.prenom}'.codeUnits),
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       fontStyle: FontStyle.normal,
@@ -107,7 +109,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                                   )
                                 ),
                                 Container(
-                                  child: Text('${personnes.email}',
+                                  child: Text(utf8.decode('${personnes.email}'.codeUnits),
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       fontStyle: FontStyle.normal,
@@ -153,7 +155,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                                   )
                                 ),
                                 Container(
-                                  child: Text('${personnes.role.nom}',
+                                  child: Text(utf8.decode('${personnes.role.nom}'.codeUnits),
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       fontStyle: FontStyle.normal,
@@ -199,7 +201,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                         Container(
                           child : Row (children: [
                             Container(
-                              child: Text('${personnes.adresse}',
+                              child: Text(utf8.decode('${personnes.adresse}'.codeUnits),
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontStyle: FontStyle.normal,
@@ -212,7 +214,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                         Container(
                           child : Row (children: [
                             Container(
-                              child: Text('${personnes.cp}, ${personnes.ville} ',
+                              child: Text(utf8.decode('${personnes.cp}, ${personnes.ville} '.codeUnits),
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontStyle: FontStyle.normal,

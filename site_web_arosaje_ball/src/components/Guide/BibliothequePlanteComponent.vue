@@ -109,7 +109,7 @@ export default {
   },
   methods:{
     getPlantes(){
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all",
+      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -121,7 +121,7 @@ export default {
           if (rep.data) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -145,7 +145,7 @@ export default {
       })
     },
     getTypePlante(){
-      axios.get("http://127.0.0.1:9000/type-plante/all",
+      axios.get("https://arosaje-mspr.mrartemus.cloud/type-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -164,7 +164,7 @@ export default {
       })
     },
     getAllByTypePlante(typePlanteParam){
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all/byType/"+typePlanteParam,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all/byType/"+typePlanteParam,
         {
           withCredentials: false,
           headers: {
@@ -176,7 +176,7 @@ export default {
           if (rep.data && rep.status === 200) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -204,7 +204,7 @@ export default {
     },
     getPlanteByNom(nomPlante){
 
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all/byNom/"+nomPlante,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all/byNom/"+nomPlante,
         {
           withCredentials: false,
           headers: {
@@ -216,7 +216,7 @@ export default {
           if (rep.data) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -249,7 +249,7 @@ export default {
     },
     getUser(){
 
-      axios.get("http://127.0.0.1:9000/personne/id/"+this.$store.state.user,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/personne/id/"+this.$store.state.user,
         {
           withCredentials: false,
           headers: {

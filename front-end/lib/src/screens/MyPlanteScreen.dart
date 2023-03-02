@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:arosaje/src/models/Plante.dart';
 import 'package:arosaje/src/services/photoPlanteService.dart';
 import 'package:arosaje/src/services/gardePlanteService.dart';
@@ -38,7 +40,7 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                 )
               ],
               backgroundColor: const Color.fromARGB(255,131,189,117),
-              title: Text('${plante.bibliothequePlante.nom}',
+              title: Text(utf8.decode('${plante.bibliothequePlante.nom}'.codeUnits),
                   style: const TextStyle(
                     fontStyle: FontStyle.normal,
                     fontWeight: FontWeight.bold,
@@ -109,7 +111,7 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                                   )
                                 ),
                                 Container(
-                                  child: Text('${plante.bibliothequePlante.typePlante.nom}',
+                                  child: Text(utf8.decode('${plante.bibliothequePlante.typePlante.nom}'.codeUnits),
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       fontStyle: FontStyle.normal,
@@ -134,7 +136,7 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                                   )
                                 ),
                                 Container(
-                                  child: Text('${plante.localisation}',
+                                  child: Text(utf8.decode('${plante.localisation}'.codeUnits),
                                   textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       fontStyle: FontStyle.normal,
@@ -174,7 +176,7 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                                                   )
                                                 ),
                                                 Container(
-                                                  child:Text('${DateFormat('dd/MM/yyyy').format(gardePlante.dateDebut)}',
+                                                  child:Text(utf8.decode('${DateFormat('dd/MM/yyyy').format(gardePlante.dateDebut)}'.codeUnits),
                                                   style: const TextStyle(
                                                     fontStyle: FontStyle.normal,
                                                       fontSize: 15,
@@ -193,7 +195,7 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                                                   )
                                                 ),
                                                 Container(
-                                                  child:  Text('${DateFormat('dd/MM/yyyy').format(gardePlante.dateFin)}',
+                                                  child:  Text(utf8.decode('${DateFormat('dd/MM/yyyy').format(gardePlante.dateFin)}'.codeUnits),
                                                     style:  const TextStyle(
                                                       fontStyle: FontStyle.normal,
                                                       fontSize: 15,
@@ -217,7 +219,7 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                                                     )
                                                   ),
                                                   Container(
-                                                    child:  Text('${gardePlante.gardien?.nom}',
+                                                    child:  Text(utf8.decode('${gardePlante.gardien?.nom}'.codeUnits),
                                                       textAlign: TextAlign.left,
                                                       style: const TextStyle(
                                                         fontStyle: FontStyle.normal,
