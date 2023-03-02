@@ -93,7 +93,7 @@ export default {
   },
   methods:{
     getPlantes(){
-      axios.get("http://127.0.0.1:9000/plante/all/byUser/"+this.$store.state.user,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/plante/all/byUser/"+this.$store.state.user,
         {
           withCredentials: false,
           headers: {
@@ -105,7 +105,7 @@ export default {
           if (rep.data) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -131,7 +131,7 @@ export default {
       })
     },
     getTypePlante(){
-      axios.get("http://127.0.0.1:9000/type-plante/all",
+      axios.get("https://arosaje-mspr.mrartemus.cloud/type-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -150,7 +150,7 @@ export default {
       })
     },
     getAllByTypePlante(typePlanteParam){
-      axios.get("http://127.0.0.1:9000/plante/byUser/"+this.$store.state.user+"/byTypePlante/"+typePlanteParam,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/plante/byUser/"+this.$store.state.user+"/byTypePlante/"+typePlanteParam,
         {
           withCredentials: false,
           headers: {
@@ -162,7 +162,7 @@ export default {
           if (rep.data && rep.status === 200) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {

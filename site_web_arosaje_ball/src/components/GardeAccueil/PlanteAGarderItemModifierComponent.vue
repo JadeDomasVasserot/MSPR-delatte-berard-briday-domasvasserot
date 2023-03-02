@@ -70,7 +70,7 @@ export default {
         }
       }
       await axios.put(
-        'http://127.0.0.1:9000/garde-plante/update',
+        'https://arosaje-mspr.mrartemus.cloud/garde-plante/update',
         {
           id: this.idPlante,
           plante: this.plante.plante,
@@ -97,7 +97,7 @@ export default {
         })
     },
     getAllStatutPlante(){
-      axios.get("http://127.0.0.1:9000/statut-plante/all",
+      axios.get("https://arosaje-mspr.mrartemus.cloud/statut-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -117,7 +117,7 @@ export default {
       })
     },
     getPlanteId() {
-      axios.get("http://127.0.0.1:9000/garde-plante/id/" + this.idPlante,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/id/" + this.idPlante,
         {
           withCredentials: false,
           headers: {

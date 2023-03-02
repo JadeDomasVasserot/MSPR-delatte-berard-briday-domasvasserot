@@ -70,7 +70,7 @@ export default {
   },
   methods:{
     getBibliothequePlante(){
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/id/"+this.idPlante,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/id/"+this.idPlante,
         {
           withCredentials: false,
           headers: {
@@ -87,7 +87,7 @@ export default {
       })
     },
     getAllTypeGuide(){
-      axios.get("http://127.0.0.1:9000/type-guide/all",
+      axios.get("https://arosaje-mspr.mrartemus.cloud/type-guide/all",
         {
           withCredentials: false,
           headers: {
@@ -114,7 +114,7 @@ export default {
         }
       }
       await axios.post(
-        'http://127.0.0.1:9000/guide-plante/add',
+        'https://arosaje-mspr.mrartemus.cloud/guide-plante/add',
         {
           description: this.description,
           titre: this.titre,

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:arosaje/src/models/PhotoPlante.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -74,7 +76,7 @@ class _MyPlantesScreen extends State<MyPlantesScreen> {
                                   children: <Widget>[
                                     Container(
                                       margin: const EdgeInsets.only(bottom : 4),
-                                      child: Text('${plante.bibliothequePlante.nom}',
+                                      child: Text(utf8.decode('${plante.bibliothequePlante.nom}'.codeUnits),
                                         style: const TextStyle(
                                           fontStyle: FontStyle.normal,
                                           fontWeight: FontWeight.bold,
@@ -124,7 +126,7 @@ class _MyPlantesScreen extends State<MyPlantesScreen> {
                                           )
                                         ),
                                         Container(
-                                          child: Text('${plante.bibliothequePlante.typePlante.nom}',
+                                          child: Text(utf8.decode('${plante.bibliothequePlante.typePlante.nom}'.codeUnits),
                                             style: const TextStyle(
                                               fontStyle: FontStyle.normal,
                                               fontSize: 15,

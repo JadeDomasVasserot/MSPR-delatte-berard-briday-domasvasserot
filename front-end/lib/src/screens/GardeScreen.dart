@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:arosaje/src/models/StatutPlante.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -94,7 +96,7 @@ class _GardeScreen extends State<GardeScreen> {
                                   )
                                 ),
                                 Container(
-                                  child: Text('${gardePlante.plante.bibliothequePlante.nom}',
+                                  child: Text(utf8.decode('${gardePlante.plante.bibliothequePlante.nom}'.codeUnits),
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       fontStyle: FontStyle.normal,
@@ -117,7 +119,7 @@ class _GardeScreen extends State<GardeScreen> {
                                 )
                               ),
                               Container(
-                                child:Text('${DateFormat('dd/MM/yyyy').format(gardePlante.dateDebut)}',
+                                child:Text(utf8.decode('${DateFormat('dd/MM/yyyy').format(gardePlante.dateDebut)}'.codeUnits),
                                   textAlign: TextAlign.left,
                                   style: const TextStyle(
                                     fontStyle: FontStyle.normal,
@@ -138,7 +140,7 @@ class _GardeScreen extends State<GardeScreen> {
                                 )
                               ),
                               Container(
-                                child: Text('${DateFormat('dd/MM/yyyy').format(gardePlante.dateFin)}',
+                                child: Text(utf8.decode('${DateFormat('dd/MM/yyyy').format(gardePlante.dateFin)}'.codeUnits),
                                   textAlign: TextAlign.left,
                                   style: const TextStyle(
                                     fontStyle: FontStyle.normal,
@@ -161,7 +163,7 @@ class _GardeScreen extends State<GardeScreen> {
                                 ),
                               Container(
                                 margin : const EdgeInsets.only(bottom : 10),
-                                  child: Text('${gardePlante.plante.proprietaire.adresse}, ${gardePlante.plante.proprietaire.cp}, ${gardePlante.plante.proprietaire.ville}',
+                                  child: Text(utf8.decode('${gardePlante.plante.proprietaire.adresse}, ${gardePlante.plante.proprietaire.cp}, ${gardePlante.plante.proprietaire.ville}'.codeUnits),
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       fontStyle: FontStyle.normal,

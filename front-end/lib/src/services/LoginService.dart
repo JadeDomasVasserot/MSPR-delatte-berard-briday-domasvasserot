@@ -22,7 +22,7 @@ Future<void> login(final data) async {
     final token = jsonResponse['token'];
     final id = jsonResponse['id'];
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(id, token);
+    // prefs.setString(id, token);
   } else {
     print('Impossible de se connecter');
   }

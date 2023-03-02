@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:arosaje/src/models/PhotoPlante.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -67,7 +69,7 @@ class _GuideScreen extends State<GuideScreen> {
                                   children: <Widget>[
                                     Container(
                                       margin: const EdgeInsets.only(bottom : 4),
-                                      child: Text('${plante.nom}',
+                                      child: Text(utf8.decode('${plante.nom}'.codeUnits),
                                         style: const TextStyle(
                                           fontStyle: FontStyle.normal,
                                           fontWeight: FontWeight.bold,

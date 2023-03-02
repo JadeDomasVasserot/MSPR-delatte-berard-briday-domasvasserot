@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     getPlanteId() {
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/id/" + this.idPlante,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/id/" + this.idPlante,
         {
           withCredentials: false,
           headers: {
@@ -70,7 +70,7 @@ export default {
         .then(rep => {
             if (rep.data) {
               this.plante = new BibliothequePlante(rep.data.id, rep.data.nom, rep.data.description, rep.data.typePlante);
-              axios.get(`http://127.0.0.1:9000/photo-plante/all/idPlante/${rep.data.id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/all/idPlante/${rep.data.id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -95,7 +95,7 @@ export default {
       })
     },
     deletePlante() {
-      axios.delete("http://127.0.0.1:9000/bibliotheque-plante/delete/" + this.idPlante,
+      axios.delete("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/delete/" + this.idPlante,
         {
           withCredentials: false,
           headers: {

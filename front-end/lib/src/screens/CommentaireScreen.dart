@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:arosaje/src/models/Commentaire.dart';
 import 'package:arosaje/src/models/GardePlante.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +71,7 @@ class _CommentaireScreen extends State<CommentaireScreen> {
                               )
                             ),
                               Container(
-                                child:Text('${commentaire.titre}',
+                                child:Text(utf8.decode('${commentaire.titre}'.codeUnits),
                                   textAlign: TextAlign.left,
                                   style: const TextStyle(
                                   fontStyle: FontStyle.normal,
@@ -91,7 +93,7 @@ class _CommentaireScreen extends State<CommentaireScreen> {
                                 )
                               ),
                               Container(
-                                child: Text('${commentaire.description}',
+                                child: Text(utf8.decode('${commentaire.description}'.codeUnits),
                                   textAlign: TextAlign.left,
                                   style: const TextStyle(
                                     fontStyle: FontStyle.normal,
@@ -113,7 +115,7 @@ class _CommentaireScreen extends State<CommentaireScreen> {
                               )
                             ),
                               Container(
-                                child:Text('${commentaire.auteur.nom} ${commentaire.auteur.prenom}',
+                                child:Text(utf8.decode('${commentaire.auteur.nom} ${commentaire.auteur.prenom}'.codeUnits),
                                   textAlign: TextAlign.left,
                                   style: const TextStyle(
                                   fontStyle: FontStyle.normal,

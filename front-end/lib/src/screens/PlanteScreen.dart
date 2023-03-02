@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:arosaje/src/models/Personne.dart';
 import 'package:arosaje/src/services/photoPlanteService.dart';
 import 'package:arosaje/src/services/gardePlanteService.dart';
@@ -119,7 +121,7 @@ class _PlanteScreen extends State<PlanteScreen> {
                               )
                             ),
                             Container(
-                              child: Text('${gardePlante.plante.bibliothequePlante.typePlante.nom}',
+                              child: Text(utf8.decode('${gardePlante.plante.bibliothequePlante.typePlante.nom}'.codeUnits),
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontStyle: FontStyle.normal,
@@ -144,7 +146,7 @@ class _PlanteScreen extends State<PlanteScreen> {
                               )
                             ),
                             Container(
-                              child: Text('${gardePlante.plante.proprietaire.adresse}, ${gardePlante.plante.proprietaire.cp} ${gardePlante.plante.proprietaire.ville}',
+                              child: Text(utf8.decode('${gardePlante.plante.proprietaire.adresse}, ${gardePlante.plante.proprietaire.cp} ${gardePlante.plante.proprietaire.ville}'.codeUnits),
                               textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontStyle: FontStyle.normal,
@@ -169,7 +171,7 @@ class _PlanteScreen extends State<PlanteScreen> {
                               )
                             ),
                             Container(
-                              child: Text('${gardePlante.plante.localisation}',
+                              child: Text(utf8.decode('${gardePlante.plante.localisation}'.codeUnits),
                               textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontStyle: FontStyle.normal,
@@ -194,7 +196,7 @@ class _PlanteScreen extends State<PlanteScreen> {
                               )
                             ),
                             Container(
-                              child: Text('${gardePlante.plante.proprietaire.nom} ${gardePlante.plante.proprietaire.prenom}',
+                              child: Text(utf8.decode('${gardePlante.plante.proprietaire.nom} ${gardePlante.plante.proprietaire.prenom}'.codeUnits),
                               textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontStyle: FontStyle.normal,
@@ -225,7 +227,7 @@ class _PlanteScreen extends State<PlanteScreen> {
                                 )
                               ),
                               Container(
-                                child:Text('${DateFormat('dd/MM/yyyy').format(gardePlante.dateDebut)}',
+                                child:Text(utf8.decode('${DateFormat('dd/MM/yyyy').format(gardePlante.dateDebut)}'.codeUnits),
                                   style: const TextStyle(
                                     fontStyle: FontStyle.normal,
                                     fontSize: 15,
@@ -244,7 +246,7 @@ class _PlanteScreen extends State<PlanteScreen> {
                                 )
                               ),
                               Container(
-                                child:  Text('${DateFormat('dd/MM/yyyy').format(gardePlante.dateFin)}',
+                                child:  Text(utf8.decode('${DateFormat('dd/MM/yyyy').format(gardePlante.dateFin)}'.codeUnits),
                                   style:  const TextStyle(
                                     fontStyle: FontStyle.normal,
                                     fontSize: 15,
@@ -267,7 +269,7 @@ class _PlanteScreen extends State<PlanteScreen> {
                                   )
                                 ),
                                 Container(
-                                  child:  Text('${gardePlante.statut.nom}',
+                                  child:  Text(utf8.decode('${gardePlante.statut.nom}'.codeUnits),
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       fontStyle: FontStyle.normal,

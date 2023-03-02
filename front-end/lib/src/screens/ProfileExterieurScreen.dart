@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:arosaje/src/models/Personne.dart';
@@ -23,7 +25,7 @@ class _ProfileExterieurScreen extends State<ProfileExterieurScreen> {
           final Personne personnes = snapshot.data! ;
           return Scaffold(
             appBar: AppBar(
-              title: Text('${personnes.prenom} ${personnes.nom}',
+              title: Text(utf8.decode('${personnes.prenom} ${personnes.nom}'.codeUnits),
                 style: const TextStyle(
                   fontStyle: FontStyle.normal,
                   fontWeight: FontWeight.bold,
@@ -62,7 +64,7 @@ class _ProfileExterieurScreen extends State<ProfileExterieurScreen> {
                                   )
                                 ),
                                 Container(
-                                  child: Text('${personnes.nom}',
+                                  child: Text(utf8.decode('${personnes.nom}'.codeUnits),
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       fontStyle: FontStyle.normal,
@@ -85,7 +87,7 @@ class _ProfileExterieurScreen extends State<ProfileExterieurScreen> {
                                   )
                                 ),
                                 Container(
-                                  child: Text('${personnes.prenom}',
+                                  child: Text(utf8.decode('${personnes.prenom}'.codeUnits),
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       fontStyle: FontStyle.normal,
@@ -131,7 +133,7 @@ class _ProfileExterieurScreen extends State<ProfileExterieurScreen> {
                                   )
                                 ),
                                 Container(
-                                  child: Text('${personnes.role.nom}',
+                                  child: Text(utf8.decode('${personnes.role.nom}'.codeUnits),
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       fontStyle: FontStyle.normal,
@@ -177,7 +179,7 @@ class _ProfileExterieurScreen extends State<ProfileExterieurScreen> {
                         Container(
                           child : Row (children: [
                             Container(
-                              child: Text('${personnes.adresse}',
+                              child: Text(utf8.decode('${personnes.adresse}'.codeUnits),
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontStyle: FontStyle.normal,
@@ -190,7 +192,7 @@ class _ProfileExterieurScreen extends State<ProfileExterieurScreen> {
                         Container(
                           child : Row (children: [
                             Container(
-                              child: Text('${personnes.cp}, ${personnes.ville} ',
+                              child: Text(utf8.decode('${personnes.cp}, ${personnes.ville} '.codeUnits),
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontStyle: FontStyle.normal,
