@@ -12,29 +12,14 @@ import 'package:arosaje/src/services/gardePlanteService.dart';
 
 import '../components/BottomBarComponent.dart';
 
-class GardeScreen extends StatefulWidget {
-  const GardeScreen({Key? key}) : super(key: key);
+class GardeFermerScreen extends StatefulWidget {
+  const GardeFermerScreen({Key? key}) : super(key: key);
 
   @override
-  State<GardeScreen> createState() => _GardeScreen();
+  State<GardeFermerScreen> createState() => _GardeFermerScreen();
 }
 
-class _GardeScreen extends State<GardeScreen> {
-
-  late StatutPlante _statutPlante;
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchStatutPlante();
-  }
-
-  Future<void> _fetchStatutPlante() async {
-    final statut = await getStatutPlante(3);
-    setState(() {
-      _statutPlante = statut;
-    });
-  }
+class _GardeFermerScreen extends State<GardeFermerScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -45,27 +30,19 @@ class _GardeScreen extends State<GardeScreen> {
           final List<GardePlante> gardePlantes = snapshot.data! ;
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Mes gardes !',
+              title: const Text('Mes gardes fermer!',
                 style: TextStyle(
                   fontStyle: FontStyle.normal,
                   fontWeight: FontWeight.bold,
                   fontSize: 25,
                 )
               ),
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.edit_calendar),
-                  onPressed: () {
-                    context.go("/garde/fermer");
-                  }, 
-                )
-              ],
               backgroundColor: const Color.fromARGB(255,131,189,117),
             ),
             body: Column(
               children: <Widget>[
                 for (GardePlante gardePlante in gardePlantes)
-                  if (gardePlante.statut.id == 1)
+                  if (gardePlante.statut.id == 3)
                     Card(
                       margin: const EdgeInsets.only(left: 20.0, right: 20.0, top : 20),
                       elevation: 0,
@@ -160,7 +137,6 @@ class _GardeScreen extends State<GardeScreen> {
                                   )
                                 ),
                               Container(
-                                margin : const EdgeInsets.only(bottom : 10),
                                   child: Text('${gardePlante.plante.proprietaire.adresse}, ${gardePlante.plante.proprietaire.cp}, ${gardePlante.plante.proprietaire.ville}',
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
@@ -172,7 +148,8 @@ class _GardeScreen extends State<GardeScreen> {
                             ],),
                             Wrap (children: [
                               Container(
-                                padding : const EdgeInsets.all(2),
+                                margin : const EdgeInsets.only(top : 5),
+                                padding : const EdgeInsets.only(right: 2,top : 10, bottom: 10),
                                 child: OutlinedButton(
                                   onPressed: () {
                                     context.go("/plante/${gardePlante.plante.id}");
@@ -191,28 +168,7 @@ class _GardeScreen extends State<GardeScreen> {
                                     )
                                   ),
                                 )
-                              ),
-                              Container(
-                                padding : const EdgeInsets.all(2),
-                                child: OutlinedButton(
-                                  onPressed: () {
-                                    context.go("/create/visite/${gardePlante.id}");
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                      side: BorderSide(color: Colors.black)
-                                    )
-                                  ),
-                                  child: const Text('Ajouter une visite',
-                                    style: TextStyle(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 15,
-                                      color: Colors.black
-                                    )
-                                  ),
-                                )
-                              ),                              
+                              ),                             
                               FutureBuilder<List<VisitePlante>>(
                                 future:  getVisiteByGarde(gardePlante.id), // Mettre ID session 
                                 builder: (BuildContext context, AsyncSnapshot<List<VisitePlante>> snapshot) {
@@ -220,7 +176,8 @@ class _GardeScreen extends State<GardeScreen> {
                                     final List<VisitePlante> visitePlantes = snapshot.data!;
                                     if (visitePlantes.isNotEmpty) {
                                       return Container(
-                                        padding : const EdgeInsets.all(2),
+                                        margin : const EdgeInsets.only(top : 5),
+                                        padding : const EdgeInsets.only(left : 2, right: 2,top : 10, bottom: 10),
                                         child: OutlinedButton(
                                           onPressed: () {
                                             context.go("/visite/${gardePlante.id}");
@@ -249,45 +206,6 @@ class _GardeScreen extends State<GardeScreen> {
                                     return CircularProgressIndicator();
                                   }
                                 } 
-                              ),
-                              Container(
-                                margin : const EdgeInsets.only(bottom: 5),
-                                padding : const EdgeInsets.all(2),
-                                child: gardePlante.statut.id == 1 ?
-                                  OutlinedButton(
-                                    onPressed: () {
-                                      showDialog<String>(
-                                        context: context,
-                                        builder: (BuildContext context) => AlertDialog(
-                                          title: const Text('Garde terminée'),
-                                          content: const Text('Votre garde a bien été fermée'),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () {
-                                                updateGardePlante (gardePlante.id, gardePlante.plante,gardePlante.dateDebut, gardePlante.dateFin, _statutPlante, gardePlante.gardien!);
-                                                context.go("/home"); 
-                                              }                ,
-                                              child: const Text('OK'),
-                                            ),
-                                          ]
-                                        )
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5),
-                                        side: BorderSide(color: Colors.black)
-                                      )
-                                    ),
-                                    child: const Text('Fermée',
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 15,
-                                        color: Colors.black
-                                      )
-                                    ),
-                                  )
-                                :const Text('')
                               ),
                             ])
                           ],
