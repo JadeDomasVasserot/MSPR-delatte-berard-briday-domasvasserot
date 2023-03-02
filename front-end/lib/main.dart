@@ -65,63 +65,52 @@ final GoRouter _router = GoRouter(
       builder: (context, state) => const GardeScreen(),
     ),
     GoRoute(
-      path: "/profile",
-      builder: (context, state) => const ProfileScreen()
-    ),
+        path: "/profile", builder: (context, state) => const ProfileScreen()),
     GoRoute(
-      path: "/my_plantes",
-      builder: (context, state) => const MyPlantesScreen()
-    ),
+        path: "/my_plantes",
+        builder: (context, state) => const MyPlantesScreen()),
     GoRoute(
-      path: "/my_plante/:id",
-      builder: (context, state) {
-        final id = state.params["id"];
-        return MyPlanteScreen(id: int.parse(id!));
-      }
-    ),
+        path: "/my_plante/:id",
+        builder: (context, state) {
+          final id = state.params["id"];
+          return MyPlanteScreen(id: int.parse(id!));
+        }),
     GoRoute(
-      path: "/plante/:id",
-      builder: (context, state) {
-        final id = state.params["id"];
-        return PlanteScreen(id: int.parse(id!));
-      }
-    ),
+        path: "/plante/:id",
+        builder: (context, state) {
+          final id = state.params["id"];
+          return PlanteScreen(id: int.parse(id!));
+        }),
     GoRoute(
-      path: "/modify/plante",
-      builder: (context, state) => const ModifyPlanteScreen()
-    ),
+        path: "/modify/plante",
+        builder: (context, state) => const ModifyPlanteScreen()),
     GoRoute(
-      path: "/modify/profile",
-      builder: (context, state) => const ModifyProfileScreen()
-    ),
+        path: "/modify/profile",
+        builder: (context, state) => const ModifyProfileScreen()),
     GoRoute(
-      path: "/create/garde/:id",
-      builder: (context, state) {
-        final id = state.params["id"];
-        return CreateGardeScreen(id: int.parse(id!));
-      }
-    ),
+        path: "/create/garde/:id",
+        builder: (context, state) {
+          final id = state.params["id"];
+          return CreateGardeScreen(id: int.parse(id!));
+        }),
     GoRoute(
-      path: "/bibliotheque_plante/:id",
-      builder: (context, state) {
-        final id = state.params["id"];
-        return BibliothequePlanteScreen(id: int.parse(id!));
-      }
-    ),
+        path: "/bibliotheque_plante/:id",
+        builder: (context, state) {
+          final id = state.params["id"];
+          return BibliothequePlanteScreen(id: int.parse(id!));
+        }),
     GoRoute(
-      path: "/profile/:id",
-      builder: (context, state) {
-        final id = state.params["id"];
-        return ProfileExterieurScreen(id: int.parse(id!));
-      }
-    ),
+        path: "/profile/:id",
+        builder: (context, state) {
+          final id = state.params["id"];
+          return ProfileExterieurScreen(id: int.parse(id!));
+        }),
     GoRoute(
-      path: "/create/visite/:id",
-      builder: (context, state) {
-        final id = state.params["id"];
-        return CreateVisiteScreen(id: int.parse(id!));
-      }
-    )
+        path: "/create/visite/:id",
+        builder: (context, state) {
+          final id = state.params["id"];
+          return CreateVisiteScreen(id: int.parse(id!));
+        })
   ],
 );
 

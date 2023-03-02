@@ -8,7 +8,7 @@ import 'package:arosaje/src/models/Personne.dart';
 
 Future<List<Plante>> getAllPlantes() async {
   final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/plante/all"));
+      .get(Uri.parse("https://arosaje-mspr.mrartemus.cloud/plante/all"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -20,9 +20,9 @@ Future<List<Plante>> getAllPlantes() async {
   }
 }
 
-Future<Plante> getPlante (int idPlante) async {
-  final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/plante/id/$idPlante"));
+Future<Plante> getPlante(int idPlante) async {
+  final response = await http.get(
+      Uri.parse("https://arosaje-mspr.mrartemus.cloud/plante/id/$idPlante"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -33,16 +33,16 @@ Future<Plante> getPlante (int idPlante) async {
     throw Exception('Failed to load plantes');
   }
 }
- 
 
-Future<Plante> updatePlante (int id, String localisation, Personne proprietaire, BibliothequePlante bibliothequePlante) async {
+Future<Plante> updatePlante(int id, String localisation, Personne proprietaire,
+    BibliothequePlante bibliothequePlante) async {
   final response = await http.put(
-    Uri.parse("http://127.0.0.1:9000/plante/update"),
+    Uri.parse("https://arosaje-mspr.mrartemus.cloud/plante/update"),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, dynamic>{
-      'id' : id,
+      'id': id,
       'localisation': localisation,
       'proprietaire': proprietaire.toJson(),
       'bibliothequePlante': bibliothequePlante.toJson(),
