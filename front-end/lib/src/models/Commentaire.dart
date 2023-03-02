@@ -1,32 +1,50 @@
-import 'package:arosaje/src/models/Plante.dart';
+import 'package:arosaje/src/models/GardePlante.dart';
 
 import 'Personne.dart';
 
 class Commentaire {
   final int id;
   final String description;
-  final String photo;
   final String titre;
+  final String? photo;
   final Personne auteur;
-  final Plante plante;
+  final GardePlante gardePlante;
 
   const Commentaire({
     required this.id,
     required this.description,
-    required this.photo,
     required this.titre,
+    this.photo,
     required this.auteur,
-    required this.plante,
+    required this.gardePlante,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'description' :  description,
+      'titre' : titre, 
+      'poto' : photo, 
+      'auteur' : auteur.toJson(),
+      'gardePlante' :  gardePlante.toJson(),
+    };
+  }
   factory Commentaire.fromJson(Map<String, dynamic> json) {
     return Commentaire(
       id: json['id'],
       description: json['description'],
-      photo: json['photo'],
       titre: json['titre'],
+      photo: json['photo'],
       auteur: Personne.fromJson(json['auteur']),
-      plante: Plante.fromJson(json['plante']),
+      gardePlante: GardePlante.fromJson(json['gardePlante']),
     );
+  }
+  static List<Commentaire> listFromJson(List<dynamic> parsedJson) {
+
+    List<Commentaire> commentaires = <Commentaire>[];
+    for (var commentaire in  parsedJson) {
+      commentaires.add(Commentaire.fromJson(commentaire));
+    } 
+    return commentaires ;
   }
 }

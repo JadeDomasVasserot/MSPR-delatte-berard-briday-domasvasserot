@@ -21,6 +21,17 @@ class GardePlante {
     required this.statut,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'dateDebut': dateDebut.toIso8601String(),
+      'dateFin': dateFin.toIso8601String(),
+      'gardien' : gardien?.toJson(),
+      'plante': plante.toJson(),
+      'statut': statut.toJson(),
+    };
+  }
+
   factory GardePlante.fromJson(Map<String, dynamic> json) {
     return GardePlante(
         id: json['id'],

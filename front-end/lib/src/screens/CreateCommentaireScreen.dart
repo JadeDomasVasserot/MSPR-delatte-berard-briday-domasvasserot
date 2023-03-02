@@ -10,37 +10,30 @@ import 'package:arosaje/src/services/commentaireService.dart';
 
 import '../components/BottomBarComponent.dart';
 
-class CreateVisiteScreen extends StatefulWidget {
+class CreateCommentaireScreen extends StatefulWidget {
   final int id;
-  const CreateVisiteScreen({Key? key,required this.id}) : super(key: key);
+  const CreateCommentaireScreen({Key? key,required this.id}) : super(key: key);
 
   @override
-  State<CreateVisiteScreen> createState() => _CreateVisiteScreen();
+  State<CreateCommentaireScreen> createState() => _CreateCommentaireScreen();
 }
 
 
-class _CreateVisiteScreen extends State<CreateVisiteScreen> {
-  TextEditingController dateVisiteController = TextEditingController();
+class _CreateCommentaireScreen extends State<CreateCommentaireScreen> {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController titreController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  late DateTime dateVisite;
   late String titre;
   late String description;
 
   void _submitForm() async {
     if (_formKey.currentState?.validate() ?? false) { 
       try {
-        print(dateVisite);
         GardePlante gardePlante = await getGardePlante(widget.id);
-        print(gardePlante.plante.toJson());
         Commentaire commentaire = await addCommentaire ( titre, description, gardePlante.plante.proprietaire, gardePlante);
-        print(2);
-        VisitePlante visite =
-            await addVisite (gardePlante.gardien!, dateVisite, gardePlante.plante , gardePlante, commentaire );
       } catch (e) {
-        print (e);
+        print ('Il y a une erreur quand on valide le formulaire');
       }
     }
   }
@@ -58,7 +51,7 @@ class _CreateVisiteScreen extends State<CreateVisiteScreen> {
           )
         ],
         backgroundColor: const Color.fromARGB(255,131,189,117),
-        title: const Text('Ajouter visite : ',
+        title: const Text('Ajouter un commentaire : ',
             style: TextStyle(
               fontStyle: FontStyle.normal,
               fontWeight: FontWeight.bold,
@@ -83,37 +76,6 @@ class _CreateVisiteScreen extends State<CreateVisiteScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  child: TextField(
-                    controller: dateVisiteController,
-                    decoration: const InputDecoration( 
-                      icon: Icon(Icons.calendar_today), 
-                      labelText: "Date de la visite" 
-                    ),
-                    readOnly: true,  
-                    onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(), 
-                        firstDate:DateTime.now(), 
-                        lastDate: DateTime(2101)
-                      );
-                      if(pickedDate != null ){
-                        print(pickedDate);  
-                        String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate); 
-                        print(formattedDate); 
-
-                        setState(() {
-                          dateVisite= pickedDate;
-                          dateVisiteController.text = formattedDate; 
-                        });
-                      }else{
-                          print("Date is not selected");
-                      }
-                    }
-                  )
-                ),
                 Container(
                   padding: const EdgeInsets.all(20),
                   child: TextFormField(
@@ -150,21 +112,15 @@ class _CreateVisiteScreen extends State<CreateVisiteScreen> {
                         showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Visite ajouté'),
-                            content: const Text('Voullez vous ajouter une photo'),
+                            title: const Text('Commentaire ajouté'),
+                            content: const Text('Commentaire bien ajouter'),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
-                                  context.go("/camera");
+                                  context.go("/plante/${widget.id}");
                                 },
-                                child: const Text('OUI'),
+                                child: const Text('OK'),
                               ),
-                              TextButton(
-                                onPressed: () {
-                                  context.go("/garde");
-                                },
-                                child: const Text('NON'),
-                              )
                             ]
                           )
                         );

@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:arosaje/src/models/GardePlante.dart';
 import 'package:arosaje/src/models/StatutPlante.dart';
-import 'package:arosaje/src/services/statutService.dart';
 import 'package:arosaje/src/models/Plante.dart';
 
 Future<List<GardePlante>> getGardePlanteByPlante (int idPlante) async { // Retourne toutes les gardes d'une plante
@@ -23,7 +22,7 @@ Future<List<GardePlante>> getGardePlanteByPlante (int idPlante) async { // Retou
 
 Future<List<GardePlante>> getGardePlanteByUser (int idUser) async { // Retourne toutes les gardes d'un user
   final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/garde-plante/all/byUser/$idUser/byStatus/1"));
+      .get(Uri.parse("http://127.0.0.1:9000/garde-plante/all/byGardien/$idUser"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -64,7 +63,6 @@ Future<List<GardePlante>> getPlantesAGarder() async { // Retourn les gardes a ga
 }
 
 Future<GardePlante> addGardePlante (Plante plante, DateTime debut, DateTime fin, StatutPlante statut) async {
-  print('licorne');
   final response = await http.post(
     Uri.parse("http://127.0.0.1:9000/garde-plante/add"),
     headers: <String, String>{
@@ -77,8 +75,6 @@ Future<GardePlante> addGardePlante (Plante plante, DateTime debut, DateTime fin,
       'statut' : statut.toJson(),
     }),
   );
-  print(response.statusCode);
-
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
