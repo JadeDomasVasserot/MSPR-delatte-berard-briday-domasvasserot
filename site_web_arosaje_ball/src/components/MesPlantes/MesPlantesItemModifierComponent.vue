@@ -1,6 +1,6 @@
 <template>
   <nav-bar />
-  <form @submit.prevent="getFormValues" v-if="plante">
+  <form @submit.prevent="getFormValues" v-if="plante" class="ma-10">
    <v-text-field disabled :model-value="plante.bibliothequePlante.nom"></v-text-field>
     <v-text-field
       v-model="localisation"
@@ -37,15 +37,15 @@ export default {
   },
   data() {
     return {
-      localisation: "",
-      plante: '',
+      localisation: null,
+      plante: null,
 
     }
   },
   methods: {
     async getFormValues() {
       await axios.put(
-        'https://arosaje-mspr.mrartemus.cloud/plante/update',
+        'http://127.0.0.1:9000/plante/update',
         {
           localisation: this.localisation,
           proprietaire: this.user,
@@ -54,7 +54,8 @@ export default {
         {
           withCredentials: false,
           headers: {
-            'Content-Type': 'application/json',
+           'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
           }
         }
       ) .then( response => {
@@ -69,12 +70,12 @@ export default {
         })
     },
     getUser(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/personne/id/"+this.$store.state.user,
+      axios.get("http://127.0.0.1:9000/personne/id/"+this.$store.state.user,
         {
           withCredentials: false,
           headers: {
             'Authorization': 'Bearer ' +this.$store.state.token,
-            'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
           }
         })
         .then( rep => {
@@ -86,7 +87,7 @@ export default {
       })
     },
     getPlanteId() {
-      axios.get("https://arosaje-mspr.mrartemus.cloud/plante/id/" + this.idPlante,
+      axios.get("http://127.0.0.1:9000/plante/id/" + this.idPlante,
         {
           withCredentials: false,
           headers: {

@@ -1,9 +1,9 @@
 <template>
   <nav-bar/>
-  <v-banner lines="one" :stacked="false" v-if="plante !== ''">
+  <v-banner lines="one" :stacked="false" v-if="plante !== null">
     <v-card-title class="text-amber-darken-1 ma-3 font-weight-bold text-center" v-text="plante.bibliothequePlante.nom"></v-card-title>
   </v-banner>
-  <v-card v-if="plante !== ''"
+  <v-card v-if="plante !== null"
           class="ma-10"
           max-width="100%"
   >
@@ -57,9 +57,6 @@
 <script>
 import axios from 'axios';
 import NavBar from "@/layouts/navBar/NavBar.vue";
-import BibliothequePlante from "@/models/BibliothequePlante";
-import PhotoBibliothequePlante from "@/models/PhotoBibliothequePlante";
-import GuidePlante from "@/models/GuidePlante";
 import Plante from "@/models/Plante";
 import PhotoPlante from "@/models/PhotoPlante";
 
@@ -74,15 +71,17 @@ export default {
   data() {
     return {
       photos: [],
-      plante: '',
+      plante: null,
       pathPhoto: "/src/assets/photo-plante/",
-      error: '',
-      user: this.$store.state.user
+      error: null,
+      user: this.$store.state.user,
+      role: this.$store.state.role,
+
     }
   },
   methods: {
     getPlanteId() {
-      axios.get("https://arosaje-mspr.mrartemus.cloud/plante/id/" + this.idPlante,
+      axios.get("http://127.0.0.1:9000/plante/id/" + this.idPlante,
         {
           withCredentials: false,
           headers: {
@@ -94,7 +93,7 @@ export default {
             if (rep.data) {
               this.plante = new Plante(rep.data.id, rep.data.localisation, rep.data.bibliothequePlante, rep.data.proprietaire, rep.data.statut);
 
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/all/idPlante/${rep.data.id}`,
+              axios.get(`http://127.0.0.1:9000/photo-plante/all/idPlante/${rep.data.id}`,
                 {
                   withCredentials: false,
                   headers: {

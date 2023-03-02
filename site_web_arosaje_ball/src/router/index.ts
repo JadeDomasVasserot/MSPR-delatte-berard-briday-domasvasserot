@@ -209,6 +209,24 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '../views/PlantesAGarderItem.vue'),
       },
       {
+        path: '/plantes-a-garder/edit/:idPlante',
+        name: "PlanteAGarderItemModifier",
+        props: true,
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '../views/PlanteAGarderItemModifier.vue'),
+      },
+      {
+        path: '/plantes-a-garder/delete/:idPlante',
+        name: "PlanteAGarderItemSupprimer",
+        props: true,
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '../views/PlanteAGarderItemSupprimer.vue'),
+      },
+      {
         path: '/page-personne/:idPersonne',
         name: "PagePersonne",
         props: true,
@@ -216,6 +234,15 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "home" */ '../views/PagePersonne.vue'),
+      },
+      {
+        path: '/visite/add/:idGarde',
+        name: "VisiteAdd",
+        props: true,
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '../views/VisiteAdd.vue'),
       },
     ],
   },
@@ -230,7 +257,7 @@ router.beforeEach(async (to, from) => {
   const authenticated = store.getters.getUser
   const token = store.getters.getToken
   // redirect the user to login page if he is not authenticated
-  if (authenticated === "" && token === ""
+  if (authenticated === null && token === null
     && to.name !== 'MotdePasseComponent'
     && to.name !== 'InscriptionComponent'
     && to.name !== 'LoginComponent') {

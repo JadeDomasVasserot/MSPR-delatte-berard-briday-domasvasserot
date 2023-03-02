@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 27 fév. 2023 à 08:10
--- Version du serveur : 5.7.36
--- Version de PHP : 7.4.26
+-- Généré le : jeu. 02 mars 2023 à 20:08
+-- Version du serveur :  5.7.31
+-- Version de PHP : 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -111,14 +111,24 @@ DROP TABLE IF EXISTS `commentaire`;
 CREATE TABLE IF NOT EXISTS `commentaire` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(255) NOT NULL,
-  `photo` varchar(255) DEFAULT NULL,
   `titre` varchar(255) NOT NULL,
   `auteur` int(11) NOT NULL,
-  `plante` int(11) NOT NULL,
+  `garde_plante` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FKnff0yvgs0rj9tcx4vrwlg2din` (`auteur`),
-  KEY `FK8ek8479yoeg9u3youvxw2tj3s` (`plante`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `FK8ek8479yoeg9u3youvxw2tj3s` (`garde_plante`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `commentaire`
+--
+
+INSERT INTO `commentaire` (`id`, `description`, `titre`, `auteur`, `garde_plante`) VALUES
+(1, 'Très belle', 'Visite', 2, 1),
+(2, 'Arrosé et Coupé', 'Passage le matin', 6, 2),
+(3, 'Arrosage et coupage', 'Passage Soir', 6, 2),
+(4, '2x dans la journée', 'Arrosage', 6, 2),
+(5, 'Mis au soleil', 'lumière', 6, 2);
 
 -- --------------------------------------------------------
 
@@ -138,16 +148,22 @@ CREATE TABLE IF NOT EXISTS `garde_plante` (
   KEY `FK5yg6mvwnhihkswkx2d374x3xh` (`gardien`),
   KEY `FKmodog76yh8ujlnqj7bx1bpiev` (`plante`),
   KEY `statutGardePlante_fk` (`statut`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `garde_plante`
 --
 
 INSERT INTO `garde_plante` (`id`, `date_debut`, `date_fin`, `gardien`, `plante`, `statut`) VALUES
-(1, '2023-02-22', '2023-02-22', 1, 1, 1),
-(2, '2023-02-22', '2023-02-22', 3, 1, 2),
-(3, '2023-02-22', '2023-02-22', NULL, 1, 3);
+(1, '2023-02-01', '2023-02-02', 6, 1, 1),
+(2, '2023-02-05', '2023-02-07', 6, 2, 1),
+(3, '2023-02-19', '2023-02-21', NULL, 3, 3),
+(4, '2023-02-08', '2023-02-22', NULL, 4, 2),
+(5, '2023-02-20', '2023-02-28', NULL, 5, 3),
+(6, '2023-02-08', '2023-02-21', 6, 8, 1),
+(10, '2023-02-09', '2023-02-21', NULL, 7, 2),
+(11, '2023-03-01', '2023-03-09', NULL, 10, 2),
+(12, '2023-03-09', '2023-03-10', NULL, 10, 2);
 
 -- --------------------------------------------------------
 
@@ -208,7 +224,7 @@ INSERT INTO `personne` (`id`, `adresse`, `cp`, `email`, `mdp`, `nom`, `prenom`, 
 (3, '40 rue francisque jomard', 69600, 'pacome.guillermin@epsi.fr', '$2y$10$CnFp56JiHCKbFGnLrGCuaONrv.itCx4exZZ6xTJcenUcA7M5Iij4O', 'GUILLERMIN', 'Pacôme', 'Oullins', 3),
 (4, 'Charpennes, Cours Emile Zola', 69100, 'hugo.briday@epsi.fr', '$2y$10$CnFp56JiHCKbFGnLrGCuaONrv.itCx4exZZ6xTJcenUcA7M5Iij4O', 'BRIDAY', 'Hugo', 'Villeurbanne', 4),
 (5, 'Route de l\'écluse Brotteau', 73310, 'ducan.delatte@epsi.fr', '$2y$10$CnFp56JiHCKbFGnLrGCuaONrv.itCx4exZZ6xTJcenUcA7M5Iij4O', 'DELATTE', 'Duncan', 'Vions', 5),
-(6, 'Rue de la république', 75000, '123@gmail.com', '$2a$10$MVqNYvKM7I55dyY9yA2r.Ox4Q9wyHpscUjy3lu7M5Sn2nllbe.7JC', 'DOMAS', 'Jade', 'Paris', 2);
+(6, 'Avenue de la république', 75000, '123@gmail.com', '$2a$10$MVqNYvKM7I55dyY9yA2r.Ox4Q9wyHpscUjy3lu7M5Sn2nllbe.7JC', 'DOMAS', 'Jade', 'Paris', 2);
 
 -- --------------------------------------------------------
 
@@ -236,8 +252,8 @@ INSERT INTO `photoplante` (`id`, `photo`, `plante`) VALUES
 (5, 'hortensia.jpg', 2),
 (6, 'hortensia2.Jpg', 2),
 (7, 'iris.jpg', 3),
-(8, 'hortensia.jpg', 6),
-(9, 'tulipe.jpg', 7);
+(8, 'thym.jpg', 6),
+(9, 'tournesol.jpg', 7);
 
 -- --------------------------------------------------------
 
@@ -334,21 +350,22 @@ CREATE TABLE IF NOT EXISTS `plante` (
   PRIMARY KEY (`id`),
   KEY `FK507hphahoiwqvc6kpmw6155xh` (`bibliotheque_plante`),
   KEY `FK32q2m43wjfrl6j88cjgt9b57a` (`proprietaire`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `plante`
 --
 
 INSERT INTO `plante` (`id`, `localisation`, `bibliotheque_plante`, `proprietaire`) VALUES
-(1, 'Salon', 1, 6),
+(1, 'Salon', 1, 1),
 (2, 'Cuisine', 2, 2),
-(3, 'Terrasse', 3, 2),
-(4, 'Cuisine', 3, 5),
-(5, 'Jardin', 28, 1),
-(6, 'Chambre', 2, 6),
-(7, 'Salle de bain', 1, 6),
-(8, 'Cave', 30, 6);
+(3, 'Terrasse', 3, 3),
+(4, 'Cuisine', 4, 4),
+(5, 'Jardin', 5, 5),
+(6, 'Chambre', 6, 6),
+(7, 'Salle de bain', 7, 2),
+(8, 'Cave', 8, 3),
+(10, 'Jardin Annexe', 1, 6);
 
 -- --------------------------------------------------------
 
@@ -394,7 +411,7 @@ CREATE TABLE IF NOT EXISTS `statut_plante` (
 INSERT INTO `statut_plante` (`id`, `nom`) VALUES
 (1, 'Gardée'),
 (2, 'A Gardée'),
-(3, 'En attente de Garde');
+(3, 'Terminée');
 
 -- --------------------------------------------------------
 
@@ -461,11 +478,23 @@ CREATE TABLE IF NOT EXISTS `visite_plante` (
   `garde_plante` int(11) NOT NULL,
   `gardien` int(11) NOT NULL,
   `plante` int(11) NOT NULL,
+  `commentaire` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKalm3d5jency8n3ioetwdydktg` (`garde_plante`),
   KEY `FKaff692s6uqd17jbt5i7k4731x` (`gardien`),
-  KEY `FKhwbo8fve138wmexo38qny1tfr` (`plante`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `FKhwbo8fve138wmexo38qny1tfr` (`plante`),
+  KEY `visite_plante_commentaire_null_fk` (`commentaire`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `visite_plante`
+--
+
+INSERT INTO `visite_plante` (`id`, `date_visite`, `photo`, `garde_plante`, `gardien`, `plante`, `commentaire`) VALUES
+(1, '2023-03-01', 'tulipe.jpg', 1, 6, 1, 1),
+(2, '2023-03-01', NULL, 2, 6, 2, 3),
+(3, '2023-03-01', NULL, 2, 6, 2, 4),
+(4, '2023-02-15', NULL, 2, 6, 2, 5);
 
 --
 -- Contraintes pour les tables déchargées
@@ -481,8 +510,8 @@ ALTER TABLE `bibliotheque_plante`
 -- Contraintes pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
-  ADD CONSTRAINT `FK8ek8479yoeg9u3youvxw2tj3s` FOREIGN KEY (`plante`) REFERENCES `plante` (`id`),
-  ADD CONSTRAINT `FKnff0yvgs0rj9tcx4vrwlg2din` FOREIGN KEY (`auteur`) REFERENCES `personne` (`id`);
+  ADD CONSTRAINT `FKnff0yvgs0rj9tcx4vrwlg2din` FOREIGN KEY (`auteur`) REFERENCES `personne` (`id`),
+  ADD CONSTRAINT `commentaire_garde_plante_null_fk` FOREIGN KEY (`garde_plante`) REFERENCES `garde_plante` (`id`);
 
 --
 -- Contraintes pour la table `garde_plante`
@@ -530,7 +559,8 @@ ALTER TABLE `plante`
 ALTER TABLE `visite_plante`
   ADD CONSTRAINT `FKaff692s6uqd17jbt5i7k4731x` FOREIGN KEY (`gardien`) REFERENCES `personne` (`id`),
   ADD CONSTRAINT `FKalm3d5jency8n3ioetwdydktg` FOREIGN KEY (`garde_plante`) REFERENCES `garde_plante` (`id`),
-  ADD CONSTRAINT `FKhwbo8fve138wmexo38qny1tfr` FOREIGN KEY (`plante`) REFERENCES `plante` (`id`);
+  ADD CONSTRAINT `FKhwbo8fve138wmexo38qny1tfr` FOREIGN KEY (`plante`) REFERENCES `plante` (`id`),
+  ADD CONSTRAINT `visite_plante_commentaire_null_fk` FOREIGN KEY (`commentaire`) REFERENCES `commentaire` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

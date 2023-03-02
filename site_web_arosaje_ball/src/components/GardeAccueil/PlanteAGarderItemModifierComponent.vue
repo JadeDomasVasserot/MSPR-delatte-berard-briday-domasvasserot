@@ -1,26 +1,20 @@
 <template>
   <nav-bar />
   <form @submit.prevent="getFormValues" class="ma-5" v-if="plante !== null">
-    <v-text-field
-      :rules="rule"
-      v-model="nomPlante"
-      label="Nom de la plante"
-    ></v-text-field>
-    <v-text-field
-      :rules="rule"
-      v-model="description"
-      label="Description"
-    ></v-text-field>
+
+    <v-row justify="center" class="ma-5">
+      <v-date-picker v-model="picker" is-range></v-date-picker>
+    </v-row>
     <v-autocomplete
       :rules="rule"
       :items="nom"
-      label="Sélectionner un type de plante"
-      v-model="typePlanteItem"
-      @update:modelValue="typePlante.id"
+      label="Sélectionner un statut"
+      v-model="statutPlanteItem"
+      @update:modelValue="statutPlante.id"
     >
     </v-autocomplete>
     <v-btn
-      class="me-4"
+      class="ma-4"
       type="submit"
     >
       Modifier
@@ -39,28 +33,26 @@
 <script>
 import axios from 'axios';
 import NavBar from "@/layouts/navBar/NavBar.vue";
-import Personne from "@/models/Personne";
-import TypePlante from "@/models/TypePlante";
-import BibliothequePlante from "@/models/BibliothequePlante";
+import StatutPlante from "@/models/StatutPlante";
+import GardePlante from "@/models/GardePlante";
 
 export default {
-  name: "BibliothequePlanteModifierComponent",
+  name: "PlanteAGarderItamModifierComponent",
   components: {NavBar},
   props: ['idPlante'],
   beforeMount() {
-    this.getUser();
     this.getPlanteId();
-    this.getAllTypePlante();
+    this.getAllStatutPlante();
   },
   data() {
     return {
       plante: null,
-      typePlante: [],
-      typePlanteItem: null,
-      typePlanteItemObjet: null,
+      statutPlante: [],
+      statutPlanteItem: null,
+      statutPlanteItemObjet: null,
       nom: [],
       nomPlante: null,
-      description: null,
+      picker: new Date(),
       rule: [
         value => {
           if (value) return true
@@ -72,18 +64,19 @@ export default {
   },
   methods: {
     async getFormValues() {
-      for (const argumentsKey in this.typePlante) {
-        if(this.typePlante[argumentsKey].nom === this.typePlanteItem){
-          this.typePlanteItemObjet = this.typePlante[argumentsKey];
+      for (const argumentsKey in this.statutPlante) {
+        if(this.statutPlante[argumentsKey].nom === this.statutPlanteItem){
+          this.statutPlanteItemObjet = this.statutPlante[argumentsKey];
         }
       }
       await axios.put(
-        'http://127.0.0.1:9000/bibliotheque-plante/update',
+        'http://127.0.0.1:9000/garde-plante/update',
         {
           id: this.idPlante,
-          nom: this.nomPlante,
-          description: this.description,
-          typePlante: this.typePlanteItemObjet
+          plante: this.plante.plante,
+          dateDebut: this.picker.start,
+          dateFin: this.picker.end,
+          statut: this.statutPlanteItemObjet
         },
         {
           withCredentials: false,
@@ -103,25 +96,8 @@ export default {
           this.errorLogin = true;
         })
     },
-    getUser(){
-      axios.get("http://127.0.0.1:9000/personne/id/"+this.$store.state.user,
-        {
-          withCredentials: false,
-          headers: {
-            'Authorization': 'Bearer ' +this.$store.state.token,
-            'Content-Type': 'application/json',
-          }
-        })
-        .then( rep => {
-          if (rep.data) {
-            this.user = new Personne(rep.data.id, rep.data.adresse,  rep.data.cp, rep.data.email, rep.data.mdp, rep.data.nom, rep.data.prenom, rep.data.ville, rep.data.role)
-          }
-        }).catch(() => {
-        this.error = "Error"
-      })
-    },
-    getAllTypePlante(){
-      axios.get("http://127.0.0.1:9000/type-plante/all",
+    getAllStatutPlante(){
+      axios.get("http://127.0.0.1:9000/statut-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -132,7 +108,7 @@ export default {
         .then( rep => {
           if (rep.data) {
             for (const repKey in rep.data) {
-              this.typePlante.push(new TypePlante(rep.data[repKey].id, rep.data[repKey].description, rep.data[repKey].nom))
+              this.statutPlante.push(new StatutPlante(rep.data[repKey].id, rep.data[repKey].nom))
               this.nom.push(rep.data[repKey].nom);
             }
           }
@@ -141,7 +117,7 @@ export default {
       })
     },
     getPlanteId() {
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/id/" + this.idPlante,
+      axios.get("http://127.0.0.1:9000/garde-plante/id/" + this.idPlante,
         {
           withCredentials: false,
           headers: {
@@ -151,10 +127,9 @@ export default {
         })
         .then(rep => {
             if (rep.data) {
-              this.plante = new BibliothequePlante(rep.data.id, rep.data.nom, rep.data.description, rep.data.typePlante)
-              this.nomPlante = rep.data.nom
-              this.description = rep.data.description
-              this.typePlanteItem = rep.data.typePlante.nom
+              this.plante = new GardePlante(rep.data.id,rep.data.dateDebut, rep.data.dateFin, rep.data.gardien, rep.data.plante, rep.data.statut)
+              this.statutPlanteItem = rep.data.statut.nom;
+              this.picker = {start: this.plante.dateDebut, end: this.plante.dateFin}
             }
           }
         ).catch(() => {

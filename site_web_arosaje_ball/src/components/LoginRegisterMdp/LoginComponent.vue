@@ -58,9 +58,9 @@
   export default {
     data() {
       return {
-        email: '',
+        email: null,
         errorLogin: false,
-        password: '',
+        password: null,
         rules: [
           value => {
             if (value) return true
@@ -72,7 +72,7 @@
     methods: {
       async getFormValues(submitEvent) {
         await axios.post(
-          'https://arosaje-mspr.mrartemus.cloud/auth/authenticate',
+          'http://127.0.0.1:9000/auth/authenticate',
           {
             email: this.email,
             password: this.password,
@@ -80,7 +80,7 @@
           {
             withCredentials: false,
             headers: {
-              'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
             }
           }
         ) .then( response => {

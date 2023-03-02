@@ -6,7 +6,7 @@
         <h1 class="mb-2">Page Profil</h1>
       </div>
     </v-row>
-    <v-row class="bg-img" justify="space-around" v-if="plantes[0] !== ''">
+    <v-row class="bg-img" justify="space-around" v-if="plantes[0] !== null">
       <v-col cols="12" class="mt-8">
         <v-card width="400">
             <v-card-title class="white--text mt-8" >
@@ -88,7 +88,7 @@
           </v-col>
         </v-row>
       </v-container>
-      <v-container v-if="plantes.length === 0 && error !== ''">{{ error }} </v-container>
+      <v-container v-if="plantes.length === 0 && error !== null">{{ error }} </v-container>
     </v-card>
   </v-container>
 </template>
@@ -112,16 +112,16 @@ export default {
   data() {
     return {
       photos: [],
-      plantes: '',
-      proprietaire: '',
-      role: '',
+      plantes: null,
+      proprietaire: null,
+      role: null,
       pathPhoto: "/src/assets/photo-plante/",
-      error: '',
+      error: null,
     }
   },
   methods: {
     getPlantes(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/plante/all/byUser/"+this.idPersonne,
+      axios.get("http://127.0.0.1:9000/plante/all/byUser/"+this.idPersonne,
         {
           withCredentials: false,
           headers: {
@@ -135,7 +135,7 @@ export default {
             this.role = new Role(rep.data[0].proprietaire.role.id, rep.data[0].proprietaire.role.nom)
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {

@@ -61,12 +61,12 @@ export default {
           return 'Le champs doit être rempli'
         },
       ],
-      error:'',
+      error:null,
     }
   },
   methods:{
     getAllTypePlante(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/type-plante/all",
+      axios.get("http://127.0.0.1:9000/type-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -93,7 +93,7 @@ export default {
         }
       }
       await axios.post(
-        'https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/add',
+        'http://127.0.0.1:9000/bibliotheque-plante/add',
         {
           nom: this.nomPlante,
           description: this.description,
@@ -102,7 +102,8 @@ export default {
         {
           withCredentials: false,
           headers: {
-            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' +this.$store.state.token,
+                    'Content-Type': 'application/json',
           }
         }
       ) .then( response => {
