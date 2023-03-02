@@ -7,6 +7,22 @@
           class="ma-10"
           max-width="100%"
   >
+    <v-row justify="center" class="mb-10" v-if=" 2 === role">
+      <router-link :to="{ name: 'BibliothequePlanteModifier', params: { idPlante:  plante.id }}" class="text-decoration-none">
+        <v-icon icon="mdi-pencil"
+                class="ma-5 pa-5 border"
+                size="x-large"
+                color="green">
+        </v-icon>
+      </router-link>
+      <router-link :to="{ name: 'SupprimePlante', params: { idPlante:  plante.id }}" class="text-decoration-none">
+        <v-icon icon="mdi-delete"
+                class="ma-5 pa-5 border"
+                size="x-large"
+                color="green">
+        </v-icon>
+      </router-link>
+    </v-row>
     <v-banner lines="one" :stacked="false">
       <v-card-title class="text-amber-darken-1 ma-3 font-weight-bold text-center" v-text="plante.nom"></v-card-title>
     </v-banner>
@@ -44,7 +60,7 @@
       </v-row>
     </v-container>
   </v-card>
-  <v-card v-if="role === 2" class="pa-5">
+  <v-card v-if="role === 2 && plante !== ''" class="pa-5">
     <div class="d-flex justify-center align-baseline" style="gap: 1rem">
       <v-file-input
         id="addPhoto"
@@ -55,7 +71,7 @@
         @focusout="addPhoto(this)"
       ></v-file-input>
       <router-link :to="{name:'AjouterUnGuide', params: {
-         idPlante:  plante.id
+         idPlante:  idPlante
       }}">
       <v-btn
         color="success"
@@ -90,12 +106,12 @@ export default {
       plante: '',
       pathPhoto: "/src/assets/photo-plante-bibliotheque/",
       error: '',
-      role: this.$store.state.role
+      role: this.$store.state.role,
     }
   },
   methods: {
     getPlanteId() {
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/id/" + this.idPlante,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/id/" + this.idPlante,
         {
           withCredentials: false,
           headers: {
@@ -106,7 +122,7 @@ export default {
         .then(rep => {
             if (rep.data) {
               this.plante = new BibliothequePlante(rep.data.id, rep.data.nom, rep.data.description, rep.data.typePlante);
-              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/all/idPlante/${rep.data.id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-bibliotheque-plante/all/idPlante/${rep.data.id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -124,7 +140,7 @@ export default {
               ).catch(() => {
 
               })
-              axios.get(`http://127.0.0.1:9000/guide-plante/all/byPlante/${rep.data.id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/guide-plante/all/byPlante/${rep.data.id}`,
                 {
                   withCredentials: false,
                   headers: {

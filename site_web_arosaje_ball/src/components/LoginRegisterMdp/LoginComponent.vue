@@ -72,7 +72,7 @@
     methods: {
       async getFormValues(submitEvent) {
         await axios.post(
-          'http://127.0.0.1:9000/auth/authenticate',
+          'https://arosaje-mspr.mrartemus.cloud/auth/authenticate',
           {
             email: this.email,
             password: this.password,

@@ -5,7 +5,7 @@ import 'package:arosaje/src/models/Personne.dart';
 
 Future<Personne> getUser (int idUser) async {
   final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/personne/id/$idUser"));
+      .get(Uri.parse("https://arosaje-mspr.mrartemus.cloud/personne/id/$idUser"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;

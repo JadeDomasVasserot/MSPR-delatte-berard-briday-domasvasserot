@@ -91,7 +91,6 @@
 <script >
 import NavBar from "@/layouts/navBar/NavBar.vue"
 import axios from "axios";
-import Plante from "@/models/Plante";
 import TypePlante from "@/models/TypePlante";
 import PhotoPlante from "@/models/PhotoPlante";
 import GardePlante from "@/models/GardePlante";
@@ -113,7 +112,7 @@ export default {
   },
   methods:{
     getPlantes(){
-      axios.get("http://127.0.0.1:9000/garde-plante/all/byAGarder",
+      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/all/byAGarder",
         {
           withCredentials: false,
           headers: {
@@ -123,9 +122,9 @@ export default {
         })
         .then( rep => {
           if (rep.data) {
-            this.plantes = [];
+            this.garde = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].plante.id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].plante.id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -150,7 +149,7 @@ export default {
       })
     },
     getTypePlante(){
-      axios.get("http://127.0.0.1:9000/type-plante/all",
+      axios.get("https://arosaje-mspr.mrartemus.cloud/type-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -169,7 +168,7 @@ export default {
       })
     },
     getAllByTypePlante(typePlanteParam){
-      axios.get("http://127.0.0.1:9000/garde-plante/a-garder/byTypePlante/"+typePlanteParam,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/a-garder/byTypePlante/"+typePlanteParam,
         {
           withCredentials: false,
           headers: {
@@ -179,9 +178,9 @@ export default {
         })
         .then( rep => {
           if (rep.data && rep.status === 200) {
-            this.plantes = [];
+            this.garde = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -209,7 +208,8 @@ export default {
       })
     },
     getPlanteByNom(nomPlante){
-      axios.get("http://127.0.0.1:9000/garde-plante/a-garder/byNom/"+nomPlante,
+      this.garde = [];
+      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/a-garder/byNom/"+nomPlante,
         {
           withCredentials: false,
           headers: {
@@ -219,9 +219,8 @@ export default {
         })
         .then( rep => {
           if (rep.data) {
-            this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -246,8 +245,8 @@ export default {
       })
     },
     getPlanteByVille(ville){
-
-      axios.get("http://127.0.0.1:9000/garde-plante/a-garder/byVille/"+ville,
+      this.garde = [];
+      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/a-garder/byVille/"+ville,
         {
           withCredentials: false,
           headers: {
@@ -257,9 +256,8 @@ export default {
         })
         .then( rep => {
           if (rep.data) {
-            this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -271,11 +269,11 @@ export default {
                   if (photo.data) {
                     this.garde.push(new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut, photo.data.photo))
                   }
-
                 }
               ).catch(() => {
                 let photoPng = new PhotoPlante(1, "logo_app_x48.png", rep.data[repKey].id)
                 this.garde.push(new GardePlante(rep.data[repKey].id,rep.data[repKey].dateDebut, rep.data[repKey].dateFin, rep.data[repKey].gardien, rep.data[repKey].plante, rep.data[repKey].statut, photoPng.photo))
+
               })
             }
           }

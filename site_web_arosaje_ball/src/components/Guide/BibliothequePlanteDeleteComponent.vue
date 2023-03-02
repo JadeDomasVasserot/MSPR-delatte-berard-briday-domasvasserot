@@ -41,7 +41,7 @@ import Plante from "@/models/Plante";
 import PhotoPlante from "@/models/PhotoPlante";
 
 export default {
-  name: "BibliothequePlanteComponent",
+  name: "BibliothequePlanteDeleteComponent",
   props: ['idPlante'],
   components: {NavBar},
   beforeMount() {

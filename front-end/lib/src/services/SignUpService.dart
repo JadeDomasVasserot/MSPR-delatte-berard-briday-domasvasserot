@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 //import 'package:arosaje/src/models/Personne.dart';
 
 Future<void> addDataToDB(final data) async {
-  final url = Uri.parse("http://127.0.0.1:9000/auth/register");
+  final url = Uri.parse("https://arosaje-mspr.mrartemus.cloud/auth/register");
   final response = await http.post(url,
       headers: {
         'accept': '*/*',

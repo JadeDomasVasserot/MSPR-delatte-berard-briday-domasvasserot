@@ -101,6 +101,32 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '../views/BibliothequePlanteItem.vue'),
       },
       {
+        path: '/bibliotheque-plante/add ',
+        name: 'BibliothequePlanteAdd',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '../views/BibliothequePlanteAdd.vue'),
+      },
+      {
+        path: '/bibliotheque-plante/delete/:idPlante ',
+        name: 'BibliothequePlanteSupprimer',
+        props: true,
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '../views/BibliothequePlanteSupprimer.vue'),
+      },
+      {
+        path: '/bibliotheque-plante/edit/:idPlante ',
+        name: 'BibliothequePlanteModifier',
+        props: true,
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '../views/BibliothequePlanteModifier.vue'),
+      },
+      {
         path: '/mes-gardes',
         name: 'Calendrier',
         props: true,

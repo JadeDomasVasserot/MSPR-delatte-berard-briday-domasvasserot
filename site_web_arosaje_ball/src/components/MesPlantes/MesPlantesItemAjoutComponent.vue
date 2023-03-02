@@ -1,13 +1,15 @@
 <template>
   <nav-bar />
-  <form @submit.prevent="getFormValues">
+  <form @submit.prevent="getFormValues" class="ma-5">
     <v-autocomplete
+      :rules="rule"
       label="Sélectionne une plante"
       :items="nom"
       v-model="planteSelected"
       @update:modelValue="getPlanteNom()"
     ></v-autocomplete>
     <v-text-field
+      :rules="rule"
       v-model="localisation"
       :counter="10"
       label="Localisation"
@@ -19,7 +21,14 @@
     >
       Ajouter
     </v-btn>
-
+    <div v-if="error === true">
+      <v-alert
+        color="error"
+        icon="$error"
+        title="PROBLEME"
+        text="Un champ n'est pas valide"
+      ></v-alert>
+    </div>
   </form>
 </template>
 
@@ -48,11 +57,18 @@ export default {
       nom: [],
       plante: '',
       user :"",
+      rule: [
+        value => {
+          if (value) return true
+          return 'Le champs doit être rempli'
+        },
+      ],
+      error:'',
     }
   },
   methods: {
     getBibliothequePlante(){
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all",
+      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -74,7 +90,7 @@ export default {
     },
     async getFormValues() {
       await axios.post(
-        'http://127.0.0.1:9000/plante/add',
+        'https://arosaje-mspr.mrartemus.cloud/plante/add',
         {
           localisation: this.localisation,
           proprietaire: this.user,
@@ -87,6 +103,8 @@ export default {
           }
         }
       ) .then( response => {
+        let plante = response.data
+
         this.$router.push({
           path: '/mes-plantes',
           query: this.$route.query,
@@ -94,12 +112,12 @@ export default {
         })
       })
         .catch(() => {
-          this.errorLogin = true;
+          this.error = true;
         })
     },
     getUser(){
 
-      axios.get("http://127.0.0.1:9000/personne/id/"+this.$store.state.user,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/personne/id/"+this.$store.state.user,
         {
           withCredentials: false,
           headers: {
@@ -116,7 +134,7 @@ export default {
       })
     },
     getPlanteNom() {
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all/byNom/" + this.planteSelected,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all/byNom/" + this.planteSelected,
         {
           withCredentials: false,
           headers: {

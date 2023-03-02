@@ -21,14 +21,11 @@
 <script>
 import axios from 'axios';
 import NavBar from "@/layouts/navBar/NavBar.vue";
-import BibliothequePlante from "@/models/BibliothequePlante";
-import PhotoBibliothequePlante from "@/models/PhotoBibliothequePlante";
 import Plante from "@/models/Plante";
 import Personne from "@/models/Personne";
-import GuidePlante from "@/models/GuidePlante";
 
 export default {
-  name: "MesPlantesModifierComponent",
+  name: "BibliothequePlanteModifierComponent",
   components: {NavBar},
   props: ['idPlante'],
   beforeMount() {

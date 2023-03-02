@@ -8,6 +8,7 @@
     <v-list lines="one" v-if="planteGarde.length > 0">
       <v-list-item
         v-for="item in planteGarde"
+        :key="item.id"
       >
         <router-link :to="{ name: 'PlantesAGarderItem', params: { idGarde:  item.id }}"
                      class="text-decoration-none btn-router-link">
@@ -27,6 +28,7 @@
     <v-list lines="one" v-if="planteAGarde.length > 0">
       <v-list-item
         v-for="item in planteAGarde"
+        :key="item.id"
       >
         <router-link :to="{ name: 'PlantesAGarderItem', params: { idGarde:  item.id }}"
                      class="text-decoration-none btn-router-link">
@@ -45,6 +47,7 @@
     <v-list lines="one" v-if="gardeUser.length > 0">
       <v-list-item
         v-for="item in gardeUser"
+        :key="item.id"
       >
         <router-link :to="{ name: 'PlantesAGarderItem', params: { idGarde:  item.id }}"
                      class="text-decoration-none btn-router-link">
@@ -106,7 +109,7 @@ export default {
   },
   methods: {
     getPlanteUserGarde() {
-      axios.get("http://127.0.0.1:9000/garde-plante/all/byUser/" + this.$store.state.user + "/byStatus/" + 1,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/all/byUser/" + this.$store.state.user + "/byStatus/" + 1,
         {
           withCredentials: false,
           headers: {
@@ -125,7 +128,7 @@ export default {
       })
     },
     getPlanteUserAGarde() {
-      axios.get("http://127.0.0.1:9000/garde-plante/all/byUser/" + this.$store.state.user + "/byStatus/" + 2,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/all/byUser/" + this.$store.state.user + "/byStatus/" + 2,
         {
           withCredentials: false,
           headers: {
@@ -144,7 +147,7 @@ export default {
       })
     },
     getGardeByUser() {
-      axios.get("http://127.0.0.1:9000/garde-plante/all/byGardien/" + this.$store.state.user,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/all/byGardien/" + this.$store.state.user,
         {
           withCredentials: false,
           headers: {

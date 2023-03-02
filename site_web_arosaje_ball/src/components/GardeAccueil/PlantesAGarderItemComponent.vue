@@ -11,10 +11,12 @@
     <v-banner lines="one" :stacked="false">
       <router-link class="text-decoration-none" :to="{name:'BibliothequePlanteItem', params: { idPlante:  plante.id}}">
         <v-card-title class="text-amber-darken-1 ma-3 font-weight-bold text-center"
-                      v-text="plante.bibliothequePlante.nom"></v-card-title>
+                      v-text="plante.bibliothequePlante.nom">
+
+        </v-card-title>
       </router-link>
     </v-banner>
-    <v-carousel show-arrows="hover" v-if="photos.length > 0">
+    <v-carousel show-arrows="hover" v-if="photos.length > 0"  hide-delimiter-background>
       <v-row justify="center" class="mb-10" v-if="plante.proprietaire.id === user">
         <router-link :to="{ name: 'ModifierGarde', params: { idGarde:  garde.id }}" class="text-decoration-none">
           <v-btn class="ma-5 border">Modifier la garde</v-btn>
@@ -27,7 +29,7 @@
       >
       </v-carousel-item>
     </v-carousel>
-    <v-carousel show-arrows="hover" v-if="photos.length === 0">
+    <v-carousel show-arrows="hover" v-if="photos.length === 0"  hide-delimiter-background>
       <v-carousel-item
         src="/src/assets/logo_app.png"
       >
@@ -168,7 +170,7 @@ export default {
   },
   methods: {
     getPlanteId() {
-      axios.get("http://127.0.0.1:9000/garde-plante/id/" + this.idGarde,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/id/" + this.idGarde,
         {
           withCredentials: false,
           headers: {
@@ -183,7 +185,7 @@ export default {
               if(this.user === rep.data.gardien.id){
                 this.isGardien = true;
               }
-              axios.get(`http://127.0.0.1:9000/photo-plante/all/idPlante/${rep.data.plante.id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/all/idPlante/${rep.data.plante.id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -208,7 +210,7 @@ export default {
       })
     },
     addGarde() {
-      axios.put("http://127.0.0.1:9000/garde-plante/"+this.garde.id+"/update/gardien/"+this.$store.state.user+"/status",
+      axios.put("https://arosaje-mspr.mrartemus.cloud/garde-plante/"+this.garde.id+"/update/gardien/"+this.$store.state.user+"/status",
         {
           withCredentials: false,
           headers: {
@@ -224,7 +226,7 @@ export default {
       })
     },
     getVisiteByGarde() {
-      axios.get("http://127.0.0.1:9000/visite-plante/all/byGarde/" +this.idGarde,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/visite-plante/all/byGarde/" +this.idGarde,
         {
           withCredentials: false,
           headers: {

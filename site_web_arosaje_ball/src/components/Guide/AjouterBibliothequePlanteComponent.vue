@@ -3,20 +3,20 @@
   <form @submit.prevent="getFormValues" class="ma-5">
     <v-text-field
       :rules="rule"
-      v-model="description"
-      label="Description"
+      v-model="nomPlante"
+      label="Nom de la plante"
     ></v-text-field>
     <v-text-field
       :rules="rule"
-      v-model="titre"
-      label="Titre"
+      v-model="description"
+      label="Description"
     ></v-text-field>
     <v-autocomplete
       :rules="rule"
       :items="nom"
-      label="Sélectionner un type de guide"
-      v-model="typeGuideItem"
-      @update:modelValue="typeGuide.id"
+      label="Sélectionner un type de plante"
+      v-model="typePlanteItem"
+      @update:modelValue="typePlante.id"
     >
     </v-autocomplete>
     <v-btn
@@ -39,26 +39,22 @@
 <script>
 import axios from 'axios';
 import NavBar from "@/layouts/navBar/NavBar.vue";
-import BibliothequePlante from "@/models/BibliothequePlante";
-import TypeGuide from "@/models/TypeGuide";
+import TypePlante from "@/models/TypePlante";
 
 export default {
-  name: "AjouterUnGuideComponent",
+  name: "ModifierBibliothequePlanteComponent",
   components: {NavBar},
-  props: ['idPlante'],
   beforeMount() {
-    this.getBibliothequePlante();
-    this.getAllTypeGuide();
+    this.getAllTypePlante();
   },
   data() {
     return{
-      typeGuide: [],
-      typeGuideItem: null,
-      typeGuideItemObjet: null,
+      typePlante: [],
+      typePlanteItem: null,
+      typePlanteItemObjet: null,
       nom: [],
+      nomPlante: null,
       description: null,
-      plante: '',
-      titre: null,
       rule: [
         value => {
           if (value) return true
@@ -69,25 +65,8 @@ export default {
     }
   },
   methods:{
-    getBibliothequePlante(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/id/"+this.idPlante,
-        {
-          withCredentials: false,
-          headers: {
-            'Authorization': 'Bearer ' +this.$store.state.token,
-            'Content-Type': 'application/json',
-          }
-        })
-        .then( rep => {
-          if (rep.data) {
-              this.plante = new BibliothequePlante(rep.data.id, rep.data.nom, rep.data.description, rep.data.typePlante)
-          }
-        }).catch(() => {
-        this.error = "Pas de plante référencée"
-      })
-    },
-    getAllTypeGuide(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/type-guide/all",
+    getAllTypePlante(){
+      axios.get("https://arosaje-mspr.mrartemus.cloud/type-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -99,27 +78,26 @@ export default {
           if (rep.data) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              this.typeGuide.push(new TypeGuide(rep.data[repKey].id, rep.data[repKey].nom))
+              this.typePlante.push(new TypePlante(rep.data[repKey].id, rep.data[repKey].description, rep.data[repKey].nom))
               this.nom.push(rep.data[repKey].nom);
             }
           }
         }).catch(() => {
-        this.error = "Pas de plante référencée"
+        this.error = "Pas de type"
       })
     },
     async getFormValues() {
-      for (const argumentsKey in this.typeGuide) {
-        if(this.typeGuide[argumentsKey].nom === this.typeGuideItem){
-          this.typeGuideItemObjet = this.typeGuide[argumentsKey];
+      for (const argumentsKey in this.typePlante) {
+        if(this.typePlante[argumentsKey].nom === this.typePlanteItem){
+          this.typePlanteItemObjet = this.typePlante[argumentsKey];
         }
       }
       await axios.post(
-        'https://arosaje-mspr.mrartemus.cloud/guide-plante/add',
+        'https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/add',
         {
+          nom: this.nomPlante,
           description: this.description,
-          titre: this.titre,
-          bibliothequePlante: this.plante,
-          typeGuide: this.typeGuideItemObjet
+          typePlante: this.typePlanteItemObjet
         },
         {
           withCredentials: false,
@@ -129,7 +107,7 @@ export default {
         }
       ) .then( response => {
         this.$router.push({
-          path: '/bibliotheque-plante/id/'+ this.idPlante,
+          path: '/bibliotheque-plante',
           query: this.$route.query,
           hash: this.$route.hash,
         })

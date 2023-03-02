@@ -9,7 +9,7 @@ import 'package:arosaje/src/models/Plante.dart';
 
 Future<List<GardePlante>> getGardePlanteByPlante (int idPlante) async { // Retourne toutes les gardes d'une plante
   final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/garde-plante/all/garde/byPlante/$idPlante"));
+      .get(Uri.parse("https://arosaje-mspr.mrartemus.cloud/garde-plante/all/garde/byPlante/$idPlante"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -23,7 +23,7 @@ Future<List<GardePlante>> getGardePlanteByPlante (int idPlante) async { // Retou
 
 Future<List<GardePlante>> getGardePlanteByUser (int idUser) async { // Retourne toutes les gardes d'un user
   final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/garde-plante/all/byUser/$idUser/byStatus/1"));
+      .get(Uri.parse("https://arosaje-mspr.mrartemus.cloud/garde-plante/all/byUser/$idUser/byStatus/1"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -37,7 +37,7 @@ Future<List<GardePlante>> getGardePlanteByUser (int idUser) async { // Retourne 
 
 Future<GardePlante> getGardePlante (int idGardePlante) async { // Retourne une garde
   final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/garde-plante/id/$idGardePlante"));
+      .get(Uri.parse("https://arosaje-mspr.mrartemus.cloud/garde-plante/id/$idGardePlante"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -51,7 +51,7 @@ Future<GardePlante> getGardePlante (int idGardePlante) async { // Retourne une g
 
 Future<List<GardePlante>> getPlantesAGarder() async { // Retourn les gardes a garder avec les plantes 
   final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/garde-plante/all/byAGarder"));
+      .get(Uri.parse("https://arosaje-mspr.mrartemus.cloud/garde-plante/all/byAGarder"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -66,7 +66,7 @@ Future<List<GardePlante>> getPlantesAGarder() async { // Retourn les gardes a ga
 Future<GardePlante> addGardePlante (Plante plante, DateTime debut, DateTime fin, StatutPlante statut) async {
   print('licorne');
   final response = await http.post(
-    Uri.parse("http://127.0.0.1:9000/garde-plante/add"),
+    Uri.parse("https://arosaje-mspr.mrartemus.cloud/garde-plante/add"),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -92,7 +92,7 @@ Future<GardePlante> addGardePlante (Plante plante, DateTime debut, DateTime fin,
 
 Future<GardePlante> updateGardePlante (int id, Plante plante, DateTime debut, DateTime fin, StatutPlante statut, Personne gardien) async {
   final response = await http.put(
-    Uri.parse("http://127.0.0.1:9000/garde-plante/update"),
+    Uri.parse("https://arosaje-mspr.mrartemus.cloud/garde-plante/update"),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -118,7 +118,7 @@ Future<GardePlante> updateGardePlante (int id, Plante plante, DateTime debut, Da
 
 Future<GardePlante> addGardienGardePlante (int id, Plante plante, DateTime debut, DateTime fin, StatutPlante statut, Personne gardien) async {
   final response = await http.put(
-    Uri.parse("http://127.0.0.1:9000/garde-plante/${id}/update/gardien/${gardien.id}/status"),
+    Uri.parse("https://arosaje-mspr.mrartemus.cloud/garde-plante/${id}/update/gardien/${gardien.id}/status"),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
