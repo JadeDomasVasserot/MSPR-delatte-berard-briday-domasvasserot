@@ -18,12 +18,11 @@ Future<Commentaire> addCommentaire (String titre, String description, Personne a
         'titre' : titre,
         'description': description,
         'auteur' : auteur.toJson(),
-        'garde_Plante' : gardePlante.toJson(),
+        'gardePlante' : gardePlante.toJson(),
       }),
     );
     return Commentaire.fromJson(jsonDecode(response.body));
   } catch (e) {
-    print (e);
     throw Exception('Failed to add Commentaire');
   }
 }

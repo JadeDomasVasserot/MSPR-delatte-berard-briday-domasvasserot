@@ -160,6 +160,7 @@ class _GardeScreen extends State<GardeScreen> {
                                   )
                                 ),
                               Container(
+                                margin : const EdgeInsets.only(bottom : 10),
                                   child: Text('${gardePlante.plante.proprietaire.adresse}, ${gardePlante.plante.proprietaire.cp}, ${gardePlante.plante.proprietaire.ville}',
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
@@ -171,8 +172,7 @@ class _GardeScreen extends State<GardeScreen> {
                             ],),
                             Wrap (children: [
                               Container(
-                                margin : const EdgeInsets.only(top : 5),
-                                padding : const EdgeInsets.only(right: 2,top : 10, bottom: 10),
+                                padding : const EdgeInsets.all(2),
                                 child: OutlinedButton(
                                   onPressed: () {
                                     context.go("/plante/${gardePlante.plante.id}");
@@ -193,8 +193,7 @@ class _GardeScreen extends State<GardeScreen> {
                                 )
                               ),
                               Container(
-                                margin : const EdgeInsets.only(top : 5),
-                                padding : const EdgeInsets.only(left : 2, right: 2,top : 10, bottom: 10),
+                                padding : const EdgeInsets.all(2),
                                 child: OutlinedButton(
                                   onPressed: () {
                                     context.go("/create/visite/${gardePlante.id}");
@@ -221,8 +220,7 @@ class _GardeScreen extends State<GardeScreen> {
                                     final List<VisitePlante> visitePlantes = snapshot.data!;
                                     if (visitePlantes.isNotEmpty) {
                                       return Container(
-                                        margin : const EdgeInsets.only(top : 5),
-                                        padding : const EdgeInsets.only(left : 2, right: 2,top : 10, bottom: 10),
+                                        padding : const EdgeInsets.all(2),
                                         child: OutlinedButton(
                                           onPressed: () {
                                             context.go("/visite/${gardePlante.id}");
@@ -253,8 +251,8 @@ class _GardeScreen extends State<GardeScreen> {
                                 } 
                               ),
                               Container(
-                                margin : const EdgeInsets.only(top : 5),
-                                padding : const EdgeInsets.only(left : 2, right: 2,top : 10, bottom: 10),
+                                margin : const EdgeInsets.only(bottom: 5),
+                                padding : const EdgeInsets.all(2),
                                 child: gardePlante.statut.id == 1 ?
                                   OutlinedButton(
                                     onPressed: () {

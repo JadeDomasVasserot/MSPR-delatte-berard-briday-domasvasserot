@@ -32,11 +32,8 @@ class _CreateVisiteScreen extends State<CreateVisiteScreen> {
   void _submitForm() async {
     if (_formKey.currentState?.validate() ?? false) { 
       try {
-        print(dateVisite);
         GardePlante gardePlante = await getGardePlante(widget.id);
-        print(gardePlante.plante.toJson());
         Commentaire commentaire = await addCommentaire ( titre, description, gardePlante.plante.proprietaire, gardePlante);
-        print(2);
         VisitePlante visite =
             await addVisite (gardePlante.gardien!, dateVisite, gardePlante.plante , gardePlante, commentaire );
       } catch (e) {

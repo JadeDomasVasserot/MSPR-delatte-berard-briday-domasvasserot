@@ -114,7 +114,7 @@ class _HomeScreen extends State<HomeScreen> {
                                           top : BorderSide()
                                         )
                                       ),
-                                      child : Row (children: [
+                                      child : Wrap (children: [
                                         Container(
                                           child: const Text('Du : ',
                                             style: TextStyle(
@@ -156,7 +156,7 @@ class _HomeScreen extends State<HomeScreen> {
                                       ],)
                                     ),
                                     Container(
-                                      child : Row (children: [
+                                      child : Wrap (children: [
                                         Container(
                                           child: const Text('Localisation : ',
                                             style: TextStyle(
@@ -168,7 +168,7 @@ class _HomeScreen extends State<HomeScreen> {
                                           )
                                         ),
                                         Container(
-                                          child: Text('${gardePlante.plante.localisation}',
+                                          child: Text('${gardePlante.plante.proprietaire.adresse}, ${gardePlante.plante.proprietaire.cp} ${gardePlante.plante.proprietaire.ville}',
                                             style: const TextStyle(
                                               fontStyle: FontStyle.normal,
                                               fontSize: 12,

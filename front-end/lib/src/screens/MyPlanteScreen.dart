@@ -229,7 +229,7 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                                             ),
                                             Container(
                                               padding : const EdgeInsets.only(top : 5),
-                                              child : Row (children: [
+                                              child : Wrap (children: [
                                                 Container(
                                                   child : gardePlante.statut.id == 1 ?
                                                   Container(

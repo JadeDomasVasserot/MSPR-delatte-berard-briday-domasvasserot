@@ -55,10 +55,15 @@ class _VisiteScreen extends State<VisiteScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            child :Image.asset('photo-plante/${visite.photo}',
+                            child : visite.photo != null ? 
+                              Image.asset('photo-plante/${visite.photo}',
+                                fit: BoxFit.cover,
+                                height: 200, 
+                              )
+                            : Image.asset('logo_app.png',
                               fit: BoxFit.cover,
-                              height: 200, 
-                            )
+                                height: 200,
+                              )
                           ),
                           SizedBox(width: 10),
                           Container(

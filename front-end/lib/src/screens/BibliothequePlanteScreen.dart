@@ -74,6 +74,7 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                                         if (snapshot.hasData) {
                                           final   PhotoBibliothequePlante photoPlante = snapshot.data!;
                                           return Container(
+                                            margin: const EdgeInsets.all(4),
                                             child :Image.asset('photo-plante-bibliotheque/${photoPlante.photo}')
                                           );
                                         }else if (snapshot.hasError) {
@@ -222,19 +223,120 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                                         ],)
                                       ),
                                     ],
-                                  );
-                                }else if (snapshot.hasError) {
-                                  return Text("Une erreur s'est produite : ${snapshot.error}");
-                                } else {
-                                  return CircularProgressIndicator();
-                                } 
-                              }
-                            ),
+                                );
+                              }else if (snapshot.hasError) {
+                                return Column(
+                                  children: [
+                                    FutureBuilder<PhotoBibliothequePlante>(
+                                      future: getPhotoBibliothequePlante(plante.id),
+                                      builder: (BuildContext context, AsyncSnapshot<PhotoBibliothequePlante> snapshot) {
+                                        if (snapshot.hasData) {
+                                          final   PhotoBibliothequePlante photoPlante = snapshot.data!;
+                                          return Container(
+                                            child :Image.asset('photo-plante-bibliotheque/${photoPlante.photo}')
+                                          );
+                                        }else if (snapshot.hasError) {
+                                          return Text("Une erreur s'est produite : ${snapshot.error}");
+                                        } else {
+                                          return CircularProgressIndicator();
+                                        } 
+                                      }
+                                    ),
+                                    Container(
+                                      margin : const EdgeInsets.only(right: 10, left : 10, top : 10),
+                                      padding : const EdgeInsets.only(top : 10),
+                                      decoration: const BoxDecoration(
+                                        border: Border(
+                                          top : BorderSide()
+                                        )
+                                      ),
+                                      child : Wrap (children: [
+                                        Container(
+                                          child: const Text('Description : ',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            )
+                                          )
+                                        ),
+                                        Container(
+                                          child: Text('${plante.description}',
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15,
+                                            ),
+                                            softWrap: true,
+                                          )
+                                        )
+                                      ],)
+                                    ),
+                                    Container(
+                                      margin : const EdgeInsets.only(right: 10, left : 10),
+                                      padding : const EdgeInsets.only(top : 10),
+                                      child : Row (children: [
+                                        Container(
+                                          child: const Text('Type : ',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            )
+                                          )
+                                        ),
+                                        Container(
+                                          child: Text('${plante.typePlante.nom}',
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15,
+                                            ),
+                                            softWrap: true,
+                                          )
+                                        )
+                                      ],)
+                                    ),
+                                    Container(
+                                      margin : const EdgeInsets.only(right: 10, left : 10),
+                                      padding : const EdgeInsets.only(top : 10, bottom: 10),
+                                      child : Wrap (children: [
+                                        Container(
+                                          child: const Text('Description du type : ',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            ),
+                                            softWrap: true,
+                                          )
+                                        ),
+                                        Container(
+                                          child:  Text('${plante.typePlante.description}',
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15,
+                                            )
+                                          )
+                                        )
+                                      ],)
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return CircularProgressIndicator();
+                              } 
+                            }
                           ),
-                        ]
-                      )
+                        ),
+                      ]
                     )
-                  ]
+                  )
+                ]
               ),
               bottomNavigationBar: const BottomBarComponent()
             );

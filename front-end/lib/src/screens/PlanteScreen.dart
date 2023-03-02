@@ -347,26 +347,40 @@ class _PlanteScreen extends State<PlanteScreen> {
                                     )
                                   :const Text('')
                                 ),
-                                Container(
-                                  padding : const EdgeInsets.only( right: 2),
-                                  child: OutlinedButton(
-                                    onPressed: () {
-                                      context.go("/create/commentaire/${gardePlante.plante.id}");
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5),
-                                        side: BorderSide(color: Colors.black)
-                                      )
-                                    ),
-                                    child: const Text('Ajouter commentaire',
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 15,
-                                        color: Colors.black
-                                      )
-                                    ),
-                                  )
+                                FutureBuilder<Personne>(
+                                  future: getUser(2), // ID session 
+                                  builder: (BuildContext context, AsyncSnapshot<Personne> snapshot) {
+                                    if (snapshot.hasData) {
+                                      final Personne personne = snapshot.data! ;
+                                      return Container(
+                                        padding : const EdgeInsets.only( right: 2),
+                                        child: personne.role.id == 2 || personne.role.id == 3 || personne.role.id == 4?
+                                          OutlinedButton(
+                                            onPressed: () {
+                                              context.go("/create/commentaire/${gardePlante.plante.id}");
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(5),
+                                                side: BorderSide(color: Colors.black)
+                                              )
+                                            ),
+                                            child: const Text('Ajouter commentaire',
+                                              style: TextStyle(
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 15,
+                                                color: Colors.black
+                                              )
+                                            ),
+                                          )
+                                        : null
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text('');
+                                    } else {
+                                      return CircularProgressIndicator();
+                                    }
+                                  } 
                                 ),
                               ])
                             ),
