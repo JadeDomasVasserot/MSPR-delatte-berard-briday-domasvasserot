@@ -268,27 +268,6 @@ class ButtonCard extends StatelessWidget {
                 Container(
                   child: OutlinedButton(
                     onPressed: () {
-                      context.go('/modify/profile');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        side: BorderSide(color: Colors.black)
-                      )
-                    ),
-                    child: const Text('Modifier le Profil',
-                      style: TextStyle(
-                        fontStyle: FontStyle.normal,
-                        fontSize: 15,
-                        color: Colors.black
-                      )
-                    ),
-                  )
-                ), 
-                Spacer(),
-                Container(
-                  child: OutlinedButton(
-                    onPressed: () {
                       context.go("/my_plantes");
                     },
                     style: ElevatedButton.styleFrom(

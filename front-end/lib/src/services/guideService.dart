@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:arosaje/src/models/GuidePlante.dart';
+import 'package:arosaje/src/models/BibliothequePlante.dart';
+import 'package:arosaje/src/models/TypeGuide.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -14,6 +16,28 @@ Future<List<GuidePlante>> getGuideByPlante (int idPlante) async { // Retourne to
     // If the server did not return a 200 OK response,
     // then throw an exception.
     throw Exception('Failed to load getGuideByPlante');
+  }
+}
+
+
+Future<GuidePlante> addGuide (String titre, String description,  BibliothequePlante bibliothequePlante, TypeGuide typeGuide) async {
+  try {
+    final response = await http.post(
+      Uri.parse("http://127.0.0.1:9000/guide-plante/add"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'titre': titre,
+        'description': description,
+        'bibliothequePlante' : bibliothequePlante.toJson(),
+        'typeGuide' : typeGuide.toJson(),
+      }),
+    );  
+    return GuidePlante.fromJson(jsonDecode(response.body));
+  } catch (e) {
+    print (e);
+    throw Exception('Failed to add GardePlante');
   }
 }
 

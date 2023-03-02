@@ -13,4 +13,20 @@ class TypeGuide {
         nom: json['nom']
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'nom' : nom
+    };
+  }
+
+  static List<TypeGuide> listFromJson(List<dynamic> parsedJson) {
+
+    List<TypeGuide> typeGuides = <TypeGuide>[];
+    for (var typeGuide in  parsedJson) {
+      typeGuides.add(TypeGuide.fromJson(typeGuide));
+    } 
+    return typeGuides;
+  }
 }

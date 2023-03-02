@@ -30,6 +30,29 @@ Future<VisitePlante> addVisite (Personne gardien,DateTime dateVisite, Plante pla
   }
 }
 
+Future<VisitePlante> updateVisite (Personne gardien,DateTime dateVisite, Plante plante, GardePlante gardePlante, Commentaire commentaire, String photo) async {
+  try {
+    final response = await http.put(
+      Uri.parse("http://127.0.0.1:9000/visite-plante/update"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'gardien': gardien.toJson(),
+        'dateVisite': dateVisite.toIso8601String(),
+        'plante' : plante.toJson(),
+        'gardePlante' : gardePlante.toJson(),
+        'commentaire' :  commentaire.toJson(), 
+        'photo' : photo,
+      }),
+    );  
+    return VisitePlante.fromJson(jsonDecode(response.body));
+  } catch (e) {
+    print (e);
+    throw Exception('Failed to add GardePlante');
+  }
+}
+
 Future<List<VisitePlante>> getVisiteByGarde (int idGarde) async { // Retourne toutes les visites d'une plante
   final response = await http
       .get(Uri.parse("http://127.0.0.1:9000/visite-plante/all/byGarde/$idGarde"));
@@ -37,6 +60,20 @@ Future<List<VisitePlante>> getVisiteByGarde (int idGarde) async { // Retourne to
     // If the server did return a 200 OK response,
     // then parse the JSON.;
     return VisitePlante.listFromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load VisiteByGarde');
+  }
+}
+
+Future<VisitePlante> getVisite (int idVisite) async { // Retourne toutes les visites d'une plante
+  final response = await http
+      .get(Uri.parse("http://127.0.0.1:9000/visite-plante/id/$idVisite"));
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.;
+    return VisitePlante.fromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.

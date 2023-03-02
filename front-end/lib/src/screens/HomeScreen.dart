@@ -10,7 +10,6 @@ import 'package:http/http.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
 import 'package:arosaje/src/models/PhotoPlante.dart';
-import 'package:flutter_session_manager/flutter_session_manager.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

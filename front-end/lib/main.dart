@@ -16,6 +16,7 @@ import 'package:arosaje/src/screens/CreateGardeScreen.dart';
 import 'package:arosaje/src/screens/ProfileExterieurScreen.dart';
 import 'package:arosaje/src/screens/CreateCommentaireScreen.dart';
 import 'package:arosaje/src/screens/CreateVisiteScreen.dart';
+import 'package:arosaje/src/screens/CreateGuideScreen.dart';
 import 'package:arosaje/src/screens/VisiteScreen.dart';
 import 'package:arosaje/src/screens/SignUpScreen.dart';
 import 'package:arosaje/src/screens/GardeFermerScreen.dart';
@@ -100,13 +101,19 @@ final GoRouter _router = GoRouter(
     GoRoute(
         path: "/cam", builder: (context, state) => const CameraExampleHome()),
     GoRoute(
-        path: "/picture", builder: (context, state) => const PictureScreen()),
+      path: "/picture",
+      builder: (context, state) {
+        final id = state.params["id"];
+        return PictureScreen(id: int.parse(id!));
+      }
+    ),
     GoRoute(
-        path: "/create/garde/:id",
-        builder: (context, state) {
-          final id = state.params["id"];
-          return CreateGardeScreen(id: int.parse(id!));
-        }),
+      path: "/bibliotheque_plante/:id",
+      builder: (context, state) {
+        final id = state.params["id"];
+        return BibliothequePlanteScreen(id: int.parse(id!));
+      }
+    ),
     GoRoute(
         path: "/bibliotheque_plante/:id",
         builder: (context, state) {
@@ -132,17 +139,19 @@ final GoRouter _router = GoRouter(
           return VisiteScreen(id: int.parse(id!));
         }),
     GoRoute(
-        path: "/commentaire/:id",
-        builder: (context, state) {
-          final id = state.params["id"];
-          return CommentaireScreen(id: int.parse(id!));
-        }),
+      path: "/create/commentaire/:id",
+      builder: (context, state) {
+        final id = state.params["id"];
+        return CreateCommentaireScreen(id: int.parse(id!));
+      }
+    ),
     GoRoute(
-        path: "/create/commentaire/:id",
-        builder: (context, state) {
-          final id = state.params["id"];
-          return CreateCommentaireScreen(id: int.parse(id!));
-        })
+      path: "/create/guide/:id",
+      builder: (context, state) {
+        final id = state.params["id"];
+        return CreateGuideScreen(id: int.parse(id!));
+      }
+    )
   ],
 );
 

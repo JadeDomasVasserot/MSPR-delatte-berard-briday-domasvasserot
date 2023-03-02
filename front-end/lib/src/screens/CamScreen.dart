@@ -20,7 +20,7 @@ class CameraExampleHome extends StatefulWidget {
   State<CameraExampleHome> createState() {
     return _CameraExampleHomeState();
   }
-}
+} 
 
 void _logError(String code, String? message) {
   // ignore: avoid_print
