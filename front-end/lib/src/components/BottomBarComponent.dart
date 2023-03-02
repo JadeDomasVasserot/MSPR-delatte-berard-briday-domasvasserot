@@ -60,10 +60,6 @@ class _BottomBarComponent extends State<BottomBarComponent> {
             icon: Icon(Icons.person),
             label: "Plantes"
         ),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.image),
-            label: "Image"
-        ),
       ],
       currentIndex: _selectedIndex,
       showUnselectedLabels: true,

@@ -38,7 +38,9 @@ class _CommentaireScreen extends State<CommentaireScreen> {
             body: Column(
               children: <Widget>[
                 for (Commentaire commentaire in commentaires)
-                  Card(
+                  Container(
+                    width: double.infinity,
+                  child :Card(
                     margin: const EdgeInsets.only(left: 20.0, right: 20.0, top : 20),
                     elevation: 0,
                     color: const Color.fromARGB(100, 233,239, 192),
@@ -125,7 +127,7 @@ class _CommentaireScreen extends State<CommentaireScreen> {
                         )
                       )
                     )
-                  )
+                  ))
               ],
             ),
             bottomNavigationBar: const BottomBarComponent()

@@ -22,9 +22,7 @@ class _VisiteScreen extends State<VisiteScreen> {
       future: getVisiteByGarde(widget.id), // Mettre ID session 
       builder: (BuildContext context, AsyncSnapshot<List<VisitePlante>> snapshot) {
         if (snapshot.hasData) {
-          
           final List<VisitePlante> visites = snapshot.data! ;
-          print(visites);
           return Scaffold(
             appBar: AppBar(
               title: const Text('Visites : ',

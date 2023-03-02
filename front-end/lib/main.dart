@@ -16,6 +16,7 @@ import 'package:arosaje/src/screens/CreateGardeScreen.dart';
 import 'package:arosaje/src/screens/ProfileExterieurScreen.dart';
 import 'package:arosaje/src/screens/CreateCommentaireScreen.dart';
 import 'package:arosaje/src/screens/CreateVisiteScreen.dart';
+import 'package:arosaje/src/screens/CreateGuideScreen.dart';
 import 'package:arosaje/src/screens/VisiteScreen.dart';
 import 'package:arosaje/src/screens/SignUpScreen.dart';
 import 'package:arosaje/src/screens/GardeFermerScreen.dart';
@@ -117,6 +118,13 @@ final GoRouter _router = GoRouter(
       }
     ),
     GoRoute(
+      path: "/picture",
+      builder: (context, state) {
+        final id = state.params["id"];
+        return PictureScreen(id: int.parse(id!));
+      }
+    ),
+    GoRoute(
       path: "/bibliotheque_plante/:id",
       builder: (context, state) {
         final id = state.params["id"];
@@ -156,6 +164,13 @@ final GoRouter _router = GoRouter(
       builder: (context, state) {
         final id = state.params["id"];
         return CreateCommentaireScreen(id: int.parse(id!));
+      }
+    ),
+    GoRoute(
+      path: "/create/guide/:id",
+      builder: (context, state) {
+        final id = state.params["id"];
+        return CreateGuideScreen(id: int.parse(id!));
       }
     )
   ],

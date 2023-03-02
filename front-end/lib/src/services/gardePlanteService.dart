@@ -21,6 +21,21 @@ Future<List<GardePlante>> getGardePlanteByPlante(int idPlante) async {
   }
 }
 
+Future<List<GardePlante>> deleteGardePlante(int id) async {
+  // Retourne toutes les gardes d'une plante
+  final response = await http.delete(Uri.parse(
+      "https://arosaje-mspr.mrartemus.cloud/garde-plante/delete/$id"));
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.;
+    return GardePlante.listFromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load plantes');
+  }
+}
+
 Future<List<GardePlante>> getGardePlanteByUser(int idUser) async {
   // Retourne toutes les gardes d'un user
   final response = await http.get(Uri.parse(
