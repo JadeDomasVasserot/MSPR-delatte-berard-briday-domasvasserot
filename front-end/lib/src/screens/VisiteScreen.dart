@@ -55,11 +55,11 @@ class _VisiteScreen extends State<VisiteScreen> {
                         children: [
                           Container(
                             child : visite.photo != null ? 
-                              Image.asset('photo-plante/${visite.photo}',
+                              Image.asset(utf8.decode('photo-plante/${visite.photo}'.codeUnits),
                                 fit: BoxFit.cover,
                                 height: 200, 
                               )
-                            : Image.asset('logo_app.png',
+                            : Image.asset(utf8.decode('logo_app.png'.codeUnits),
                               fit: BoxFit.cover,
                                 height: 200,
                               )

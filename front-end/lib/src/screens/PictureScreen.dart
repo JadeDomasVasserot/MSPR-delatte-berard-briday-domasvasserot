@@ -12,8 +12,7 @@ import '../models/PhotoPlante.dart';
 import '../models/Plante.dart';
 
 class PictureScreen extends StatefulWidget {
-  final int id;
-  const PictureScreen({Key? key,required this.id}) : super(key: key);
+  const PictureScreen({Key? key}) : super(key: key);
 
   @override
   State<PictureScreen> createState() => _PictureScreen();
@@ -27,19 +26,14 @@ class _PictureScreen extends State<PictureScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<VisitePlante>(
-      future: getVisite(widget.id), // Mettre ID session 
-      builder: (BuildContext context, AsyncSnapshot<VisitePlante> snapshot) {
-        if (snapshot.hasData) {
-          final VisitePlante visite = snapshot.data! ;
-          return MaterialApp(
-            title: 'Arosaje',
-            theme: ThemeData(
-              primarySwatch: Colors.green,
-            ),
-            home: Scaffold(
-              appBar: AppBar(
-                title: const Text('Photo : ',
+    return MaterialApp(
+      title: 'Arosaje',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Photo : ',
                   style: TextStyle(
                     fontStyle: FontStyle.normal,
                     fontWeight: FontWeight.bold,
@@ -114,13 +108,7 @@ class _PictureScreen extends State<PictureScreen> {
               bottomNavigationBar: const BottomBarComponent()
             )
           );
-        }else if (snapshot.hasError) {
-          return Text("Une erreur s'est produite : ${snapshot.error}");
-        } else {
-          return CircularProgressIndicator();
-        } 
-      }
-    );
+      
   }
 
   Widget _showImageSelected() {

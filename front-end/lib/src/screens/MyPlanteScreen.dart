@@ -75,14 +75,14 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                                   final PhotoPlante photoPlante = snapshot.data!;
                                   return Container(
                                     padding : const EdgeInsets.all(10),
-                                    child :Image.asset('photo-plante/${photoPlante.photo}',
+                                    child :Image.asset(utf8.decode('photo-plante/${photoPlante.photo}'.codeUnits),
                                       fit: BoxFit.cover,
                                     )
                                   );
                                 }else if (snapshot.hasError) {
                                   return Container(
                                     padding : const EdgeInsets.all(10),
-                                    child :Image.asset('logo_app.png',
+                                    child :Image.asset(utf8.decode('logo_app.png'.codeUnits),
                                       fit: BoxFit.cover,
                                     )
                                   );
@@ -403,45 +403,6 @@ class _MyPlanteScreen extends State<MyPlanteScreen> {
                                       )
                                     ),
                                     child: const Text('Ajouter une garde',
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 15,
-                                        color: Colors.black
-                                      )
-                                    ),
-                                  )
-                                ),
-                                Container(
-                                  padding : const EdgeInsets.all(2),
-                                  child: OutlinedButton(
-                                    onPressed: () => showDialog<String>(
-                                      context: context,
-                                      builder: (BuildContext context) => AlertDialog(
-                                        title: const Text('Supprimer ma plante'),
-                                        content: const Text('Voulez vous supprimer cette plante ? '),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            onPressed: () {
-                                              context.go("/my_plantes");
-                                            }                ,
-                                            child: const Text('OUI'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              context.go("/");
-                                            },
-                                            child: const Text('NON'),
-                                          )
-                                        ]
-                                      )
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5),
-                                        side: BorderSide(color: Colors.black)
-                                      )
-                                    ),
-                                    child: const Text('Supprimer',
                                       style: TextStyle(
                                         fontStyle: FontStyle.normal,
                                         fontSize: 15,

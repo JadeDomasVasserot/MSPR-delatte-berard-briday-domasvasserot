@@ -85,14 +85,14 @@ class _PlanteScreen extends State<PlanteScreen> {
                               final PhotoPlante photoPlante = snapshot.data!;
                               return Container(
                                 padding : const EdgeInsets.all(10),
-                                child :Image.asset('photo-plante/${photoPlante.photo}',
+                                child :Image.asset(utf8.decode('photo-plante/${photoPlante.photo}'.codeUnits),
                                   fit: BoxFit.cover,
                                 )
                               );
                             }else if (snapshot.hasError) {
                               return Container(
                                 padding : const EdgeInsets.all(10),
-                                child :Image.asset('logo_app.png',
+                                child :Image.asset(utf8.decode('logo_app.png'.codeUnits),
                                   fit: BoxFit.cover,
                                 )
                               );
@@ -359,7 +359,7 @@ class _PlanteScreen extends State<PlanteScreen> {
                                         child: personne.role.id == 2 || personne.role.id == 3 || personne.role.id == 4?
                                           OutlinedButton(
                                             onPressed: () {
-                                              context.go("/create/commentaire/${gardePlante.plante.id}");
+                                              context.go("/create/commentaire/${gardePlante.id}");
                                             },
                                             style: ElevatedButton.styleFrom(
                                               shape: RoundedRectangleBorder(

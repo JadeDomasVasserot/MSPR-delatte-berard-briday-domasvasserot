@@ -27,7 +27,7 @@ class _CreateCommentaireScreen extends State<CreateCommentaireScreen> {
   late String titre;
   late String description;
 
-  void _submitForm() async {
+  void _submitForm() async { 
     if (_formKey.currentState?.validate() ?? false) { 
       try {
         GardePlante gardePlante = await getGardePlante(widget.id);

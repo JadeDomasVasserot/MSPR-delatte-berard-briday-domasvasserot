@@ -85,7 +85,7 @@ class _GuideScreen extends State<GuideScreen> {
                                           final   PhotoBibliothequePlante photoPlante = snapshot.data!;
                                           return Container(
                                             child: Expanded(
-                                              child :Image.asset('photo-plante-bibliotheque/${photoPlante.photo}')
+                                              child :Image.asset(utf8.decode('photo-plante-bibliotheque/${photoPlante.photo}'.codeUnits)),
                                             )
                                           );
                                         }else if (snapshot.hasError) {

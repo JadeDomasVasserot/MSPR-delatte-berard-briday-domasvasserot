@@ -92,13 +92,13 @@ class _MyPlantesScreen extends State<MyPlantesScreen> {
                                           final   PhotoPlante photoPlante = snapshot.data!;
                                           return Container(
                                             child: Expanded(
-                                              child :Image.asset('photo-plante/${photoPlante.photo}')
+                                              child :Image.asset(utf8.decode('photo-plante/${photoPlante.photo}'.codeUnits)),
                                             )
                                           );
                                         }else if (snapshot.hasError) {
                                           return Container(
                                             child: Expanded(
-                                              child :Image.asset('logo_app.png')
+                                              child :Image.asset(utf8.decode('logo_app.png'.codeUnits)),
                                             )
                                           );
                                         } else {

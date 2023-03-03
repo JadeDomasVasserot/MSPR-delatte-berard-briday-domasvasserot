@@ -73,7 +73,7 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                                             final   PhotoBibliothequePlante photoPlante = snapshot.data!;
                                             return Container(
                                               margin: const EdgeInsets.all(4),
-                                              child :Image.asset('photo-plante-bibliotheque/${photoPlante.photo}')
+                                              child :Image.asset(utf8.decode('photo-plante-bibliotheque/${photoPlante.photo}'.codeUnits)),
                                             );
                                           }else if (snapshot.hasError) {
                                             return Text("Une erreur s'est produite : ${snapshot.error}");
@@ -102,7 +102,7 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                                             )
                                           ),
                                           Container(
-                                            child: Text(utf8.decode('{$plante.description}'.codeUnits),
+                                            child: Text(utf8.decode('${plante.description}'.codeUnits),
                                               textAlign: TextAlign.left,
                                               style: const TextStyle(
                                                 fontStyle: FontStyle.normal,
@@ -263,7 +263,7 @@ class _BibliothequePlanteScreen extends State<BibliothequePlanteScreen> {
                                           if (snapshot.hasData) {
                                             final   PhotoBibliothequePlante photoPlante = snapshot.data!;
                                             return Container(
-                                              child :Image.asset('photo-plante-bibliotheque/${photoPlante.photo}')
+                                              child :Image.asset(utf8.decode('photo-plante-bibliotheque/${photoPlante.photo}'.codeUnits)),
                                             );
                                           }else if (snapshot.hasError) {
                                             return Text("Une erreur s'est produite : ${snapshot.error}");

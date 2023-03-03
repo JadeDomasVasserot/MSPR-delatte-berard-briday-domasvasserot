@@ -85,7 +85,7 @@ final GoRouter _router = GoRouter(
         path: "/create/garde/:id",
         builder: (context, state) {
           final id = state.params["id"];
-          return MyPlanteScreen(id: int.parse(id!));
+          return CreateGardeScreen(id: int.parse(id!));
         }),
     GoRoute(
         path: "/plante/:id",
@@ -106,13 +106,17 @@ final GoRouter _router = GoRouter(
         path: "/modify/profile",
         builder: (context, state) => const ModifyProfileScreen()),
     GoRoute(
-        path: "/cam", builder: (context, state) => const CameraExampleHome()),
+        path: "/commentaire/:id",
+        builder: (context, state) {
+        final id = state.params["id"];
+        return CommentaireScreen(id: int.parse(id!));
+      }
+    ),
+    GoRoute(
+        path: "/camera", builder: (context, state) => const CameraExampleHome()),
     GoRoute(
       path: "/picture",
-      builder: (context, state) {
-        final id = state.params["id"];
-        return PictureScreen(id: int.parse(id!));
-      }
+      builder: (context, state)  => const PictureScreen(),
     ),
     GoRoute(
       path: "/bibliotheque_plante/:id",

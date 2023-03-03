@@ -46,14 +46,6 @@ class _CreateVisiteScreen extends State<CreateVisiteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.person),
-            onPressed: () {
-              context.go("/profile");
-            }, 
-          )
-        ],
         backgroundColor: const Color.fromARGB(255,131,189,117),
         title: const Text('Ajouter visite : ',
             style: TextStyle(
