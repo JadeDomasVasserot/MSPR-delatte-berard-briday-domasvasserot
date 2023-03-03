@@ -147,7 +147,53 @@ class _VisiteScreen extends State<VisiteScreen> {
             bottomNavigationBar: const BottomBarComponent()
           );
         } else if (snapshot.hasError) {
-          return Text("Une erreur s'est produite : ${snapshot.error}");
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Visites : ',
+                style: TextStyle(
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                )
+              ),
+              backgroundColor: const Color.fromARGB(255,131,189,117),
+            ),
+            body: Column(
+              children: <Widget>[
+                  Card(
+                    margin: const EdgeInsets.only(left: 20.0, right: 20.0, top : 20),
+                    elevation: 0,
+                    color: const Color.fromARGB(100, 233,239, 192),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      side: const BorderSide(
+                        color: const Color.fromARGB(255, 233,239, 192),
+                      )
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width - 300,
+                            child :const Text("Il n'y a pas de encore de visite pour cette garde",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontStyle: FontStyle.normal,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              )
+                            )
+                          ),
+                        ],
+                      ),
+                    )
+                  )
+              ],
+            ),
+            bottomNavigationBar: const BottomBarComponent()
+          );
         } else {
           return CircularProgressIndicator();
         } 
