@@ -12,34 +12,27 @@ class ModifyProfileScreen extends StatefulWidget {
   State<ModifyProfileScreen> createState() => _ModifyProfileScreen();
 }
 
-
 class _ModifyProfileScreen extends State<ModifyProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.person),
-            onPressed: () {
-              context.go("/profile");
-            }, 
-          )
-        ],
-        backgroundColor: const Color.fromARGB(255,131,189,117),
-        title: const Text('Modifier mon profile :',
-            style: TextStyle(
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.bold,
-              fontSize: 25,
-            )
-          )
-      ),
-      body:SingleChildScrollView(
-      ),
-      bottomNavigationBar: const BottomBarComponent()
-    );
+        appBar: AppBar(
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.person),
+                onPressed: () {
+                  context.go("/profile");
+                },
+              )
+            ],
+            backgroundColor: const Color.fromARGB(255, 131, 189, 117),
+            title: const Text('Modifier mon profil :',
+                style: TextStyle(
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                ))),
+        body: SingleChildScrollView(),
+        bottomNavigationBar: const BottomBarComponent());
   }
 }
-
-

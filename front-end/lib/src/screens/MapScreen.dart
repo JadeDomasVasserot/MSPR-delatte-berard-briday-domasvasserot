@@ -51,7 +51,9 @@ class _MapScreen extends State<MapScreen> {
       Listplante.add(Marker(
           markerId: MarkerId(plante.plante.id.toString()),
           position: LatLng(placemark.latitude, placemark.longitude),
-          infoWindow: InfoWindow(title: plante.plante.bibliothequePlante.nom),
+          infoWindow: InfoWindow(
+              title:
+                  "${plante.plante.bibliothequePlante.nom}\n ${plante.plante.localisation} \n ${plante.plante.proprietaire}"),
           icon: BitmapDescriptor.defaultMarkerWithHue(
               BitmapDescriptor.hueGreen)));
     }
