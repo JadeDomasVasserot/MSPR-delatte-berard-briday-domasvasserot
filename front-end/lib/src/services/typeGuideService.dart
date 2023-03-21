@@ -1,12 +1,17 @@
 import 'dart:convert';
-
+import 'package:arosaje/src/services/LoginService.dart';
 import 'package:arosaje/src/models/TypeGuide.dart';
 import 'package:http/http.dart' as http;
 
-
-Future<List<TypeGuide>> getAllTypeGuide () async { // Retourne toutes les visites d'une plante
+Future<List<TypeGuide>> getAllTypeGuide() async {
+  // Retourne toutes les visites d'une plante
+  final jwt = await getJWT();
   final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/type-guide/all"));
+      .get(Uri.parse("http://127.0.0.1:9000/type-guide/all"), headers: {
+    'accept': '*/*',
+    'Content-Type': 'application/json; charset=UTF-8',
+    'Authorization': 'Bearer $jwt',
+  });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -17,8 +22,3 @@ Future<List<TypeGuide>> getAllTypeGuide () async { // Retourne toutes les visite
     throw Exception('Failed to load getGuideByPlante');
   }
 }
-
-
-
-
-

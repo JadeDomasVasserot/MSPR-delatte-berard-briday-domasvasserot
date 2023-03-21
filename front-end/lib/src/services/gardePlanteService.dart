@@ -1,15 +1,22 @@
 import 'dart:convert';
 import 'package:arosaje/src/models/Personne.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:arosaje/src/services/LoginService.dart';
 import 'package:arosaje/src/models/GardePlante.dart';
 import 'package:arosaje/src/models/StatutPlante.dart';
 import 'package:arosaje/src/models/Plante.dart';
 
 Future<List<GardePlante>> getGardePlanteByPlante(int idPlante) async {
   // Retourne toutes les gardes d'une plante
-  final response = await http.get(Uri.parse(
-      "http://127.0.0.1:9000/garde-plante/all/garde/byPlante/$idPlante"));
+  final jwt = await getJWT();
+  final response = await http.get(
+      Uri.parse(
+          "http://127.0.0.1:9000/garde-plante/all/garde/byPlante/$idPlante"),
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
+      });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -23,8 +30,14 @@ Future<List<GardePlante>> getGardePlanteByPlante(int idPlante) async {
 
 Future<List<GardePlante>> deleteGardePlante(int id) async {
   // Retourne toutes les gardes d'une plante
-  final response = await http.delete(Uri.parse(
-      "http://127.0.0.1:9000/garde-plante/delete/$id"));
+  final jwt = await getJWT();
+  final response = await http.delete(
+      Uri.parse("http://127.0.0.1:9000/garde-plante/delete/$id"),
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
+      });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -38,14 +51,18 @@ Future<List<GardePlante>> deleteGardePlante(int id) async {
 
 Future<List<GardePlante>> getGardePlanteByUser(int idUser) async {
   // Retourne toutes les gardes d'un user
-  final response = await http.get(Uri.parse(
-      "http://127.0.0.1:9000/garde-plante/all/byGardien/$idUser"));
+  final jwt = await getJWT();
+  final response = await http.get(
+      Uri.parse("http://127.0.0.1:9000/garde-plante/all/byGardien/$idUser"),
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
+      });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
-    // then parse the JSON.; 
+    // then parse the JSON.;
 
-
-  
     return GardePlante.listFromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 200 OK response,
@@ -55,9 +72,15 @@ Future<List<GardePlante>> getGardePlanteByUser(int idUser) async {
 }
 
 Future<GardePlante> getGardePlante(int idGardePlante) async {
-  // Retourne une garde
-  final response = await http.get(Uri.parse(
-      "http://127.0.0.1:9000/garde-plante/id/$idGardePlante"));
+  // Retourne une garde*
+  final jwt = await getJWT();
+  final response = await http.get(
+      Uri.parse("http://127.0.0.1:9000/garde-plante/id/$idGardePlante"),
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
+      });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -71,8 +94,15 @@ Future<GardePlante> getGardePlante(int idGardePlante) async {
 
 Future<List<GardePlante>> getPlantesAGarder() async {
   // Retourn les gardes a garder avec les plantes
-  final response = await http.get(Uri.parse(
-      "http://127.0.0.1:9000/garde-plante/all/byAGarder"));
+  final jwt = await getJWT();
+  print(jwt);
+  final response = await http.get(
+      Uri.parse("http://127.0.0.1:9000/garde-plante/all/byAGarder"),
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
+      });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -86,10 +116,13 @@ Future<List<GardePlante>> getPlantesAGarder() async {
 
 Future<GardePlante> addGardePlante(
     Plante plante, DateTime debut, DateTime fin, StatutPlante statut) async {
+  final jwt = await getJWT();
   final response = await http.post(
     Uri.parse("http://127.0.0.1:9000/garde-plante/add"),
-    headers: <String, String>{
+    headers: {
+      'accept': '*/*',
       'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $jwt',
     },
     body: jsonEncode(<String, dynamic>{
       'plante': plante.toJson(),
@@ -111,10 +144,13 @@ Future<GardePlante> addGardePlante(
 
 Future<GardePlante> updateGardePlante(int id, Plante plante, DateTime debut,
     DateTime fin, StatutPlante statut, Personne gardien) async {
+  final jwt = await getJWT();
   final response = await http.put(
     Uri.parse("http://127.0.0.1:9000/garde-plante/update"),
-    headers: <String, String>{
+    headers: {
+      'accept': '*/*',
       'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $jwt',
     },
     body: jsonEncode(<String, dynamic>{
       'id': id,
@@ -138,11 +174,14 @@ Future<GardePlante> updateGardePlante(int id, Plante plante, DateTime debut,
 
 Future<GardePlante> addGardienGardePlante(int id, Plante plante, DateTime debut,
     DateTime fin, StatutPlante statut, Personne gardien) async {
+  final jwt = await getJWT();
   final response = await http.put(
     Uri.parse(
         "http://127.0.0.1:9000/garde-plante/${id}/update/gardien/${gardien.id}/status"),
-    headers: <String, String>{
+    headers: {
+      'accept': '*/*',
       'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $jwt',
     },
     body: jsonEncode(<String, dynamic>{
       'id': id,

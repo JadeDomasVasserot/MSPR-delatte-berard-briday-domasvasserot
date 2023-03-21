@@ -3,23 +3,26 @@ import 'package:arosaje/src/models/Commentaire.dart';
 import 'package:arosaje/src/models/GardePlante.dart';
 import 'package:arosaje/src/models/Personne.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:arosaje/src/services/LoginService.dart';
 
 import 'package:arosaje/src/models/Plante.dart';
 
-
-Future<Commentaire> addCommentaire (String titre, String description, Personne auteur, GardePlante gardePlante) async {
-    try {
+Future<Commentaire> addCommentaire(String titre, String description,
+    Personne auteur, GardePlante gardePlante) async {
+  try {
+    final jwt = getJWT();
     final response = await http.post(
       Uri.parse("http://127.0.0.1:9000/commentaire/add"),
-      headers: <String, String>{
+      headers: {
+        'accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
       },
       body: jsonEncode(<String, dynamic>{
-        'titre' : titre,
+        'titre': titre,
         'description': description,
-        'auteur' : auteur.toJson(),
-        'gardePlante' : gardePlante.toJson(),
+        'auteur': auteur.toJson(),
+        'gardePlante': gardePlante.toJson(),
       }),
     );
     return Commentaire.fromJson(jsonDecode(response.body));
@@ -28,11 +31,17 @@ Future<Commentaire> addCommentaire (String titre, String description, Personne a
   }
 }
 
-
-
-Future<List<Commentaire>> getCommentaireByPlante (int idPlante) async { // Retourne toutes les commentaire d'une plante
-  final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/commentaire/all/byGardePlante/$idPlante"));
+Future<List<Commentaire>> getCommentaireByPlante(int idPlante) async {
+  // Retourne toutes les commentaire d'une plante
+  final jwt = getJWT();
+  final response = await http.get(
+      Uri.parse(
+          "http://127.0.0.1:9000/commentaire/all/byGardePlante/$idPlante"),
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
+      });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;

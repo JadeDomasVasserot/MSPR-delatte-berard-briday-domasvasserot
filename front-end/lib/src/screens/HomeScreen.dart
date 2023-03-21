@@ -84,7 +84,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Container(
                                       margin: const EdgeInsets.only(bottom: 4),
                                       child: Text(
-                                          utf8.decode('${gardePlante.plante.bibliothequePlante.nom}'.codeUnits),
+                                          utf8.decode(
+                                              '${gardePlante.plante.bibliothequePlante.nom}'
+                                                  .codeUnits),
                                           style: const TextStyle(
                                               fontStyle: FontStyle.normal,
                                               fontWeight: FontWeight.bold,
@@ -100,14 +102,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                               snapshot.data!;
                                           return Container(
                                               child: Expanded(
-                                                  child: Image.asset(utf8.decode('photo-plante/${photoPlante.photo}'.codeUnits)),
-                                                      ));
+                                            child: Image.asset(utf8.decode(
+                                                'photo-plante/${photoPlante.photo}'
+                                                    .codeUnits)),
+                                          ));
                                         } else if (snapshot.hasError) {
                                           return Container(
                                               child: Expanded(
-                                                  child: Image.asset(utf8.decode('logo_app.png'.codeUnits))
-                                              )
-                                          );
+                                                  child: Image.asset(
+                                                      utf8.decode('logo_app.png'
+                                                          .codeUnits))));
                                         } else {
                                           return CircularProgressIndicator();
                                         }
@@ -130,7 +134,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       color: Colors.black))),
                                           Container(
                                               child: Text(
-                      utf8.decode('${DateFormat('dd/MM/yyyy').format(gardePlante.dateDebut)}'.codeUnits),
+                                                  utf8.decode(
+                                                      '${DateFormat('dd/MM/yyyy').format(gardePlante.dateDebut)}'
+                                                          .codeUnits),
                                                   style: const TextStyle(
                                                       fontStyle:
                                                           FontStyle.normal,
@@ -147,7 +153,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       color: Colors.black))),
                                           Container(
                                               child: Text(
-              utf8.decode('${DateFormat('dd/MM/yyyy').format(gardePlante.dateFin)}'.codeUnits),
+                                                  utf8.decode(
+                                                      '${DateFormat('dd/MM/yyyy').format(gardePlante.dateFin)}'
+                                                          .codeUnits),
                                                   style: const TextStyle(
                                                       fontStyle:
                                                           FontStyle.normal,
@@ -167,7 +175,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   color: Colors.black))),
                                       Container(
                                           child: Text(
-                                              utf8.decode('${gardePlante.plante.proprietaire.adresse}, ${gardePlante.plante.proprietaire.cp} ${gardePlante.plante.proprietaire.ville}'.codeUnits),
+                                              utf8.decode(
+                                                  '${gardePlante.plante.proprietaire.adresse}, ${gardePlante.plante.proprietaire.cp} ${gardePlante.plante.proprietaire.ville}'
+                                                      .codeUnits),
                                               style: const TextStyle(
                                                   fontStyle: FontStyle.normal,
                                                   fontSize: 12,

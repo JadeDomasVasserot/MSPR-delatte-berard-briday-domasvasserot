@@ -75,8 +75,7 @@ class _LoginScreen extends State<LoginScreen> {
                       data += '"email": "${nameController.text}",';
                       data += '"password": "${passwordController.text}"';
                       data += '}';
-                      // loginService.login(data);
-                      context.go('/home');
+                      loginService.login(context, data);
                     },
                   )),
               TextButton(

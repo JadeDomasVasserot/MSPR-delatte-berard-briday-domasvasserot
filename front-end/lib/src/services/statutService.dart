@@ -1,11 +1,17 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
+import 'package:arosaje/src/services/LoginService.dart';
 import 'package:arosaje/src/models/StatutPlante.dart';
 
 Future<StatutPlante> getStatutPlante(int idStatutPlante) async {
-  final response = await http.get(Uri.parse(
-      "http://127.0.0.1:9000/statut-plante/id/$idStatutPlante"));
+  final jwt = await getJWT();
+  final response = await http.get(
+      Uri.parse("http://127.0.0.1:9000/statut-plante/id/$idStatutPlante"),
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
+      });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;

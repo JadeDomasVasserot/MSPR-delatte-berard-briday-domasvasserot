@@ -1,12 +1,18 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
+import 'package:arosaje/src/services/LoginService.dart';
 import 'package:arosaje/src/models/BibliothequePlante.dart';
 import 'package:arosaje/src/models/PhotoBibliothequePlante.dart';
 
 Future<List<BibliothequePlante>> getAllPlantesGuide() async {
-  final response = await http.get(Uri.parse(
-      "http://127.0.0.1:9000/bibliotheque-plante/all"));
+  final jwt = await getJWT();
+  final response = await http.get(
+      Uri.parse("http://127.0.0.1:9000/bibliotheque-plante/all"),
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
+      });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -20,8 +26,15 @@ Future<List<BibliothequePlante>> getAllPlantesGuide() async {
 }
 
 Future<PhotoBibliothequePlante> getPhotoBibliothequePlante(int planteId) async {
-  final response = await http.get(Uri.parse(
-      'http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/$planteId'));
+  final jwt = await getJWT();
+  final response = await http.get(
+      Uri.parse(
+          'http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/$planteId'),
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
+      });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -35,8 +48,14 @@ Future<PhotoBibliothequePlante> getPhotoBibliothequePlante(int planteId) async {
 }
 
 Future<BibliothequePlante> getOneBibliothequePlante(int planteId) async {
-  final response = await http.get(Uri.parse(
-      'http://127.0.0.1:9000/bibliotheque-plante/id/$planteId'));
+  final jwt = await getJWT();
+  final response = await http.get(
+      Uri.parse('http://127.0.0.1:9000/bibliotheque-plante/id/$planteId'),
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
+      });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
