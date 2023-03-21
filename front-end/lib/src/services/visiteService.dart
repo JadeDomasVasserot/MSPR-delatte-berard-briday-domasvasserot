@@ -11,7 +11,7 @@ import 'package:arosaje/src/models/GardePlante.dart';
 Future<VisitePlante> addVisite (Personne gardien,DateTime dateVisite, Plante plante, GardePlante gardePlante, Commentaire commentaire) async {
   try {
     final response = await http.post(
-      Uri.parse("https://arosaje-mspr.mrartemus.cloud/visite-plante/add"),
+      Uri.parse("http://127.0.0.1:9000/visite-plante/add"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -33,7 +33,7 @@ Future<VisitePlante> addVisite (Personne gardien,DateTime dateVisite, Plante pla
 Future<VisitePlante> updateVisite (Personne gardien,DateTime dateVisite, Plante plante, GardePlante gardePlante, Commentaire commentaire, String photo) async {
   try {
     final response = await http.put(
-      Uri.parse("https://arosaje-mspr.mrartemus.cloud/visite-plante/update"),
+      Uri.parse("http://127.0.0.1:9000/visite-plante/update"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -55,7 +55,7 @@ Future<VisitePlante> updateVisite (Personne gardien,DateTime dateVisite, Plante 
 
 Future<List<VisitePlante>> getVisiteByGarde (int idGarde) async { // Retourne toutes les visites d'une plante
   final response = await http
-      .get(Uri.parse("https://arosaje-mspr.mrartemus.cloud/visite-plante/all/byGarde/$idGarde"));
+      .get(Uri.parse("http://127.0.0.1:9000/visite-plante/all/byGarde/$idGarde"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -69,7 +69,7 @@ Future<List<VisitePlante>> getVisiteByGarde (int idGarde) async { // Retourne to
 
 Future<VisitePlante> getVisite (int idVisite) async { // Retourne toutes les visites d'une plante
   final response = await http
-      .get(Uri.parse("https://arosaje-mspr.mrartemus.cloud/visite-plante/id/$idVisite"));
+      .get(Uri.parse("http://127.0.0.1:9000/visite-plante/id/$idVisite"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;

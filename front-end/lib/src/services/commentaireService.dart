@@ -11,7 +11,7 @@ import 'package:arosaje/src/models/Plante.dart';
 Future<Commentaire> addCommentaire (String titre, String description, Personne auteur, GardePlante gardePlante) async {
     try {
     final response = await http.post(
-      Uri.parse("https://arosaje-mspr.mrartemus.cloud/commentaire/add"),
+      Uri.parse("http://127.0.0.1:9000/commentaire/add"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -32,7 +32,7 @@ Future<Commentaire> addCommentaire (String titre, String description, Personne a
 
 Future<List<Commentaire>> getCommentaireByPlante (int idPlante) async { // Retourne toutes les commentaire d'une plante
   final response = await http
-      .get(Uri.parse("https://arosaje-mspr.mrartemus.cloud/commentaire/all/byGardePlante/$idPlante"));
+      .get(Uri.parse("http://127.0.0.1:9000/commentaire/all/byGardePlante/$idPlante"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;

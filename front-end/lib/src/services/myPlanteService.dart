@@ -5,7 +5,7 @@ import 'package:arosaje/src/models/Plante.dart';
 
 Future<List<Plante>> getMyPlantes(int idUser) async {
   final response = await http.get(Uri.parse(
-      "https://arosaje-mspr.mrartemus.cloud/plante/all/byUser/$idUser"));
+      "http://127.0.0.1:9000/plante/all/byUser/$idUser"));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;

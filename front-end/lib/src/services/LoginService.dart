@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart'; //import 'package:a
 
 Future<void> login(final data) async {
   final url =
-      Uri.parse("https://arosaje-mspr.mrartemus.cloud/auth/authenticate");
+      Uri.parse("http://127.0.0.1:9000/auth/authenticate");
   final response = await http.post(url,
       headers: {
         'accept': '*/*',
