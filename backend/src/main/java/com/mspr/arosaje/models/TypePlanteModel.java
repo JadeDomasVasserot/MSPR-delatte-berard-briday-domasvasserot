@@ -1,10 +1,10 @@
 package com.mspr.arosaje.models;
 
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.List;
-import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter

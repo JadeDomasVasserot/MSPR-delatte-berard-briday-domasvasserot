@@ -1,15 +1,16 @@
 package com.mspr.arosaje.controllers;
 
-import com.mspr.arosaje.models.GardePlanteModel;
 import com.mspr.arosaje.models.PlanteModel;
 import com.mspr.arosaje.repositories.PlanteRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = {"http://127.0.0.1:8081", "http://127.0.0.1:3000"})
 @RequestMapping("/plante")

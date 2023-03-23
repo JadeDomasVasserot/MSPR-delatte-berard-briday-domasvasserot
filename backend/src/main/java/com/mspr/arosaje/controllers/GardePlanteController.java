@@ -2,7 +2,6 @@ package com.mspr.arosaje.controllers;
 
 import com.mspr.arosaje.models.GardePlanteModel;
 import com.mspr.arosaje.models.PersonneModel;
-import com.mspr.arosaje.models.PlanteModel;
 import com.mspr.arosaje.models.StatutPlanteModel;
 import com.mspr.arosaje.repositories.GardePlanteRepository;
 import com.mspr.arosaje.repositories.PersonneRepository;
