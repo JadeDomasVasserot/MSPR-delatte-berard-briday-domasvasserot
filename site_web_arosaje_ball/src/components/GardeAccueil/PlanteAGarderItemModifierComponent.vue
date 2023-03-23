@@ -3,7 +3,7 @@
   <form @submit.prevent="getFormValues" class="ma-5" v-if="plante !== null">
 
     <v-row justify="center" class="ma-5">
-      <v-date-picker v-model="picker" is-range></v-date-picker>
+      <v-date-picker v-model="picker" is-range :rules="dateRules"></v-date-picker>
     </v-row>
     <v-autocomplete
       :rules="rule"
@@ -53,6 +53,10 @@ export default {
       nom: [],
       nomPlante: null,
       picker: new Date(),
+      dateRules: [
+        v => !!v || 'La date range est nécessaire',
+        v => /^\d{4}-\d{2}-\d{2}$/.test(v) || 'La date doit être au format YYYY-MM-DD',
+      ],
       rule: [
         value => {
           if (value) return true
@@ -70,7 +74,7 @@ export default {
         }
       }
       await axios.put(
-        'https://arosaje-mspr.mrartemus.cloud/garde-plante/update',
+        'http://127.0.0.1:9000/garde-plante/update',
         {
           id: this.idPlante,
           plante: this.plante.plante,
@@ -97,7 +101,7 @@ export default {
         })
     },
     getAllStatutPlante(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/statut-plante/all",
+      axios.get("http://127.0.0.1:9000/statut-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -117,7 +121,7 @@ export default {
       })
     },
     getPlanteId() {
-      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/id/" + this.idPlante,
+      axios.get("http://127.0.0.1:9000/garde-plante/id/" + this.idPlante,
         {
           withCredentials: false,
           headers: {
@@ -137,6 +141,5 @@ export default {
       })
     },
   },
-
 }
 </script>

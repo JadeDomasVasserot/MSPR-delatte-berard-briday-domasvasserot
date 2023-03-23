@@ -36,7 +36,6 @@
 <script>
 import axios from 'axios';
 import NavBar from "@/layouts/navBar/NavBar.vue";
-import StatutPlante from "@/models/StatutPlante";
 import GardePlante from "@/models/GardePlante";
 import Personne from "@/models/Personne";
 import Commentaire from "@/models/Commentaire";
@@ -70,7 +69,7 @@ export default {
   methods: {
     async getFormValues() {
       await axios.post(
-        'https://arosaje-mspr.mrartemus.cloud/commentaire/add',
+        'http://127.0.0.1:9000/commentaire/add',
         {
           titre: this.titre,
           description: this.description,
@@ -87,7 +86,7 @@ export default {
       ).then( response => {
         this.commentaire = new Commentaire(response.data.id, response.data.titre, response.data.description, response.data.auteur, response.data.gardePlante)
          axios.post(
-          'https://arosaje-mspr.mrartemus.cloud/visite-plante/add',
+          'http://127.0.0.1:9000/visite-plante/add',
           {
             gardien: this.user,
             dateVisite: this.picker,
@@ -119,7 +118,7 @@ export default {
       });
     },
     getPlanteId() {
-      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/id/" + this.idGarde,
+      axios.get("http://127.0.0.1:9000/garde-plante/id/" + this.idGarde,
         {
           withCredentials: false,
           headers: {
@@ -137,7 +136,7 @@ export default {
       })
     },
     getUser() {
-      axios.get("https://arosaje-mspr.mrartemus.cloud/personne/id/" + this.$store.state.user,
+      axios.get("http://127.0.0.1:9000/personne/id/" + this.$store.state.user,
         {
           withCredentials: false,
           headers: {
