@@ -22,6 +22,8 @@ import 'package:arosaje/src/screens/SignUpScreen.dart';
 import 'package:arosaje/src/screens/GardeFermerScreen.dart';
 import 'package:arosaje/src/screens/CamScreen.dart';
 import 'package:arosaje/src/screens/CommentaireScreen.dart';
+import 'package:arosaje/src/screens/ConfigurationScreen.dart';
+import 'package:arosaje/src/screens/PolitiqueConfidentialiteScreen.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -162,6 +164,14 @@ final GoRouter _router = GoRouter(
         final id = state.params["id"];
         return CreateGuideScreen(id: int.parse(id!));
       }
+    ),
+    GoRoute(
+      path: "/configuration",
+      builder: (context, state)  => const ConfigurationScreen(),
+    ),
+    GoRoute(
+      path: "/politique_confidentialite",
+      builder: (context, state)  => const PolitiqueConfidentialiteScreen(),
     )
   ],
 );

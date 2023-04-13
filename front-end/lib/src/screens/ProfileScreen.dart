@@ -9,7 +9,7 @@ import '../components/BottomBarComponent.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
-
+ 
   @override
   State<ProfileScreen> createState() => _ProfileScreen();
 }
@@ -24,13 +24,22 @@ class _ProfileScreen extends State<ProfileScreen> {
             final Personne personnes = snapshot.data!;
             return Scaffold(
                 appBar: AppBar(
+                  actions: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.miscellaneous_services_rounded),
+                      onPressed: () {
+                        context.go("/configuration");
+                      },
+                    )
+                  ],
                   title: Text(
-                      utf8.decode('Bonjour ${personnes.prenom} !'.codeUnits),
-                      style: const TextStyle(
-                        fontStyle: FontStyle.normal,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                      )),
+                    utf8.decode('Bonjour ${personnes.prenom} !'.codeUnits),
+                    style: const TextStyle(
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    )
+                  ),
                   backgroundColor: const Color.fromARGB(255, 131, 189, 117),
                 ),
                 body: Column(
@@ -165,8 +174,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                               ),
                             ))),
                     Card(
-                        margin: const EdgeInsets.only(
-                            left: 20.0, right: 20.0, top: 20),
+                        margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20),
                         elevation: 0,
                         color: const Color.fromARGB(100, 233, 239, 192),
                         shape: RoundedRectangleBorder(
