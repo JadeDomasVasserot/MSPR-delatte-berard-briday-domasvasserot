@@ -18,7 +18,7 @@ class _ConfigurationScreen extends State<ConfigurationScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Personne>(
-        future: getUser(1), // Mettre ID session
+        future: getUser(), // Mettre ID session
         builder: (BuildContext context, AsyncSnapshot<Personne> snapshot) {
           if (snapshot.hasData) {
             final Personne personnes = snapshot.data!;
