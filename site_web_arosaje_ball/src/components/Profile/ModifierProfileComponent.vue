@@ -1,6 +1,5 @@
 <template>
   <nav-bar />
-  <div id="map"></div>
 </template>
 
 <script>
@@ -15,7 +14,5 @@ export default {
 </script>
 
 <style scoped>
-#map {
-  height: 100%;
-}
+
 </style>

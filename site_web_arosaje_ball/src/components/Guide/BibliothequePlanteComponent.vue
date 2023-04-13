@@ -15,7 +15,7 @@
     @click:appendInner="search(searchName)"
     @update:modelValue="search(searchName)"
   ></v-text-field>
-  <div class="d-flex justify-space-between ma-10" v-if="user !== null && user.role.id === 2">
+  <div class="d-flex justify-space-between ma-10" v-if="role !== null && role === 2">
     <router-link  class="text-decoration-none" :to="{ name: 'BibliothequePlanteAdd'}">
       <v-btn
         variant="elevated"
@@ -95,13 +95,12 @@ export default {
   beforeMount() {
     this.getPlantes();
     this.getTypePlante();
-    this.getUser();
   },
   data () {
     return {
       searchName: null,
       typePlantes: [],
-      user:null,
+      role:this.$store.state.role,
       plantes: [],
       pathPhoto: "/src/assets/photo-plante-bibliotheque/",
       error: null,
@@ -109,7 +108,7 @@ export default {
   },
   methods:{
     getPlantes(){
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all",
+      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -121,7 +120,7 @@ export default {
           if (rep.data) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -145,7 +144,7 @@ export default {
       })
     },
     getTypePlante(){
-      axios.get("http://127.0.0.1:9000/type-plante/all",
+      axios.get("https://arosaje-mspr.mrartemus.cloud/type-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -164,7 +163,7 @@ export default {
       })
     },
     getAllByTypePlante(typePlanteParam){
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all/byType/"+typePlanteParam,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all/byType/"+typePlanteParam,
         {
           withCredentials: false,
           headers: {
@@ -176,7 +175,7 @@ export default {
           if (rep.data && rep.status === 200) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -204,7 +203,7 @@ export default {
     },
     getPlanteByNom(nomPlante){
 
-      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all/byNom/"+nomPlante,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all/byNom/"+nomPlante,
         {
           withCredentials: false,
           headers: {
@@ -216,7 +215,7 @@ export default {
           if (rep.data) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -246,24 +245,6 @@ export default {
       else {
         this.getPlanteByNom(nomPlante)
       }
-    },
-    getUser(){
-
-      axios.get("https://arosaje-mspr.mrartemus.cloud/personne/id/"+this.$store.state.user,
-        {
-          withCredentials: false,
-          headers: {
-            'Authorization': 'Bearer ' +this.$store.state.token,
-            'Content-Type': 'application/json',
-          }
-        })
-        .then( rep => {
-          if (rep.data) {
-            this.user = new Personne(rep.data.id, rep.data.adresse,  rep.data.cp, rep.data.email, rep.data.mdp, rep.data.nom, rep.data.prenom, rep.data.ville, rep.data.role)
-          }
-        }).catch(() => {
-        this.error = "Error"
-      })
     },
   },
 

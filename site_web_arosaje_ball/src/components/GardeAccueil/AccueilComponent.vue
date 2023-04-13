@@ -3,6 +3,7 @@
   <v-banner  class="text-h3 ma-10 banner" lines="one" text="Plante à garder">
   </v-banner>
   <v-text-field
+    :rules="nameRules"
     density="compact"
     variant="solo"
     label="Recherche par nom"
@@ -19,6 +20,7 @@
   <v-text-field
     density="compact"
     variant="solo"
+    :rules="villeRules"
     label="Recherche par ville"
     append-inner-icon="mdi-magnify"
     single-line
@@ -108,11 +110,19 @@ export default {
       garde: [],
       pathPhoto: "/src/assets/photo-plante/",
       error: null,
+      nameRules: [
+        (v) => !!v || 'Le nom est requis.',
+        (v) => (v && v.length <= 255) || 'Le nom ne doit pas dépasser 255 caractères.',
+        (v) => /^[a-zA-Z0-9\s]*$/.test(v) || 'Le nom ne doit contenir que des caractères alphanumériques et des espaces.'
+      ],
+      villeRules: [
+
+      ],
     }
   },
   methods:{
     getPlantes(){
-      axios.get("http://127.0.0.1:9000/garde-plante/all/byAGarder",
+      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/all/byAGarder",
         {
           withCredentials: false,
           headers: {
@@ -124,7 +134,7 @@ export default {
           if (rep.data) {
             this.garde = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].plante.id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].plante.id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -149,7 +159,7 @@ export default {
       })
     },
     getTypePlante(){
-      axios.get("http://127.0.0.1:9000/type-plante/all",
+      axios.get("https://arosaje-mspr.mrartemus.cloud/type-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -168,7 +178,7 @@ export default {
       })
     },
     getAllByTypePlante(typePlanteParam){
-      axios.get("http://127.0.0.1:9000/garde-plante/a-garder/byTypePlante/"+typePlanteParam,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/a-garder/byTypePlante/"+typePlanteParam,
         {
           withCredentials: false,
           headers: {
@@ -180,7 +190,7 @@ export default {
           if (rep.data && rep.status === 200) {
             this.garde = [];
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -209,7 +219,7 @@ export default {
     },
     getPlanteByNom(nomPlante){
       this.garde = [];
-      axios.get("http://127.0.0.1:9000/garde-plante/a-garder/byNom/"+nomPlante,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/a-garder/byNom/"+nomPlante,
         {
           withCredentials: false,
           headers: {
@@ -220,7 +230,7 @@ export default {
         .then( rep => {
           if (rep.data) {
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -246,7 +256,7 @@ export default {
     },
     getPlanteByVille(ville){
       this.garde = [];
-      axios.get("http://127.0.0.1:9000/garde-plante/a-garder/byVille/"+ville,
+      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/a-garder/byVille/"+ville,
         {
           withCredentials: false,
           headers: {
@@ -257,7 +267,7 @@ export default {
         .then( rep => {
           if (rep.data) {
             for (const repKey in rep.data) {
-              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {

@@ -66,7 +66,7 @@ export default {
   },
   methods:{
     getAllTypePlante(){
-      axios.get("http://127.0.0.1:9000/type-plante/all",
+      axios.get("https://arosaje-mspr.mrartemus.cloud/type-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -93,7 +93,7 @@ export default {
         }
       }
       await axios.post(
-        'http://127.0.0.1:9000/bibliotheque-plante/add',
+        'https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/add',
         {
           nom: this.nomPlante,
           description: this.description,

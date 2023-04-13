@@ -75,7 +75,7 @@ export default {
         return;
       }
         await axios.post(
-          'http://127.0.0.1:9000/auth/register',
+          'https://arosaje-mspr.mrartemus.cloud/auth/register',
           {
             firstname: this.firstname,
             lastname: this.lastname,
