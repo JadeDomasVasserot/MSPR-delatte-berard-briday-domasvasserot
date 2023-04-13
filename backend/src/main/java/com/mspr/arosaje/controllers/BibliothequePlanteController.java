@@ -1,7 +1,6 @@
 package com.mspr.arosaje.controllers;
 
 import com.mspr.arosaje.models.BibliothequePlanteModel;
-import com.mspr.arosaje.models.TypePlanteModel;
 import com.mspr.arosaje.repositories.BibliothequePlanteRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

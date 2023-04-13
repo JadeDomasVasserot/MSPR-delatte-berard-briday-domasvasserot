@@ -33,7 +33,7 @@
     class="mx-auto ma-10"
     max-width="95%"
   >
-    <v-container fluid v-if="plantes !== null">
+    <v-container fluid v-if="plantes.length !== null">
       <v-row dense >
         <v-col
           v-for="plante in plantes"
@@ -64,7 +64,6 @@
           </v-card>
         </v-col>
       </v-row>
-
     </v-container>
     <v-container v-if="plantes.length === 0 && error !== null">{{ error }} </v-container>
   </v-card>
@@ -76,7 +75,6 @@ import axios from "axios";
 import Plante from "@/models/Plante";
 import TypePlante from "@/models/TypePlante";
 import PhotoPlante from "@/models/PhotoPlante";
-import Personne from "@/models/Personne";
 export default {
   beforeMount() {
     this.getPlantes();
@@ -93,7 +91,7 @@ export default {
   },
   methods:{
     getPlantes(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/plante/all/byUser/"+this.$store.state.user,
+      axios.get("http://127.0.0.1:9000/plante/all/byUser/"+this.$store.state.user,
         {
           withCredentials: false,
           headers: {
@@ -105,7 +103,7 @@ export default {
           if (rep.data) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -131,7 +129,7 @@ export default {
       })
     },
     getTypePlante(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/type-plante/all",
+      axios.get("http://127.0.0.1:9000/type-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -150,7 +148,7 @@ export default {
       })
     },
     getAllByTypePlante(typePlanteParam){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/plante/byUser/"+this.$store.state.user+"/byTypePlante/"+typePlanteParam,
+      axios.get("http://127.0.0.1:9000/plante/byUser/"+this.$store.state.user+"/byTypePlante/"+typePlanteParam,
         {
           withCredentials: false,
           headers: {
@@ -162,7 +160,7 @@ export default {
           if (rep.data && rep.status === 200) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`http://127.0.0.1:9000/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {

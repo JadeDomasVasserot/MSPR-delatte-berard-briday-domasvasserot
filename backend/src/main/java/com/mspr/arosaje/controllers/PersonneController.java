@@ -2,7 +2,6 @@ package com.mspr.arosaje.controllers;
 
 import com.mspr.arosaje.models.PersonneModel;
 import com.mspr.arosaje.repositories.PersonneRepository;
-import com.mspr.arosaje.repositories.PersonneRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

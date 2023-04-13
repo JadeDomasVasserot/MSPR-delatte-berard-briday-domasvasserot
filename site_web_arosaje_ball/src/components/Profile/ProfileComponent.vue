@@ -121,7 +121,7 @@ export default {
   methods: {
     getUser(){
 
-      axios.get("https://arosaje-mspr.mrartemus.cloud/personne/id/"+this.userId,
+      axios.get("http://127.0.0.1:9000/personne/id/"+this.userId,
         {
           withCredentials: false,
           headers: {

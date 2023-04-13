@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -56,9 +57,12 @@ public class AuthenticationService {
                 .role(roleRepository.findById(1).get())
                 .build();
         personneRepository.save(user);
+        Optional<PersonneModel> personneModel = this.personneRepository.getByEmail(request.getEmail());
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .idUser(personneModel.get().getId())
+                .role(personneModel.get().getRole().getId())
                 .build();
     }
 

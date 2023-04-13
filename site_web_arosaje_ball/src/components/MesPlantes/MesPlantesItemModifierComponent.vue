@@ -45,7 +45,7 @@ export default {
   methods: {
     async getFormValues() {
       await axios.put(
-        'https://arosaje-mspr.mrartemus.cloud/plante/update',
+        'http://127.0.0.1:9000/plante/update',
         {
           id: this.plante.id,
           localisation: this.localisation,
@@ -71,7 +71,7 @@ export default {
         })
     },
     getUser(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/personne/id/"+this.$store.state.user,
+      axios.get("http://127.0.0.1:9000/personne/id/"+this.$store.state.user,
         {
           withCredentials: false,
           headers: {
@@ -88,7 +88,7 @@ export default {
       })
     },
     getPlanteId() {
-      axios.get("https://arosaje-mspr.mrartemus.cloud/plante/id/" + this.idPlante,
+      axios.get("http://127.0.0.1:9000/plante/id/" + this.idPlante,
         {
           withCredentials: false,
           headers: {

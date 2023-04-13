@@ -1,7 +1,6 @@
 package com.mspr.arosaje.repositories;
 
 import com.mspr.arosaje.models.BibliothequePlanteModel;
-import com.mspr.arosaje.models.TypePlanteModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.NonNull;
 

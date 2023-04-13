@@ -12,7 +12,6 @@
 import axios from 'axios';
 import NavBar from "@/layouts/navBar/NavBar.vue";
 import Plante from "@/models/Plante";
-import PhotoPlante from "@/models/PhotoPlante";
 import Personne from "@/models/Personne";
 import StatutPlante from "@/models/StatutPlante";
 
@@ -38,7 +37,7 @@ export default {
   },
   methods: {
     getUser(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/personne/id/"+this.$store.state.user,
+      axios.get("http://127.0.0.1:9000/personne/id/"+this.$store.state.user,
         {
           withCredentials: false,
           headers: {
@@ -55,7 +54,7 @@ export default {
       })
     },
     getStatutAGarde(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/statut-plante/id/2",
+      axios.get("http://127.0.0.1:9000/statut-plante/id/2",
         {
           withCredentials: false,
           headers: {
@@ -72,7 +71,7 @@ export default {
       })
     },
     getPlanteId() {
-      axios.get("https://arosaje-mspr.mrartemus.cloud/plante/id/" + this.idPlante,
+      axios.get("http://127.0.0.1:9000/plante/id/" + this.idPlante,
         {
           withCredentials: false,
           headers: {
@@ -90,7 +89,7 @@ export default {
       })
     },
     addGarde() {
-      axios.post("https://arosaje-mspr.mrartemus.cloud/garde-plante/add",
+      axios.post("http://127.0.0.1:9000/garde-plante/add",
         {
           plante: this.plante,
           proprietaire: this.user,

@@ -27,20 +27,20 @@
     </router-link>
   </div>
   <div class="d-flex justify-space-between ma-10">
-  <v-btn
-  v-for="type in typePlantes"
-  variant="tonal"
-  size="large"
-  color="green"
-  class="ma-2"
-  :key="type.id"
-  @click="getAllByTypePlante(type.id)">
-    {{type.nom}}
-    <v-tooltip
-      activator="parent"
-      location="top"
-    >{{ type.description }}</v-tooltip>
-  </v-btn>
+    <v-btn
+      v-for="type in typePlantes"
+      variant="tonal"
+      size="large"
+      color="green"
+      class="ma-2"
+      :key="type.id"
+      @click="getAllByTypePlante(type.id)">
+      {{type.nom}}
+      <v-tooltip
+        activator="parent"
+        location="top"
+      >{{ type.description }}</v-tooltip>
+    </v-btn>
   </div>
   <v-card
     class="mx-auto ma-10"
@@ -109,7 +109,7 @@ export default {
   },
   methods:{
     getPlantes(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all",
+      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -121,7 +121,7 @@ export default {
           if (rep.data) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -145,7 +145,7 @@ export default {
       })
     },
     getTypePlante(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/type-plante/all",
+      axios.get("http://127.0.0.1:9000/type-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -164,7 +164,7 @@ export default {
       })
     },
     getAllByTypePlante(typePlanteParam){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all/byType/"+typePlanteParam,
+      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all/byType/"+typePlanteParam,
         {
           withCredentials: false,
           headers: {
@@ -176,7 +176,7 @@ export default {
           if (rep.data && rep.status === 200) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -204,7 +204,7 @@ export default {
     },
     getPlanteByNom(nomPlante){
 
-      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/all/byNom/"+nomPlante,
+      axios.get("http://127.0.0.1:9000/bibliotheque-plante/all/byNom/"+nomPlante,
         {
           withCredentials: false,
           headers: {
@@ -216,7 +216,7 @@ export default {
           if (rep.data) {
             this.plantes = [];
             for (const repKey in rep.data) {
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`http://127.0.0.1:9000/photo-bibliotheque-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
