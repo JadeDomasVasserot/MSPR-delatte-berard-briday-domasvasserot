@@ -7,7 +7,8 @@ import 'package:arosaje/src/models/BibliothequePlante.dart';
 import 'package:arosaje/src/models/Personne.dart';
 
 Future<List<Plante>> getAllPlantes() async {
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response =
       await http.get(Uri.parse("http://127.0.0.1:9000/plante/all"), headers: {
     'accept': '*/*',
@@ -26,7 +27,8 @@ Future<List<Plante>> getAllPlantes() async {
 }
 
 Future<Plante> getPlante(int idPlante) async {
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response = await http
       .get(Uri.parse("http://127.0.0.1:9000/plante/id/$idPlante"), headers: {
     'accept': '*/*',
@@ -46,7 +48,8 @@ Future<Plante> getPlante(int idPlante) async {
 
 Future<Plante> updatePlante(int id, String localisation, Personne proprietaire,
     BibliothequePlante bibliothequePlante) async {
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response = await http.put(
     Uri.parse("http://127.0.0.1:9000/plante/update"),
     headers: {

@@ -7,9 +7,15 @@ import 'package:arosaje/src/services/LoginService.dart';
 
 Future<List<GuidePlante>> getGuideByPlante(int idPlante) async {
   // Retourne toutes les visites d'une plante
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response = await http.get(
-      Uri.parse("http://127.0.0.1:9000/guide-plante/all/byPlante/$idPlante"));
+      Uri.parse("http://127.0.0.1:9000/guide-plante/all/byPlante/$idPlante"),
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
+      });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -24,7 +30,8 @@ Future<List<GuidePlante>> getGuideByPlante(int idPlante) async {
 Future<GuidePlante> addGuide(String titre, String description,
     BibliothequePlante bibliothequePlante, TypeGuide typeGuide) async {
   try {
-    final jwt = await getJWT();
+    final idUser = await getUserId();
+    final jwt = await getJWT(idUser);
     final response = await http.post(
       Uri.parse("http://127.0.0.1:9000/guide-plante/add"),
       headers: {

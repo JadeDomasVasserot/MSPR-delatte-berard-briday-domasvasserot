@@ -8,7 +8,8 @@ import 'package:arosaje/src/models/Plante.dart';
 
 Future<List<GardePlante>> getGardePlanteByPlante(int idPlante) async {
   // Retourne toutes les gardes d'une plante
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response = await http.get(
       Uri.parse(
           "http://127.0.0.1:9000/garde-plante/all/garde/byPlante/$idPlante"),
@@ -30,7 +31,8 @@ Future<List<GardePlante>> getGardePlanteByPlante(int idPlante) async {
 
 Future<List<GardePlante>> deleteGardePlante(int id) async {
   // Retourne toutes les gardes d'une plante
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response = await http.delete(
       Uri.parse("http://127.0.0.1:9000/garde-plante/delete/$id"),
       headers: {
@@ -49,11 +51,13 @@ Future<List<GardePlante>> deleteGardePlante(int id) async {
   }
 }
 
-Future<List<GardePlante>> getGardePlanteByUser(int idUser) async {
+Future<List<GardePlante>> getGardePlanteByUser() async {
   // Retourne toutes les gardes d'un user
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
+  int? id = int.tryParse(idUser);
   final response = await http.get(
-      Uri.parse("http://127.0.0.1:9000/garde-plante/all/byGardien/$idUser"),
+      Uri.parse("http://127.0.0.1:9000/garde-plante/all/byGardien/$id"),
       headers: {
         'accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',
@@ -73,7 +77,8 @@ Future<List<GardePlante>> getGardePlanteByUser(int idUser) async {
 
 Future<GardePlante> getGardePlante(int idGardePlante) async {
   // Retourne une garde*
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response = await http.get(
       Uri.parse("http://127.0.0.1:9000/garde-plante/id/$idGardePlante"),
       headers: {
@@ -94,7 +99,8 @@ Future<GardePlante> getGardePlante(int idGardePlante) async {
 
 Future<List<GardePlante>> getPlantesAGarder() async {
   // Retourn les gardes a garder avec les plantes
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   print(jwt);
   final response = await http.get(
       Uri.parse("http://127.0.0.1:9000/garde-plante/all/byAGarder"),
@@ -116,7 +122,8 @@ Future<List<GardePlante>> getPlantesAGarder() async {
 
 Future<GardePlante> addGardePlante(
     Plante plante, DateTime debut, DateTime fin, StatutPlante statut) async {
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response = await http.post(
     Uri.parse("http://127.0.0.1:9000/garde-plante/add"),
     headers: {
@@ -144,7 +151,8 @@ Future<GardePlante> addGardePlante(
 
 Future<GardePlante> updateGardePlante(int id, Plante plante, DateTime debut,
     DateTime fin, StatutPlante statut, Personne gardien) async {
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response = await http.put(
     Uri.parse("http://127.0.0.1:9000/garde-plante/update"),
     headers: {
@@ -174,7 +182,8 @@ Future<GardePlante> updateGardePlante(int id, Plante plante, DateTime debut,
 
 Future<GardePlante> addGardienGardePlante(int id, Plante plante, DateTime debut,
     DateTime fin, StatutPlante statut, Personne gardien) async {
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response = await http.put(
     Uri.parse(
         "http://127.0.0.1:9000/garde-plante/${id}/update/gardien/${gardien.id}/status"),

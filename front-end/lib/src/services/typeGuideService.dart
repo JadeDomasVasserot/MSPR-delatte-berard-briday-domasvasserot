@@ -5,7 +5,8 @@ import 'package:http/http.dart' as http;
 
 Future<List<TypeGuide>> getAllTypeGuide() async {
   // Retourne toutes les visites d'une plante
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response = await http
       .get(Uri.parse("http://127.0.0.1:9000/type-guide/all"), headers: {
     'accept': '*/*',

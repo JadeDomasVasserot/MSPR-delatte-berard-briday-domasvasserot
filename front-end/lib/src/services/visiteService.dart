@@ -10,7 +10,8 @@ import 'package:arosaje/src/models/GardePlante.dart';
 Future<VisitePlante> addVisite(Personne gardien, DateTime dateVisite,
     Plante plante, GardePlante gardePlante, Commentaire commentaire) async {
   try {
-    final jwt = await getJWT();
+    final idUser = await getUserId();
+    final jwt = await getJWT(idUser);
     final response = await http.post(
       Uri.parse("http://127.0.0.1:9000/visite-plante/add"),
       headers: {
@@ -41,7 +42,8 @@ Future<VisitePlante> updateVisite(
     Commentaire commentaire,
     String photo) async {
   try {
-    final jwt = getJWT();
+    final idUser = await getUserId();
+    final jwt = getJWT(idUser);
     final response = await http.put(
       Uri.parse("http://127.0.0.1:9000/visite-plante/update"),
       headers: {
@@ -67,7 +69,8 @@ Future<VisitePlante> updateVisite(
 
 Future<List<VisitePlante>> getVisiteByGarde(int idGarde) async {
   // Retourne toutes les visites d'une plante
-  final jwt = getJWT();
+  final idUser = await getUserId();
+  final jwt = getJWT(idUser);
   final response = await http.get(
       Uri.parse("http://127.0.0.1:9000/visite-plante/all/byGarde/$idGarde"),
       headers: {
@@ -88,7 +91,8 @@ Future<List<VisitePlante>> getVisiteByGarde(int idGarde) async {
 
 Future<VisitePlante> getVisite(int idVisite) async {
   // Retourne toutes les visites d'une plante
-  final jwt = getJWT();
+  final idUser = await getUserId();
+  final jwt = getJWT(idUser);
   final response = await http.get(
       Uri.parse("http://127.0.0.1:9000/visite-plante/id/$idVisite"),
       headers: {

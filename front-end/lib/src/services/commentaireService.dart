@@ -4,13 +4,13 @@ import 'package:arosaje/src/models/GardePlante.dart';
 import 'package:arosaje/src/models/Personne.dart';
 import 'package:http/http.dart' as http;
 import 'package:arosaje/src/services/LoginService.dart';
-
 import 'package:arosaje/src/models/Plante.dart';
 
 Future<Commentaire> addCommentaire(String titre, String description,
     Personne auteur, GardePlante gardePlante) async {
   try {
-    final jwt = getJWT();
+    final idUser = await getUserId();
+    final jwt = getJWT(idUser);
     final response = await http.post(
       Uri.parse("http://127.0.0.1:9000/commentaire/add"),
       headers: {
@@ -33,7 +33,8 @@ Future<Commentaire> addCommentaire(String titre, String description,
 
 Future<List<Commentaire>> getCommentaireByPlante(int idPlante) async {
   // Retourne toutes les commentaire d'une plante
-  final jwt = getJWT();
+  final idUser = await getUserId();
+  final jwt = getJWT(idUser);
   final response = await http.get(
       Uri.parse(
           "http://127.0.0.1:9000/commentaire/all/byGardePlante/$idPlante"),
