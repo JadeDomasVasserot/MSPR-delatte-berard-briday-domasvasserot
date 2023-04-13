@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 import 'dart:js';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -20,8 +21,9 @@ Future<void> login(BuildContext context, final data) async {
     print('Data added successfully to the database');
     final jsonResponse = jsonDecode(response.body);
     final jwt = jsonResponse['token'];
-    print(jwt);
-    await saveJWT(jwt);
+    int idUser = jsonResponse['idUser'];
+    await saveJWT(jwt, idUser.toString());
+    await saveIdUser(idUser.toString());
     context.go('/home');
   } else {
     print('Impossible de se connecter');
@@ -29,11 +31,22 @@ Future<void> login(BuildContext context, final data) async {
 }
 
 // Fonction pour sauvegarder le JWT dans FlutterSecureStorage
-Future<void> saveJWT(String jwt) async {
-  await storage.write(key: 'jwt', value: jwt);
+Future<void> saveJWT(String jwt, String userId) async {
+  await storage.write(key: userId, value: jwt);
 }
 
-// Fonction pour récupérer le JWT depuis FlutterSecureStorage
-Future<String> getJWT() async {
-  return await storage.read(key: 'jwt') ?? '';
+Future<String> getJWT(String userId) async {
+  return await storage.read(key: userId) ?? '';
+}
+
+Future<void> logout(String userId) async {
+  await storage.delete(key: userId);
+}
+
+Future<void> saveIdUser(String idUser) async {
+  await storage.write(key: 'idUser', value: idUser);
+}
+
+Future<String> getUserId() async {
+  return await storage.read(key: 'idUser') ?? '';
 }

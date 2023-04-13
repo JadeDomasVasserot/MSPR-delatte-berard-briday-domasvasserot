@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:arosaje/src/services/LoginService.dart';
 
 Future<List<PhotoPlante>> getAllPhotoPlanteOfPlante(int planteId) async {
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response = await http.get(
       Uri.parse('http://127.0.0.1:9000/photo-plante/all/idPlante/$planteId'),
       headers: {
@@ -25,7 +26,8 @@ Future<List<PhotoPlante>> getAllPhotoPlanteOfPlante(int planteId) async {
 }
 
 Future<PhotoPlante> getUrlOfPhotoPlante(int planteId) async {
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response = await http.get(
       Uri.parse('http://127.0.0.1:9000/photo-plante/one/idPlante/$planteId'),
       headers: {
@@ -46,7 +48,8 @@ Future<PhotoPlante> getUrlOfPhotoPlante(int planteId) async {
 }
 
 Future<PhotoPlante> getLastPhotoPlante(int idPlante) async {
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response = await http.get(
       Uri.parse("http://127.0.0.1:9000/photo-plante/one/idPlante/$idPlante"),
       headers: {

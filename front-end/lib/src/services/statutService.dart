@@ -4,7 +4,8 @@ import 'package:arosaje/src/services/LoginService.dart';
 import 'package:arosaje/src/models/StatutPlante.dart';
 
 Future<StatutPlante> getStatutPlante(int idStatutPlante) async {
-  final jwt = await getJWT();
+  final idUser = await getUserId();
+  final jwt = await getJWT(idUser);
   final response = await http.get(
       Uri.parse("http://127.0.0.1:9000/statut-plante/id/$idStatutPlante"),
       headers: {
