@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     getUser(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/personne/id/"+this.$store.state.user,
+      axios.get("https://arosaje-back.jadedomasvasserot.com/personne/id/"+this.$store.state.user,
         {
           withCredentials: false,
           headers: {
@@ -54,7 +54,7 @@ export default {
       })
     },
     getStatutAGarde(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/statut-plante/id/2",
+      axios.get("https://arosaje-back.jadedomasvasserot.com/statut-plante/id/2",
         {
           withCredentials: false,
           headers: {
@@ -71,7 +71,7 @@ export default {
       })
     },
     getPlanteId() {
-      axios.get("https://arosaje-mspr.mrartemus.cloud/plante/id/" + this.idPlante,
+      axios.get("https://arosaje-back.jadedomasvasserot.com/plante/id/" + this.idPlante,
         {
           withCredentials: false,
           headers: {
@@ -89,7 +89,7 @@ export default {
       })
     },
     addGarde() {
-      axios.post("https://arosaje-mspr.mrartemus.cloud/garde-plante/add",
+      axios.post("https://arosaje-back.jadedomasvasserot.com/garde-plante/add",
         {
           plante: this.plante,
           proprietaire: this.user,

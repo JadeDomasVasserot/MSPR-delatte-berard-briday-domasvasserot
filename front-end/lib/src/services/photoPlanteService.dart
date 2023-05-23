@@ -7,7 +7,8 @@ Future<List<PhotoPlante>> getAllPhotoPlanteOfPlante(int planteId) async {
   final idUser = await getUserId();
   final jwt = await getJWT(idUser);
   final response = await http.get(
-      Uri.parse('http://127.0.0.1:9000/photo-plante/all/idPlante/$planteId'),
+      Uri.parse(
+          'https://arosaje-back.jadedomasvasserot.com/photo-plante/all/idPlante/$planteId'),
       headers: {
         'accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',
@@ -29,7 +30,8 @@ Future<PhotoPlante> getUrlOfPhotoPlante(int planteId) async {
   final idUser = await getUserId();
   final jwt = await getJWT(idUser);
   final response = await http.get(
-      Uri.parse('http://127.0.0.1:9000/photo-plante/one/idPlante/$planteId'),
+      Uri.parse(
+          'https://arosaje-back.jadedomasvasserot.com/photo-plante/one/idPlante/$planteId'),
       headers: {
         'accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',
@@ -51,7 +53,8 @@ Future<PhotoPlante> getLastPhotoPlante(int idPlante) async {
   final idUser = await getUserId();
   final jwt = await getJWT(idUser);
   final response = await http.get(
-      Uri.parse("http://127.0.0.1:9000/photo-plante/one/idPlante/$idPlante"),
+      Uri.parse(
+          "https://arosaje-back.jadedomasvasserot.com/photo-plante/one/idPlante/$idPlante"),
       headers: {
         'accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',

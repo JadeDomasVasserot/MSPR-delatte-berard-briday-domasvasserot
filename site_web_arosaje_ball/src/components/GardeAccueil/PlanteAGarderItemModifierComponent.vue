@@ -74,7 +74,7 @@ export default {
         }
       }
       await axios.put(
-        'https://arosaje-mspr.mrartemus.cloud/garde-plante/update',
+        'https://arosaje-back.jadedomasvasserot.com/garde-plante/update',
         {
           id: this.idPlante,
           plante: this.plante.plante,
@@ -101,7 +101,7 @@ export default {
         })
     },
     getAllStatutPlante(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/statut-plante/all",
+      axios.get("https://arosaje-back.jadedomasvasserot.com/statut-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -121,7 +121,7 @@ export default {
       })
     },
     getPlanteId() {
-      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/id/" + this.idPlante,
+      axios.get("https://arosaje-back.jadedomasvasserot.com/garde-plante/id/" + this.idPlante,
         {
           withCredentials: false,
           headers: {

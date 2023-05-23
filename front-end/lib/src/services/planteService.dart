@@ -9,12 +9,13 @@ import 'package:arosaje/src/models/Personne.dart';
 Future<List<Plante>> getAllPlantes() async {
   final idUser = await getUserId();
   final jwt = await getJWT(idUser);
-  final response =
-      await http.get(Uri.parse("http://127.0.0.1:9000/plante/all"), headers: {
-    'accept': '*/*',
-    'Content-Type': 'application/json; charset=UTF-8',
-    'Authorization': 'Bearer $jwt',
-  });
+  final response = await http.get(
+      Uri.parse("https://arosaje-back.jadedomasvasserot.com/plante/all"),
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
+      });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -29,12 +30,14 @@ Future<List<Plante>> getAllPlantes() async {
 Future<Plante> getPlante(int idPlante) async {
   final idUser = await getUserId();
   final jwt = await getJWT(idUser);
-  final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/plante/id/$idPlante"), headers: {
-    'accept': '*/*',
-    'Content-Type': 'application/json; charset=UTF-8',
-    'Authorization': 'Bearer $jwt',
-  });
+  final response = await http.get(
+      Uri.parse(
+          "https://arosaje-back.jadedomasvasserot.com/plante/id/$idPlante"),
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
+      });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;
@@ -51,7 +54,7 @@ Future<Plante> updatePlante(int id, String localisation, Personne proprietaire,
   final idUser = await getUserId();
   final jwt = await getJWT(idUser);
   final response = await http.put(
-    Uri.parse("http://127.0.0.1:9000/plante/update"),
+    Uri.parse("https://arosaje-back.jadedomasvasserot.com/plante/update"),
     headers: {
       'accept': '*/*',
       'Content-Type': 'application/json; charset=UTF-8',

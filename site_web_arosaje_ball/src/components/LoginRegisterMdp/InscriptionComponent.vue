@@ -75,7 +75,7 @@ export default {
         return;
       }
         await axios.post(
-          'https://arosaje-mspr.mrartemus.cloud/auth/register',
+          'https://arosaje-back.jadedomasvasserot.com/auth/register',
           {
             firstname: this.firstname,
             lastname: this.lastname,

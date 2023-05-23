@@ -117,7 +117,7 @@ export default {
   },
   methods: {
     getPlanteId() {
-      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/id/" + this.idPlante,
+      axios.get("https://arosaje-back.jadedomasvasserot.com/bibliotheque-plante/id/" + this.idPlante,
         {
           withCredentials: false,
           headers: {
@@ -128,7 +128,7 @@ export default {
         .then(rep => {
             if (rep.data) {
               this.plante = new BibliothequePlante(rep.data.id, rep.data.nom, rep.data.description, rep.data.typePlante);
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-bibliotheque-plante/all/idPlante/${rep.data.id}`,
+              axios.get(`https://arosaje-back.jadedomasvasserot.com/photo-bibliotheque-plante/all/idPlante/${rep.data.id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -146,7 +146,7 @@ export default {
               ).catch(() => {
 
               })
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/guide-plante/all/byPlante/${rep.data.id}`,
+              axios.get(`https://arosaje-back.jadedomasvasserot.com/guide-plante/all/byPlante/${rep.data.id}`,
                 {
                   withCredentials: false,
                   headers: {

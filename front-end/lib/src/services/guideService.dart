@@ -10,7 +10,8 @@ Future<List<GuidePlante>> getGuideByPlante(int idPlante) async {
   final idUser = await getUserId();
   final jwt = await getJWT(idUser);
   final response = await http.get(
-      Uri.parse("http://127.0.0.1:9000/guide-plante/all/byPlante/$idPlante"),
+      Uri.parse(
+          "https://arosaje-back.jadedomasvasserot.com/guide-plante/all/byPlante/$idPlante"),
       headers: {
         'accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',
@@ -33,7 +34,7 @@ Future<GuidePlante> addGuide(String titre, String description,
     final idUser = await getUserId();
     final jwt = await getJWT(idUser);
     final response = await http.post(
-      Uri.parse("http://127.0.0.1:9000/guide-plante/add"),
+      Uri.parse("https://arosaje-back.jadedomasvasserot.com/guide-plante/add"),
       headers: {
         'accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',

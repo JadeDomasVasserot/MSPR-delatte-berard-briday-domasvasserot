@@ -122,7 +122,7 @@ export default {
   },
   methods:{
     getPlantes(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/all/byAGarder",
+      axios.get("https://arosaje-back.jadedomasvasserot.com/garde-plante/all/byAGarder",
         {
           withCredentials: false,
           headers: {
@@ -134,7 +134,7 @@ export default {
           if (rep.data) {
             this.garde = [];
             for (const repKey in rep.data) {
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].plante.id}`,
+              axios.get(`https://arosaje-back.jadedomasvasserot.com/photo-plante/one/idPlante/${rep.data[repKey].plante.id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -159,7 +159,7 @@ export default {
       })
     },
     getTypePlante(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/type-plante/all",
+      axios.get("https://arosaje-back.jadedomasvasserot.com/type-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -178,7 +178,7 @@ export default {
       })
     },
     getAllByTypePlante(typePlanteParam){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/a-garder/byTypePlante/"+typePlanteParam,
+      axios.get("https://arosaje-back.jadedomasvasserot.com/garde-plante/a-garder/byTypePlante/"+typePlanteParam,
         {
           withCredentials: false,
           headers: {
@@ -190,7 +190,7 @@ export default {
           if (rep.data && rep.status === 200) {
             this.garde = [];
             for (const repKey in rep.data) {
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-back.jadedomasvasserot.com/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -219,7 +219,7 @@ export default {
     },
     getPlanteByNom(nomPlante){
       this.garde = [];
-      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/a-garder/byNom/"+nomPlante,
+      axios.get("https://arosaje-back.jadedomasvasserot.com/garde-plante/a-garder/byNom/"+nomPlante,
         {
           withCredentials: false,
           headers: {
@@ -230,7 +230,7 @@ export default {
         .then( rep => {
           if (rep.data) {
             for (const repKey in rep.data) {
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-back.jadedomasvasserot.com/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {
@@ -256,7 +256,7 @@ export default {
     },
     getPlanteByVille(ville){
       this.garde = [];
-      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/a-garder/byVille/"+ville,
+      axios.get("https://arosaje-back.jadedomasvasserot.com/garde-plante/a-garder/byVille/"+ville,
         {
           withCredentials: false,
           headers: {
@@ -267,7 +267,7 @@ export default {
         .then( rep => {
           if (rep.data) {
             for (const repKey in rep.data) {
-              axios.get(`https://arosaje-mspr.mrartemus.cloud/photo-plante/one/idPlante/${rep.data[repKey].id}`,
+              axios.get(`https://arosaje-back.jadedomasvasserot.com/photo-plante/one/idPlante/${rep.data[repKey].id}`,
                 {
                   withCredentials: false,
                   headers: {

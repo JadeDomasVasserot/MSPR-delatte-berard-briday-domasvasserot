@@ -12,7 +12,7 @@ Future<Commentaire> addCommentaire(String titre, String description,
     final idUser = await getUserId();
     final jwt = getJWT(idUser);
     final response = await http.post(
-      Uri.parse("http://127.0.0.1:9000/commentaire/add"),
+      Uri.parse("https://arosaje-back.jadedomasvasserot.com/commentaire/add"),
       headers: {
         'accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',
@@ -37,7 +37,7 @@ Future<List<Commentaire>> getCommentaireByPlante(int idPlante) async {
   final jwt = getJWT(idUser);
   final response = await http.get(
       Uri.parse(
-          "http://127.0.0.1:9000/commentaire/all/byGardePlante/$idPlante"),
+          "https://arosaje-back.jadedomasvasserot.com/commentaire/all/byGardePlante/$idPlante"),
       headers: {
         'accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',

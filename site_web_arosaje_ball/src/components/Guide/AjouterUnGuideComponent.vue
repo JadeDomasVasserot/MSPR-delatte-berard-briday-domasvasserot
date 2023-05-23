@@ -70,7 +70,7 @@ export default {
   },
   methods:{
     getBibliothequePlante(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/id/"+this.idPlante,
+      axios.get("https://arosaje-back.jadedomasvasserot.com/bibliotheque-plante/id/"+this.idPlante,
         {
           withCredentials: false,
           headers: {
@@ -87,7 +87,7 @@ export default {
       })
     },
     getAllTypeGuide(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/type-guide/all",
+      axios.get("https://arosaje-back.jadedomasvasserot.com/type-guide/all",
         {
           withCredentials: false,
           headers: {
@@ -114,7 +114,7 @@ export default {
         }
       }
       await axios.post(
-        'https://arosaje-mspr.mrartemus.cloud/guide-plante/add',
+        'https://arosaje-back.jadedomasvasserot.com/guide-plante/add',
         {
           description: this.description,
           titre: this.titre,

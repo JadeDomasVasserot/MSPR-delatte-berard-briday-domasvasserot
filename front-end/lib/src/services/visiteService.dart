@@ -13,7 +13,7 @@ Future<VisitePlante> addVisite(Personne gardien, DateTime dateVisite,
     final idUser = await getUserId();
     final jwt = await getJWT(idUser);
     final response = await http.post(
-      Uri.parse("http://127.0.0.1:9000/visite-plante/add"),
+      Uri.parse("https://arosaje-back.jadedomasvasserot.com/visite-plante/add"),
       headers: {
         'accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',
@@ -45,7 +45,8 @@ Future<VisitePlante> updateVisite(
     final idUser = await getUserId();
     final jwt = getJWT(idUser);
     final response = await http.put(
-      Uri.parse("http://127.0.0.1:9000/visite-plante/update"),
+      Uri.parse(
+          "https://arosaje-back.jadedomasvasserot.com/visite-plante/update"),
       headers: {
         'accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',
@@ -72,7 +73,8 @@ Future<List<VisitePlante>> getVisiteByGarde(int idGarde) async {
   final idUser = await getUserId();
   final jwt = getJWT(idUser);
   final response = await http.get(
-      Uri.parse("http://127.0.0.1:9000/visite-plante/all/byGarde/$idGarde"),
+      Uri.parse(
+          "https://arosaje-back.jadedomasvasserot.com/visite-plante/all/byGarde/$idGarde"),
       headers: {
         'accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',
@@ -94,7 +96,8 @@ Future<VisitePlante> getVisite(int idVisite) async {
   final idUser = await getUserId();
   final jwt = getJWT(idUser);
   final response = await http.get(
-      Uri.parse("http://127.0.0.1:9000/visite-plante/id/$idVisite"),
+      Uri.parse(
+          "https://arosaje-back.jadedomasvasserot.com/visite-plante/id/$idVisite"),
       headers: {
         'accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',

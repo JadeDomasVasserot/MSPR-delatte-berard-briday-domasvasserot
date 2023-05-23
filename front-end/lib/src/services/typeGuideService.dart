@@ -7,12 +7,13 @@ Future<List<TypeGuide>> getAllTypeGuide() async {
   // Retourne toutes les visites d'une plante
   final idUser = await getUserId();
   final jwt = await getJWT(idUser);
-  final response = await http
-      .get(Uri.parse("http://127.0.0.1:9000/type-guide/all"), headers: {
-    'accept': '*/*',
-    'Content-Type': 'application/json; charset=UTF-8',
-    'Authorization': 'Bearer $jwt',
-  });
+  final response = await http.get(
+      Uri.parse("https://arosaje-back.jadedomasvasserot.com/type-guide/all"),
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $jwt',
+      });
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.;

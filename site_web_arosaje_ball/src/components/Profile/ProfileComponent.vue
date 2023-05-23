@@ -121,7 +121,7 @@ export default {
   methods: {
     getUser(){
 
-      axios.get("https://arosaje-mspr.mrartemus.cloud/personne/id/"+this.userId,
+      axios.get("https://arosaje-back.jadedomasvasserot.com/personne/id/"+this.userId,
         {
           withCredentials: false,
           headers: {

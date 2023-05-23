@@ -69,7 +69,7 @@ export default {
   methods: {
     async getFormValues() {
       await axios.post(
-        'https://arosaje-mspr.mrartemus.cloud/commentaire/add',
+        'https://arosaje-back.jadedomasvasserot.com/commentaire/add',
         {
           titre: this.titre,
           description: this.description,
@@ -86,7 +86,7 @@ export default {
       ).then( response => {
         this.commentaire = new Commentaire(response.data.id, response.data.titre, response.data.description, response.data.auteur, response.data.gardePlante)
          axios.post(
-          'https://arosaje-mspr.mrartemus.cloud/visite-plante/add',
+          'https://arosaje-back.jadedomasvasserot.com/visite-plante/add',
           {
             gardien: this.user,
             dateVisite: this.picker,
@@ -118,7 +118,7 @@ export default {
       });
     },
     getPlanteId() {
-      axios.get("https://arosaje-mspr.mrartemus.cloud/garde-plante/id/" + this.idGarde,
+      axios.get("https://arosaje-back.jadedomasvasserot.com/garde-plante/id/" + this.idGarde,
         {
           withCredentials: false,
           headers: {
@@ -136,7 +136,7 @@ export default {
       })
     },
     getUser() {
-      axios.get("https://arosaje-mspr.mrartemus.cloud/personne/id/" + this.$store.state.user,
+      axios.get("https://arosaje-back.jadedomasvasserot.com/personne/id/" + this.$store.state.user,
         {
           withCredentials: false,
           headers: {

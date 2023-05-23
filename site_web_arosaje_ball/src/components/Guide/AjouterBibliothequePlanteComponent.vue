@@ -66,7 +66,7 @@ export default {
   },
   methods:{
     getAllTypePlante(){
-      axios.get("https://arosaje-mspr.mrartemus.cloud/type-plante/all",
+      axios.get("https://arosaje-back.jadedomasvasserot.com/type-plante/all",
         {
           withCredentials: false,
           headers: {
@@ -93,7 +93,7 @@ export default {
         }
       }
       await axios.post(
-        'https://arosaje-mspr.mrartemus.cloud/bibliotheque-plante/add',
+        'https://arosaje-back.jadedomasvasserot.com/bibliotheque-plante/add',
         {
           nom: this.nomPlante,
           description: this.description,

@@ -7,7 +7,8 @@ Future<StatutPlante> getStatutPlante(int idStatutPlante) async {
   final idUser = await getUserId();
   final jwt = await getJWT(idUser);
   final response = await http.get(
-      Uri.parse("http://127.0.0.1:9000/statut-plante/id/$idStatutPlante"),
+      Uri.parse(
+          "https://arosaje-back.jadedomasvasserot.com/statut-plante/id/$idStatutPlante"),
       headers: {
         'accept': '*/*',
         'Content-Type': 'application/json; charset=UTF-8',
